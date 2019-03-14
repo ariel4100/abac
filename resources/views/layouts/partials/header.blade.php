@@ -13,5 +13,10 @@
 <body>
     
     <header>
-        @include('layouts.partials.navbar')
+        @if(request()->is('privada*'))
+            @include('layouts.partials.privadanavbar')
+        @else
+            @include('layouts.partials.navbar')
+        @endif
+
     </header>

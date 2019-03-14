@@ -1,5 +1,5 @@
 @include('layouts.partials.header')
-   
+
     <style>
         .product-item .product-image {
             border-bottom: 1px solid #dddddd;
@@ -28,7 +28,7 @@
             border-radius: 50%;
         }
     </style>
-<main>
+<main id="app">
     @yield('content')
 </main>
 

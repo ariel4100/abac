@@ -37,7 +37,9 @@ Route::get('/novedad/{novedad}', 'NovedadesController@showNovedad')->name('noved
 
 // Zona Privada
 Route::group(['middleware' => 'auth', 'prefix' => 'privada', 'as' => 'privada'], function () {
-  Route::get('/', 'PrivadaController@index')->name('.index');
+    Route::get('/', 'PrivadaController@index')->name('.index');
+    Route::get('/materia-prima', 'PrivadaController@materiaprima')->name('.materiaprima');
+    Route::get('/distribuidor', 'PrivadaController@distribuidor')->name('.distribuidor');
 });
 
 // Download files
@@ -128,6 +130,16 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'adm'], function () {
         Route::put('{contenido}/update', ['uses' => 'adm\ContenidoController@update', 'as' => '.update']);
         Route::delete('{contenido}/destroy', ['uses' => 'adm\ContenidoController@destroy', 'as' => '.destroy']);
       });
+
+    //ZONA PRIVADA ADM
+    Route::group(['prefix' => 'privada', 'as' => 'privada'], function() {
+        Route::get('/index', ['uses' => 'adm\PrivadaZoneController@index', 'as' => '.principal']);
+        Route::post('editar', ['uses' => 'adm\PrivadaZoneController@edit', 'as' => '.edit']);
+        Route::get('/csv', ['uses' => 'adm\PrivadaZoneController@csv', 'as' => '.csv']);
+        Route::post('/csv/cargar', ['uses' => 'adm\PrivadaZoneController@csvstore', 'as' => '.csv.store']);
+        Route::put('update/{slider}', ['uses' => 'adm\SliderController@update', 'as' => '.update']);
+        Route::delete('destroy/{slider}', ['uses' => 'adm\SliderController@destroy', 'as' => '.destroy']);
+    });
 
       Route::get('/register', 'Auth\Admin\RegisterController@showRegistrationForm')->name('adm.register');
       Route::post('/register', 'Auth\Admin\RegisterController@register');

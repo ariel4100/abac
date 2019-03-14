@@ -137,17 +137,19 @@
                 </div>
             </li>
 
-            <li class="bold"><a class="collapsible-header waves-effect waves-admin"><i class="material-icons">account_circle</i>Usuarios Zona Privada</a>
+            <li class="bold"><a class="collapsible-header waves-effect waves-admin"><i class="material-icons">account_circle</i>Zona Privada</a>
                 <div class="collapsible-body">
-                    <div class=""><a href="{{route('register')}}">Crear Usuario</a></div>
-                    <div class=""><a href="#!">Editar Usuario</a></div>
+                    <div class=""><a href="{{route('register')}}">Crear Cliente</a></div>
+                    <div class=""><a href="{{ route('privada.principal') }}">Editar Cliente</a></div>
+                    <div class=""><a href="{{ route('privada.csv') }}">Cargar CSV C.Materia Prima</a></div>
                 </div>
             </li>
             @if(Auth::user()->admin_status)
-            <li class="bold"><a class="collapsible-header waves-effect waves-admin"><i class="material-icons">account_circle</i>Usuarios</a>
+            <li class="bold"><a class="collapsible-header waves-effect waves-admin"><i class="material-icons">account_circle</i>Cliente</a>
                 <div class="collapsible-body">
-                    <div class=""><a href="{{route('adm.register')}}">Crear Usuario</a></div>
-                    <div class=""><a href="#!">Editar Usuario</a></div>
+                    <div class=""><a href="{{route('adm.register')}}">Crear Cliente</a></div>
+                    <div class=""><a href="#!">Editar Cliente</a></div>
+                    <div class=""><a href="#!">Cargar CSV C.Materia Prima</a></div>
                 </div>
             </li>
             @endif

@@ -5,21 +5,53 @@
         @include('templates.error')
 
         @if(Auth::check())
+            @include('page.partials.title', ['title' =>  __('Quality Certificates') ])
 
-            <ul class="tabs tabs-fixed-width tab-demo z-depth-1" style="border-bottom: 3px solid red">
-                <li class="tab"><a href="#test1">Certificado de calidad</a></li>
-                <li class="tab"><a class="active" href="#test2">Test 2</a></li>
-                <li class="tab"><a href="#test3">Test 4</a></li>
-            </ul>
-            <div id="test1" class="col s12">
-
+            <div class="row">
+                <div class="col s12">
+                    <div class="flex" style="margin-top: 30px">
+                        <div class="title">
+                            <h5 class="rederino">Solicitar Certificado</h5>
+                        </div>
+                    </div>
+                    <p>Complete tantos casilleros como números ubique en el producto.</p>
+                </div>
+                <form class="col s6" style="margin-bottom: 50px">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="first_name" type="text" class="validate">
+                            <label for="first_name">Número grabado en el producto</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="first_name1" type="text" class="validate">
+                            <label for="first_name1">Número grabado en el producto</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="first_name2" type="text" class="validate">
+                            <label for="first_name2">Número grabado en el producto</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="first_name3" type="text" class="validate">
+                            <label for="first_name3">Número de Remito</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="first_name4" type="text" class="validate">
+                            <label for="first_name4">Razon Social del Cliente</label>
+                        </div>
+                    </div>
+                    <button class="btn waves-effect waves-light" type="submit" name="action" style="background-color: #E1131B;">{{ __('CERTIFICATE REQUEST') }}
+                    </button>
+                </form>
             </div>
-            <div id="test2" class="col s12">
 
-            </div>
-            <div id="test3" class="col s12">
-
-            </div>
         @else
             @include('page.partials.title', ['title' =>  __('Bienvenido al Área de Clientes') ])
             <div class="row" style="margin-bottom: 50px">
