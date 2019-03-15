@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\adm;
 
 use App\csv;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -12,11 +13,37 @@ use Maatwebsite\Excel\Facades\Excel;
 class PrivadaZoneController extends Controller
 {
     public function index() {
-        return view('adm.privada.index');
+        $users = User::all();
+        return view('adm.privada.index',compact('users'));
     }
-    public function edit() {
-        return view('adm.privada.index');
+    public function edit($id) {
+        $user = User::find($id);
+        $nivel = array('s1','s2','s3');
+        //dd($user);
+        return view('adm.privada.edit',compact('user','nivel'));
     }
+
+    public function update(Request $request, $id) {
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->username = $request->username;
+        if ($request->password)
+        {
+            $user->password = $request->password;
+        }
+        $user->email = $request->email;
+        $user->nivel = $request->nivel;
+        $user->update();
+        return redirect()->route('privada.principal');
+    }
+
+
+    public function eliminar($id) {
+        $user = User::find($id);
+        $user->delete();
+        return redirect()->back()->with('alert','se elimino correctamente');
+    }
+
     public function csv() {
         return view('adm.privada.csv');
     }

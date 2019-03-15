@@ -27,7 +27,7 @@ class PrivadaController extends Controller
     // API REQUEST VUE
     public function buscar(Request $request)
     {
-        $partidaComponente = Csv::where('partida','=',$request->body)->first();
+        $partidaComponente = Csv::where('partida','=',$request->partidacomponente)->first();
         if ($partidaComponente)
         {
             return  response()->json($partidaComponente,200);
@@ -35,10 +35,17 @@ class PrivadaController extends Controller
             return response()->json(['alert' => 'Partida de componente incorrecta']);
         }
     }
-
-
-    public function pdf()
+    public function partidamateriaprima(Request $request)
     {
-        return view('privada.distribuidor');
+        $partidaComponente = Csv::where('materia','=',$request->materiaprima)
+            ->where('partida',$request->partidacomponente)->first();
+        if ($partidaComponente)
+        {
+            return  response()->json($partidaComponente,200);
+        }else{
+            return response()->json(['alert' => 'Partida de materia prima incorrecta']);
+        }
     }
+
+
 }

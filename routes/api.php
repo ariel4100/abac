@@ -12,7 +12,11 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('descargar/{file}',function ($file) {
+    return Storage::download("materiaprima/$file");
+});
 Route::post('buscar','PrivadaController@buscar');
+Route::post('materia','PrivadaController@partidamateriaprima');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

@@ -8,6 +8,9 @@
             @include('page.partials.title', ['title' =>  __('Quality Certificates') ])
 
             <div class="row">
+                <div class="col s12 show-on-small hide-on-large-only hide-on-med-and-down">
+                    <img src="{{ asset('img/imghover.png') }}" class="responsive-img" alt="">
+                </div>
                 <div class="col s12">
                     <div class="flex" style="margin-top: 30px">
                         <div class="title">
@@ -16,7 +19,7 @@
                     </div>
                     <p>Complete tantos casilleros como números ubique en el producto.</p>
                 </div>
-                <form class="col s6" style="margin-bottom: 50px">
+                <form class="col m6 s12" style="margin-bottom: 50px">
                     <div class="row">
                         <div class="input-field col s12">
                             <input id="first_name" type="text" class="validate">
@@ -50,6 +53,12 @@
                     <button class="btn waves-effect waves-light" type="submit" name="action" style="background-color: #E1131B;">{{ __('CERTIFICATE REQUEST') }}
                     </button>
                 </form>
+                <div class="col m1 s12 hide-on-small-only">
+                    <div id="hover"><img src="{{ asset('img/i.png') }}" alt=""></div>
+                </div>
+                <div class="col m5 s12 ">
+                    <img src="{{ asset('img/imghover.png') }}" alt="" style="display: none">
+                </div>
             </div>
 
         @else
@@ -87,3 +96,12 @@
         @endif
     </div>
 @endsection
+@push('scripts')
+    <script>
+        $('#hover').mouseover(function () {
+            $(this).closest(".row").find("> .col:last-child").find("img").show();
+        }).mouseleave(function () {
+            $(this).closest(".row").find("> .col:last-child").find("img").hide();
+        });
+    </script>
+@endpush

@@ -134,11 +134,12 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'adm'], function () {
     //ZONA PRIVADA ADM
     Route::group(['prefix' => 'privada', 'as' => 'privada'], function() {
         Route::get('/index', ['uses' => 'adm\PrivadaZoneController@index', 'as' => '.principal']);
-        Route::post('editar', ['uses' => 'adm\PrivadaZoneController@edit', 'as' => '.edit']);
+        Route::get('editar/{id}', ['uses' => 'adm\PrivadaZoneController@edit', 'as' => '.edit']);
         Route::get('/csv', ['uses' => 'adm\PrivadaZoneController@csv', 'as' => '.csv']);
         Route::post('/csv/cargar', ['uses' => 'adm\PrivadaZoneController@csvstore', 'as' => '.csv.store']);
-        Route::put('update/{slider}', ['uses' => 'adm\SliderController@update', 'as' => '.update']);
-        Route::delete('destroy/{slider}', ['uses' => 'adm\SliderController@destroy', 'as' => '.destroy']);
+        //cliente
+        Route::put('actualizar/{id}', ['uses' => 'adm\PrivadaZoneController@update', 'as' => '.update']);
+        Route::get('destroy/{id}', ['uses' => 'adm\PrivadaZoneController@eliminar', 'as' => '.eliminar']);
     });
 
       Route::get('/register', 'Auth\Admin\RegisterController@showRegistrationForm')->name('adm.register');

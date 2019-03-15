@@ -37,9 +37,20 @@
         </a>
         <a href="#!" data-target="mobile-demo" class="sidenav-trigger left" id="sidenavsillo" style="color:black;"><i class="material-icons">menu</i></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="{{route('privada.index')}}" @if(\Request::is('privada')) class="activerino" @endif>{{ __('Quality Certificates') }}</a></li>
-            <li><a href="{{route('privada.materiaprima')}}" @if(\Request::is('privada/materia-prima')) class="activerino" @endif>{{ __('Certificado de Materia Prima') }}</a></li>
-            <li><a href="{{route('privada.distribuidor')}}" @if(\Request::is('privada/distribuidor')) class="activerino" @endif>{{ __('MATERIALES PARA DISTRIBUIDORES') }}</a></li>
+            @switch(Auth::user()->nivel)
+                @case('s2')
+                <li><a href="{{route('privada.index')}}" @if(\Request::is('privada')) class="activerino" @endif>{{ __('Quality Certificates') }}</a></li>
+                <li><a href="{{route('privada.materiaprima')}}" @if(\Request::is('privada/materia-prima')) class="activerino" @endif>{{ __('Certificado de Materia Prima') }}</a></li>
+                    @break
+                @case('s3')
+                <li><a href="{{route('privada.index')}}" @if(\Request::is('privada')) class="activerino" @endif>{{ __('Quality Certificates') }}</a></li>
+                <li><a href="{{route('privada.materiaprima')}}" @if(\Request::is('privada/materia-prima')) class="activerino" @endif>{{ __('Certificado de Materia Prima') }}</a></li>
+                <li><a href="{{route('privada.distribuidor')}}" @if(\Request::is('privada/distribuidor')) class="activerino" @endif>{{ __('MATERIALES PARA DISTRIBUIDORES') }}</a></li>
+                    @break
+                @default
+                <li><a href="{{route('privada.index')}}" @if(\Request::is('privada')) class="activerino" @endif>{{ __('Quality Certificates') }}</a></li>
+            @endswitch
+
         </ul>
     </div>
 </nav>

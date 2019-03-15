@@ -14,7 +14,18 @@
                         <td class="text-right">Acciones</td>
                         </thead>
                         <tbody>
-
+                        @foreach($users as $user)
+                            <tr>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->username }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->nivel }}</td>
+                                <td>
+                                    <a href="{{ route('privada.edit',$user->id) }}" class="btn-floating btn-small waves-effect waves-light orange"><i class="material-icons">edit</i></a>
+                                    <a href="{{ route('privada.eliminar', $user->id) }}" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a>
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

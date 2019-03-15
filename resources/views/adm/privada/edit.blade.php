@@ -5,43 +5,57 @@
 
     <div class="container mt20 mb30">
             <div class="row mb10">
-                <a href="{{route('familia.index')}}">
+                <a href="{{route('privada.principal')}}" class="right">
                         << Volver
                     </a>
-                <div class="col s12">
-                {!!Form::model($familia, ['route'=>['familia.update', $familia->id], 'method'=>'PUT', 'files' => true])!!}
+                <form class="col s12" style="margin-top: 10px" method="POST" action="{{ route('privada.update', $user->id) }}">
+                @csrf
+                    @method('PUT')
                     <div class="row">
-                        <div class="file-field input-field col s8">
-                            <div class="btn">
-                                <span>Imagen</span>
-                                {!! Form::file('image') !!}
-                            </div>
-                            <div class="file-path-wrapper">
-                                {!! Form::text('', $familia->image, ['class'=>'file-path validate']) !!}
-                            </div>
-                        </div>
-                        <div class="input-field col s4">
-                            {!!Form::label('Orden')!!}
-                            {!!Form::text('order',$familia->order,['class'=>'validate'])!!}
+                        <div class="input-field col s12">
+                            <input  id="first_name" type="text" class="validate" name="name" value="{{ $user->name }}">
+                            <label for="first_name">Nombre</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col s6">
-                            {!!Form::label('Titulo Español')!!}
-                            {!!Form::text('title_es',null,['class'=>'validate'])!!}
+                        <div class="input-field col s12">
+                            <input  id="first_name1" type="text" class="validate" name="username" value="{{ $user->username }}">
+                            <label for="first_name1">Nombre de Usuario</label>
                         </div>
-                        <div class="input-field col s6">
-                            {!!Form::label('Titulo Ingles')!!}
-                            {!!Form::text('title_en',null,['class'=>'validate'])!!}
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="email" type="email" class="validate" name="email" value="{{ $user->email }}">
+                            <label for="email">Email</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col m6">
+                            <input id="password" type="password" class="validate" name="password"  >
+                            <label for="password">Password</label>
+                        </div>
+                        <div class="input-field col m6">
+                            <select name="nivel" >
+                                <option value="" disabled selected>Seleccionar nivel</option>
+                                @foreach($nivel as $n)
+                                    <option value="{{ $n }}" {{ $n==$user->nivel ? 'selected': ''  }}>{{ $n }}</option>
+                                @endforeach
+                            </select>
+
                         </div>
                     </div>
 
-                    <div class="col s12 no-padding">
-                        {!!Form::submit('Guardar', ['class'=>'waves-effect waves-light btn right'])!!}
-                    </div>
-                {!!Form::close()!!}
-                </div>
-                </div>
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                        <i class="material-icons right">send</i>
+                    </button>
+                </form>
             </div>
         </main>
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function(){
+            $('select').formSelect();
+        });
+    </script>
+@endpush
