@@ -1809,17 +1809,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      paso2: false,
+      materiaPrima: [],
       body: ''
     };
   },
+  created: function created() {//this.saveData();
+
+    /*this.getItemsOrderBy();*/
+  },
   methods: {
     saveData: function saveData() {
-      alert(this.body);
-      return false;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/buscar', {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/buscar', {
         body: this.body
       }).then(function (res) {
         console.log(res.data);
+        _this.materiaPrima = res.data;
+        _this.paso2 = res.data.alert ? false : true;
       }).catch(function (e) {
         console.log(e);
       });
@@ -32469,14 +32477,56 @@ var render = function() {
             {
               staticClass: "btn waves-effect waves-light",
               staticStyle: { "background-color": "#E1131B" },
-              attrs: { onclick: _vm.saveData() }
+              on: {
+                click: function($event) {
+                  return _vm.saveData()
+                }
+              }
             },
             [_vm._v("BUSCAR")]
           )
         ]
       ),
       _vm._v(" "),
-      _vm._m(1)
+      _vm.paso2
+        ? _c("div", { staticClass: "col s12" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col s12 m6" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "card",
+                    staticStyle: {
+                      "background-color": "white",
+                      border: "1px solid red",
+                      color: "black"
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "card-content  " }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c("p", [
+                        _c("b", [_vm._v("PARTIDA:")]),
+                        _vm._v(" " + _vm._s(_vm.materiaPrima.materia))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _c("b", [_vm._v("COMPONENTE:")]),
+                        _vm._v(" " + _vm._s(_vm.materiaPrima.articulo))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _c("b", [_vm._v("DESCRIPCION:")]),
+                        _vm._v(" " + _vm._s(_vm.materiaPrima.descripcion))
+                      ])
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ])
+        : _vm._e()
     ])
   ])
 }
@@ -32517,33 +32567,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col s12" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col s12 m6" }, [
-          _c(
-            "div",
-            {
-              staticClass: "card",
-              staticStyle: {
-                "background-color": "white",
-                border: "1px solid red"
-              }
-            },
-            [
-              _c("div", { staticClass: "card-content white-text" }, [
-                _c("p", [_c("b", [_vm._v("Partida de Materia Prima")])]),
-                _vm._v(" "),
-                _c("p", [_vm._v("PARTIDA")]),
-                _vm._v(" "),
-                _c("p", [_vm._v("COMPONENTE")]),
-                _vm._v(" "),
-                _c("p", [_vm._v("DESCRIPCION")])
-              ])
-            ]
-          )
-        ])
-      ])
-    ])
+    return _c("h6", [_c("b", [_vm._v("Partida de Materia Prima")])])
   }
 ]
 render._withStripped = true
@@ -44851,8 +44875,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\ariel\abac3\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\ariel\abac3\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\osole\abac\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\osole\abac\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

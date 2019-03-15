@@ -18,17 +18,17 @@
                         <label for="first_name">Ingrese partida de Componente</label>
                     </div>
                 </div>
-                <a class="btn waves-effect waves-light" v-bind:onclick="saveData()" style="background-color: #E1131B;">BUSCAR</a>
+                <a class="btn waves-effect waves-light" @click="saveData()" style="background-color: #E1131B;">BUSCAR</a>
             </div>
-            <div class="col s12">
+            <div class="col s12" v-if="paso2">
                 <div class="row">
                     <div class="col s12 m6">
-                        <div class="card" style="background-color: white; border: 1px solid red">
-                            <div class="card-content white-text">
-                                <p><b>Partida de Materia Prima</b></p>
-                                <p>PARTIDA</p>
-                                <p>COMPONENTE</p>
-                                <p>DESCRIPCION</p>
+                        <div class="card" style="background-color: white; border: 1px solid red; color: black">
+                            <div class="card-content  ">
+                                <h6><b>Partida de Materia Prima</b></h6>
+                                <p><b>PARTIDA:</b> {{ materiaPrima.materia }}</p>
+                                <p><b>COMPONENTE:</b> {{ materiaPrima.articulo }}</p>
+                                <p><b>DESCRIPCION:</b> {{ materiaPrima.descripcion }}</p>
                             </div>
                         </div>
                     </div>
@@ -43,19 +43,25 @@
     export default {
         data() {
             return {
+                paso2: false,
+                materiaPrima: [],
                 body: ''
             }
         },
+        created(){
+            //this.saveData();
+            /*this.getItemsOrderBy();*/
+        },
         methods: {
             saveData() {
-                alert(this.body);
-                return false;
-                axios.post('api/buscar', {body: this.body}).then(res => {
+
+                axios.post('/api/buscar', {body: this.body}).then(res => {
                     console.log(res.data);
+                    this.materiaPrima = res.data;
+                    this.paso2 = res.data.alert ? false : true;
                 }).catch(e => {
                     console.log(e);
                 });
-
             }
         }
     }
