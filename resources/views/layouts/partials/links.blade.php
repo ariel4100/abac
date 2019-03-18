@@ -13,3 +13,4 @@
 
     <link rel="shortcut icon" href="{{ asset('img/contenido/'.$favicon->image) }}" type="image/png">
     <link rel="icon" href="{{ asset('img/contenido/'.$favicon->image) }}" type="image/png">
+    @stack('style')

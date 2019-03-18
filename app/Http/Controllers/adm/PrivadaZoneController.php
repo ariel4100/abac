@@ -6,7 +6,9 @@ use App\csv;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -16,14 +18,41 @@ class PrivadaZoneController extends Controller
         $users = User::all();
         return view('adm.privada.index',compact('users'));
     }
+
+    public function create() {;
+        $nivel = array('s1','s2','s3');
+        $distribuidor = array('No Exclusivo', 'Exclusivo','Exterior');
+        return view('adm.privada.create',compact('nivel','distribuidor'));
+    }
+    public function store(Request $request) {
+
+        $request->validate([
+            'name' => ['required'],
+            'username' => ['required', 'string', 'max:255','unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required'],
+            'nivel' => ['required'],
+        ]);
+        $user = new User();
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->password = Hash::make($request->password);
+        $user->email = $request->email;
+        $user->nivel = $request->nivel;
+        $user->save();
+        return back();
+    }
+
     public function edit($id) {
         $user = User::find($id);
         $nivel = array('s1','s2','s3');
+        $distribuidor = array('No Exclusivo', 'Exclusivo','Exterior');
         //dd($user);
-        return view('adm.privada.edit',compact('user','nivel'));
+        return view('adm.privada.edit',compact('user','nivel','distribuidor'));
     }
 
     public function update(Request $request, $id) {
+
         $user = User::find($id);
         $user->name = $request->name;
         $user->username = $request->username;
@@ -33,6 +62,7 @@ class PrivadaZoneController extends Controller
         }
         $user->email = $request->email;
         $user->nivel = $request->nivel;
+        $user->distribuidor = $request->distribuidor;
         $user->update();
         return redirect()->route('privada.principal');
     }

@@ -1,3 +1,8 @@
+@push('style')
+    <style>
+
+    </style>
+@endpush
 <nav class="sub-nav">
     <div class="nav-wrapper">
         <ul id="nav-mobile" class="right">

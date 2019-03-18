@@ -19,38 +19,40 @@
                     </div>
                     <p>Complete tantos casilleros como números ubique en el producto.</p>
                 </div>
-                <form class="col m6 s12" style="margin-bottom: 50px">
+                <form class="col m6 s12" action="{{  route('privada.calidad.store') }}"  method="post" style="margin-bottom: 50px">
+                    @csrf
+                    @method('POST')
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="first_name" type="text" class="validate">
+                            <input id="first_name" type="text" class="validate" name="numero0">
                             <label for="first_name">Número grabado en el producto</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="first_name1" type="text" class="validate">
+                            <input id="first_name1" type="text" class="validate" name="numero1">
                             <label for="first_name1">Número grabado en el producto</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="first_name2" type="text" class="validate">
+                            <input id="first_name2" type="text" class="validate" name="numero2">
                             <label for="first_name2">Número grabado en el producto</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="first_name3" type="text" class="validate">
+                            <input id="first_name3" type="text" class="validate" name="remito">
                             <label for="first_name3">Número de Remito</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="first_name4" type="text" class="validate">
+                            <input id="first_name4" type="text" class="validate" name="social">
                             <label for="first_name4">Razon Social del Cliente</label>
                         </div>
                     </div>
-                    <button class="btn waves-effect waves-light" type="submit" name="action" style="background-color: #E1131B;">{{ __('CERTIFICATE REQUEST') }}
+                    <button class="btn waves-effect waves-light" type="submit"  style="background-color: #E1131B;">{{ __('CERTIFICATE REQUEST') }}
                     </button>
                 </form>
                 <div class="col m1 s12 hide-on-small-only">

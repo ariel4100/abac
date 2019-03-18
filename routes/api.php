@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 Route::get('descargar/{file}',function ($file) {
-    return Storage::download("materiaprima/$file");
+    return response()->download("materiaprima/$file");
 });
 Route::post('buscar','PrivadaController@buscar');
 Route::post('materia','PrivadaController@partidamateriaprima');

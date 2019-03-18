@@ -11,6 +11,7 @@
                 <div class="collapsible-body">
                     <div><a href="{{route('slider.create', ['seccion' => 'home'])}}">Crear Slider</a></div>
                     <div><a href="{{route('slider.show', ['seccion' => 'home'])}}">Editar Sliders</a></div>
+                    <div><a href="{{route('contenido.calidad.index')}}">Editar Calidad</a></div>
                     <div><a href="{{route('contenido.index', ['seccion' => 'home', 'tipo' => 'texto'])}}">Editar Contenido</a></div>
                 </div>
             </li>
@@ -139,7 +140,9 @@
 
             <li class="bold"><a class="collapsible-header waves-effect waves-admin"><i class="material-icons">account_circle</i>Zona Privada</a>
                 <div class="collapsible-body">
-                    <div class=""><a href="{{route('register')}}">Crear Cliente</a></div>
+                    <div class=""><a href="{{route('privada.descarga.create')}}">Crear Descarga</a></div>
+                    <div class=""><a href="{{route('privada.descarga')}}">Editar Descarga</a></div>
+                    <div class=""><a href="{{route('privada.create')}}">Crear Cliente</a></div>
                     <div class=""><a href="{{ route('privada.principal') }}">Editar Cliente</a></div>
                     <div class=""><a href="{{ route('privada.csv') }}">Cargar CSV C.Materia Prima</a></div>
                 </div>

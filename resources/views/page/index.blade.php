@@ -3,33 +3,51 @@
 @section('content')
 
     @include('page.partials.sliders')
-    <div class="container">
-        <div class="row mb50 mt30">
+    <div class="container" style="width: 85%">
+        <div class="row mb50 mt50">
             @foreach($novedades as $n)
-            <div class="col l6 m6 s12 novedad">
-                <div class="novedad-card" style="height: 300px !important;">
-                    <h5 class="ultimas-novedades mb40">Últimas novedades</h5>
-                    <div class="row">
-                        <div class="col l5">
-                            <img src="{{asset('img//novedades/'.$n->image)}}" class="responsive-img" alt="">
-                        </div>
-                        <div class="col l7 flex-novedad">
-                            
+            <div class="col l6 m6 s12 ">
+                <div class="novedad">
+                    <div class="novedad-card" style="height: 300px !important;">
+                        <h5 class="ultimas-novedades mb40">Últimas novedades</h5>
+                        <div class="row">
+                            <div class="col l5">
+                                <img src="{{asset('img//novedades/'.$n->image)}}" class="responsive-img" alt="">
+                            </div>
+                            <div class="col l7 flex-novedad">
+
                                 <h6 class="mt0 mb0">
-                                        <a href="{{route('novedades.showNovedad', $n->id)}}" class="grayerino">
-                                            {{ $n->{'title_'.App::getLocale()} }}
-                                        </a>
+                                    <a href="{{route('novedades.showNovedad', $n->id)}}" class="grayerino">
+                                        {{ $n->{'title_'.App::getLocale()} }}
+                                    </a>
                                 </h6>
                                 {!! str_limit($n->{'text_'.App::getLocale()}, 200) !!}
-                            <p class=" mt10">
-                                <a href="{{ route('novedades.showNovedad', $n->id) }}" class="rederino">
-                                    » Ver más
-                                </a>
-                            </p>
+                                <p class=" mt10">
+                                    <a href="{{ route('novedades.showNovedad', $n->id) }}" class="rederino">
+                                        » Ver más
+                                    </a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            @endforeach
+        </div>
+
+        <div class="row center mb50 mt30">
+            <h4 class="center uppercase rederino oblique fw6 mb50">CALIDAD</h4>
+            @foreach($calidad as $c)
+                <div class="col s12 m4">
+                    <div class="" style="border: 1px solid darkgray;">
+                        <img src="{{ asset('img/calidad/'.$c->file_image) }}" style="border-radius: 50%" alt="">
+                        <p class="grayerino">
+                        <span class="container">
+                            {!! $c->{'nombre_'.App::getLocale()} !!}
+                        </span>
+                        </p>
+                    </div>
+                </div>
             @endforeach
         </div>
         <div class="row" style="margin-bottom: 5%">

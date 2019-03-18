@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Csv;
+use App\Descarga;
 use Illuminate\Http\Request;
 
 class PrivadaController extends Controller
@@ -10,6 +11,33 @@ class PrivadaController extends Controller
     public function index()
     {
         return view('privada.index');
+    }
+
+    public function calidad(Request $request)
+    {
+        $data1 = Csv::where('partida',$request->numero0)->first();
+        $data2 = Csv::where('partida',$request->numero1)->first();
+        $data3 = Csv::where('partida',$request->numero2)->first();
+        $data4 = Csv::where('partida',$request->remito)->first();
+
+        if ($data1)
+        {
+            return response()->download('calidad/'.$data1->partida.'.pdf');
+        }
+        if ($data2)
+        {
+            return response()->download('calidad/'.$data2->partida.'.pdf');
+        }
+        if ($data3)
+        {
+            return response()->download('calidad/'.$data3->partida.'.pdf');
+        }
+        if ($data4)
+        {
+            return response()->download('calidad/'.$data4->partida.'.pdf');
+        }
+
+         return back();
     }
 
     public function materiaprima()
@@ -21,7 +49,11 @@ class PrivadaController extends Controller
 
     public function distribuidor()
     {
-        return view('privada.distribuidor');
+        $dexterior = Descarga::where('distribuidor','Exterior')->get();
+        $dexclusivo = Descarga::where('distribuidor','Exclusivo')->get();
+        $dnoexclusivo = Descarga::where('distribuidor','No Exclusivo')->get();
+
+        return view('privada.distribuidor',compact('dexterior','dexclusivo','dnoexclusivo'));
     }
 
     // API REQUEST VUE

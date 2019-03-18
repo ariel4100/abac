@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Calidad;
 use App\Slider;
 use App\Novedad;
 use App\Producto;
@@ -14,7 +15,8 @@ class FrontEndController extends Controller
         $text = Contenido::seccionTipo('home', 'texto')->first();
         $productos = Producto::where('destacado', true)->limit(4)->get();
         $novedades = Novedad::where('destacado', true)->orderBy('order')->limit(2)->get();
-        return view('page.index', compact('sliders', 'text', 'novedades', 'productos'));
+        $calidad = Calidad::orderBy('orden')->limit(3)->get();
+        return view('page.index', compact('sliders', 'text', 'novedades', 'productos','calidad'));
     }
 
     public function empresa() {

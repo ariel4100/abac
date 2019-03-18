@@ -30,10 +30,12 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col m6">
+                        <div class="input-field col m12">
                             <input id="password" type="password" class="validate" name="password"  >
                             <label for="password">Password</label>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="input-field col m6">
                             <select name="nivel" >
                                 <option value="" disabled selected>Seleccionar nivel</option>
@@ -42,6 +44,18 @@
                                 @endforeach
                             </select>
 
+                        </div>
+                        <div class="input-field col m6">
+
+                            <i class="material-icons prefix">keyboard_arrow_right</i>
+
+                            <select id="icon_prefix" class="select_all" name="distribuidor">
+                                <option value="" disabled selected>Seleccionar si es nivel s3</option>
+                                @foreach($distribuidor as $c)
+                                    <option value = "{{ $c }}" {{ $c == $user->distribuidor ? 'selected': '' }} >{{ $c }}</option>
+                                @endforeach
+                            </select>
+                            <label for="icon_prefix">Seleccionar Distribuidor</label>
                         </div>
                     </div>
 

@@ -40,12 +40,18 @@ Route::group(['middleware' => 'auth', 'prefix' => 'privada', 'as' => 'privada'],
     Route::get('/', 'PrivadaController@index')->name('.index');
     Route::get('/materia-prima', 'PrivadaController@materiaprima')->name('.materiaprima');
     Route::get('/distribuidor', 'PrivadaController@distribuidor')->name('.distribuidor');
+    Route::post('/buscar/calidad', ['uses' => 'PrivadaController@calidad', 'as' => '.calidad.store']);
 });
 
 // Download files
 Route::get('/download/{file}', function($file) {
   return response()->download('files/contenido/'.$file, $file);
 })->name('downloadFile');
+
+
+Route::get('descarga/download/{file}', function($file) {
+    return response()->download('files/descarga/'.$file, $file);
+})->name('downloadFiledistribuidores');
 
 // Language settings
 Route::get('setlocale/{locale}', function ($locale) {
@@ -103,7 +109,7 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'adm'], function () {
         Route::delete('{producto}/destroy', ['uses' => 'adm\ProductoController@destroy', 'as' => '.destroy']);
 
 
-        // TABLAS DE ESPECIPICACIONES DEL PRODUCTOS
+        // TABLAS DE ESPECIFICACIONES DEL PRODUCTOS
           Route::get('/tabla/{id}', ['uses' => 'adm\ProductoController@tabla', 'as' => '.tabla']);
           Route::post('tabla/crear', ['uses' => 'adm\ProductoController@tablastore', 'as' => '.tabla.store']);
           Route::put('tabla/actualizar/{id}', ['uses' => 'adm\ProductoController@tablaupdate', 'as' => '.tabla.update']);
@@ -138,17 +144,34 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'adm'], function () {
         Route::get('{section}/{contenido}/edit', ['uses' => 'adm\ContenidoController@edit', 'as' => '.edit']);
         Route::put('{contenido}/update', ['uses' => 'adm\ContenidoController@update', 'as' => '.update']);
         Route::delete('{contenido}/destroy', ['uses' => 'adm\ContenidoController@destroy', 'as' => '.destroy']);
+        // calidad
+        Route::get('ver/calidad/index', ['uses' => 'adm\CalidadController@index', 'as' => '.calidad.index']);
+        Route::get('ver/calidad/crear', ['uses' => 'adm\CalidadController@create', 'as' => '.calidad.create']);
+        Route::post('ver/calidad/cargar', ['uses' => 'adm\CalidadController@store', 'as' => '.calidad.store']);
+        Route::get('ver/calidad/editar/{id}', ['uses' => 'adm\CalidadController@edit', 'as' => '.calidad.edit']);
+        Route::put('ver/calidad/actualizar/{id}', ['uses' => 'adm\CalidadController@update', 'as' => '.calidad.update']);
+        Route::get('eliminar/calidad//{id}', ['uses' => 'adm\CalidadController@eliminar', 'as' => '.calidad.eliminar']);
       });
 
     //ZONA PRIVADA ADM
     Route::group(['prefix' => 'privada', 'as' => 'privada'], function() {
         Route::get('/index', ['uses' => 'adm\PrivadaZoneController@index', 'as' => '.principal']);
         Route::get('editar/{id}', ['uses' => 'adm\PrivadaZoneController@edit', 'as' => '.edit']);
+        Route::get('crear', ['uses' => 'adm\PrivadaZoneController@create', 'as' => '.create']);
+        Route::post('/crear/cliente', ['uses' => 'adm\PrivadaZoneController@store', 'as' => '.store']);
         Route::get('/csv', ['uses' => 'adm\PrivadaZoneController@csv', 'as' => '.csv']);
         Route::post('/csv/cargar', ['uses' => 'adm\PrivadaZoneController@csvstore', 'as' => '.csv.store']);
         //cliente
         Route::put('actualizar/{id}', ['uses' => 'adm\PrivadaZoneController@update', 'as' => '.update']);
         Route::get('destroy/{id}', ['uses' => 'adm\PrivadaZoneController@eliminar', 'as' => '.eliminar']);
+
+        //Descarga para los distribuidores
+        Route::get('/descarga', ['uses' => 'adm\DescargaController@index', 'as' => '.descarga']);
+        Route::get('/descarga/crear', ['uses' => 'adm\DescargaController@create', 'as' => '.descarga.create']);
+        Route::post('/descarga/crear/store', ['uses' => 'adm\DescargaController@store', 'as' => '.descarga.store']);
+        Route::get('/descarga/editar/{id}', ['uses' => 'adm\DescargaController@edit', 'as' => '.descarga.edit']);
+        Route::put('/descarga/actualizar/{id}', ['uses' => 'adm\DescargaController@update', 'as' => '.descarga.update']);
+        Route::get('eliminar/descarga/{id}', ['uses' => 'adm\DescargaController@eliminar', 'as' => '.descarga.eliminar']);
     });
 
       Route::get('/register', 'Auth\Admin\RegisterController@showRegistrationForm')->name('adm.register');
