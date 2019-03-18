@@ -10,5 +10,6 @@
     <title>{{ config('app.name', 'Abac') }}</title>
 
     @include('adm.partials.links')
+    @stack('style')
 </head>
 <body>

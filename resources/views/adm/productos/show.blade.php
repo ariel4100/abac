@@ -27,6 +27,7 @@
                                 <i class="material-icons red-text">cancel</i>
                             </button>
                         {!!Form::close()!!}
+                        <a  href="{{ route('producto.tabla',$p->id) }}" class="waves-effect waves-light btn">Tabla</a>
                     </td>
                 </tr>
             @endforeach

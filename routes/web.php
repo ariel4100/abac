@@ -101,7 +101,16 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'adm'], function () {
         Route::get('{producto}/edit', ['uses' => 'adm\ProductoController@edit', 'as' => '.edit']);
         Route::put('{producto}/update', ['uses' => 'adm\ProductoController@update', 'as' => '.update']);
         Route::delete('{producto}/destroy', ['uses' => 'adm\ProductoController@destroy', 'as' => '.destroy']);
+
+
+        // TABLAS DE ESPECIPICACIONES DEL PRODUCTOS
+          Route::get('/tabla/{id}', ['uses' => 'adm\ProductoController@tabla', 'as' => '.tabla']);
+          Route::post('tabla/crear', ['uses' => 'adm\ProductoController@tablastore', 'as' => '.tabla.store']);
+          Route::put('tabla/actualizar/{id}', ['uses' => 'adm\ProductoController@tablaupdate', 'as' => '.tabla.update']);
+          Route::get('tabla/{id}/eliminar', ['uses' => 'adm\ProductoController@tabladestroy', 'as' => '.tabla.eliminar']);
       });
+
+
 
       Route::group(['prefix' => 'categorias', 'as' => 'categoria'], function() {
         Route::get('', ['uses' => 'adm\CategoriaController@index', 'as' => '.index']);

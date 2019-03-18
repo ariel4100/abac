@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Adm;
 use App\Familia;
 use App\Producto;
 use App\Extensions\Helpers;
+use App\Tabla;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -73,4 +74,59 @@ class ProductoController extends Controller
         return back()->with('err', $err);
     }
 
+    public function tabla($id)
+    {
+        $producto = Producto::find($id);
+        $tabla = Tabla::where('producto_id',$id)->orderBy('id','DESC')->get();
+        //$t = Tabla::find($tabla->id);
+        return view('adm.productos.tabla.index',compact('tabla','id','producto'));
+    }
+
+    public function tablastore(Request $request)
+    {
+        $tabla = new Tabla();
+        $tabla->a = $request->a;
+        $tabla->b = $request->b;
+        $tabla->c = $request->c;
+        $tabla->d = $request->d;
+        $tabla->e = $request->e;
+        $tabla->f = $request->f;
+        $tabla->g = $request->g;
+        $tabla->h = $request->h;
+        $tabla->i = $request->i;
+        $tabla->j = $request->j;
+        $tabla->k = $request->k;
+        $tabla->l = $request->l;
+        $tabla->m = $request->m;
+        $tabla->producto_id = $request->id;
+        $tabla->save();
+        return back()->with('success','Se creo correctamente');
+    }
+
+    public function tablaupdate(Request $request,$id)
+    {
+        $tabla = Tabla::find($id);
+        $tabla->a = $request->a;
+        $tabla->b = $request->b;
+        $tabla->c = $request->c;
+        $tabla->d = $request->d;
+        $tabla->e = $request->e;
+        $tabla->f = $request->f;
+        $tabla->g = $request->g;
+        $tabla->h = $request->h;
+        $tabla->i = $request->i;
+        $tabla->j = $request->j;
+        $tabla->k = $request->k;
+        $tabla->l = $request->l;
+        $tabla->m = $request->m;
+        $tabla->update();
+        return back()->with('success','Se actualizo correctamente');
+    }
+
+    public function tabladestroy($id)
+    {
+        $tabla = Tabla::find($id);
+        $tabla->delete();
+        return back()->with('success','Se elimino correctamente');
+    }
 }
