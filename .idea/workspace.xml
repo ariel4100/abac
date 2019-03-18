@@ -2,8 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="82ddab61-d59c-44e7-8955-389adf684df5" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Descarga.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/adm/CalidadController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/adm/DescargaController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_03_18_125720_create_descargas_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_03_18_140249_add__descarga_user_to_users_table.php" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/public/calidad/76110.pdf" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/public/calidad/76120.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/files/calidad/calidad__abac-logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/files/calidad/calidad__abacsliderhome.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/files/descarga/descarga__abalok.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/files/descarga/descarga__descarga.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/calidad/calidad__abacsliderhome.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/calidad/calidad__descarga.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/descarga/descarga__descarga.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/descarga/descarga__descarga1.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/public/materiaprima/w4550.pdf" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/public/materiaprima/w4560.pdf" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/resources/views/adm/contenido/calidad/create.blade.php" afterDir="false" />
@@ -111,12 +124,12 @@
         <entry file="file://$PROJECT_DIR$/resources/views/page/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="108">
-              <caret line="39" column="68" selection-start-line="39" selection-start-column="68" selection-end-line="39" selection-end-column="68" />
+              <caret line="6" column="33" selection-start-line="6" selection-start-column="33" selection-end-line="6" selection-end-column="33" />
               <folding>
                 <element signature="e#111#129#0#HTML" expanded="true" />
                 <element signature="e#251#1464#0#HTML" />
-                <element signature="e#1727#1752#0#HTML" expanded="true" />
-                <element signature="e#1531#4247#0#HTML" />
+                <element signature="e#1762#1792#0#HTML" expanded="true" />
+                <element signature="e#1833#1859#0#HTML" expanded="true" />
                 <element signature="e#0#5006#0#Blade" />
                 <element signature="e#2065#2113#0#HTML" expanded="true" />
               </folding>
@@ -444,18 +457,17 @@
       <workItem from="1552561550004" duration="4690000" />
       <workItem from="1552567992078" duration="20166000" />
       <workItem from="1552607496650" duration="7476000" />
-      <workItem from="1552908941506" duration="26956000" />
+      <workItem from="1552908941506" duration="27226000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104934000" />
+    <option name="totallyTimeSpent" value="105204000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2532943" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2532943" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
@@ -464,7 +476,7 @@
       <window_info anchor="bottom" id="Version Control" order="11" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.3" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.3" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -852,12 +864,12 @@
     <entry file="file://$PROJECT_DIR$/resources/views/page/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
-          <caret line="39" column="68" selection-start-line="39" selection-start-column="68" selection-end-line="39" selection-end-column="68" />
+          <caret line="6" column="33" selection-start-line="6" selection-start-column="33" selection-end-line="6" selection-end-column="33" />
           <folding>
             <element signature="e#111#129#0#HTML" expanded="true" />
             <element signature="e#251#1464#0#HTML" />
-            <element signature="e#1727#1752#0#HTML" expanded="true" />
-            <element signature="e#1531#4247#0#HTML" />
+            <element signature="e#1762#1792#0#HTML" expanded="true" />
+            <element signature="e#1833#1859#0#HTML" expanded="true" />
             <element signature="e#0#5006#0#Blade" />
             <element signature="e#2065#2113#0#HTML" expanded="true" />
           </folding>
