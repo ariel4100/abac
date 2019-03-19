@@ -34,22 +34,23 @@
             </div>
             @endforeach
         </div>
-
-        <div class="row center mb50 mt30">
-            <h4 class="center uppercase rederino oblique fw6 mb50">CALIDAD</h4>
-            @foreach($calidad as $c)
-                <div class="col s12 m4">
-                    <div class="" style="border: 1px solid darkgray;">
-                        <img src="{{ asset('img/calidad/'.$c->file_image) }}" style="border-radius: 50%" alt="">
-                        <p class="grayerino">
+        @if($calidad)
+            <div class="row center mb50 mt30">
+                <h4 class="center uppercase rederino oblique fw6 mb50">CALIDAD</h4>
+                @foreach($calidad as $c)
+                    <div class="col s12 m4">
+                        <div class="" style=" ">
+                            <img src="{{ asset('img/calidad/'.$c->file_image) }}" style="border-radius: 50%" alt="">
+                            <p class="grayerino">
                         <span class="container">
                             {!! $c->{'nombre_'.App::getLocale()} !!}
                         </span>
-                        </p>
+                            </p>
+                        </div>
                     </div>
-                </div>
-            @endforeach
-        </div>
+                @endforeach
+            </div>
+        @endif
         <div class="row" style="margin-bottom: 5%">
             <h4 class="center uppercase rederino oblique fw6 mb50">Productos destacados</h4>
             <div class="row">

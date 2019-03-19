@@ -82,6 +82,11 @@ p {
     background-color: #eb252d;
     color: #eb252d;
 }
+.slider .slides li .caption {
+
+    left: 0%;
+
+}
 .rederino {
     color: #eb252d;
 }
@@ -345,6 +350,9 @@ p {
 }
 .personalized-paragraph > p {
     margin: 0;
+}
+.container{
+    width: 85%;
 }
 /* Footer */
 footer {

@@ -45,6 +45,7 @@ class ContactoController extends Controller
     }
 
     public function showContactoWork() {
-        return view('page.contacto.trabajo');
+        $sector = array('Administración','Ventas','Ingeniería','Depósito','Montaje','CNC','Compras','Sistemas','Calidad','Maestranza','Mantenimiento','Otros');
+        return view('page.contacto.trabajo',compact('sector'));
     }
 }

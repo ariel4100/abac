@@ -81,7 +81,16 @@
                     <input id="DNI" type="number" name="DNI" class="validate" required>
                     <label for="DNI">DNI</label>
                 </div>
-                     <div class="file-field input-field col l6">
+                <div class="input-field col s6">
+                    <select multiple>
+                        <option value="" disabled selected>Sector de Interés</option>
+                        @foreach($sector as $s)
+                            <option value="{{ $s }}" >{{ $s }}</option>
+                        @endforeach
+                    </select>
+                    <label>Seleccionar Sector</label>
+                </div>
+                <div class="file-field input-field col l6">
                     <div class="btn">
                         <span>File</span>
                         <input type="file">
@@ -90,23 +99,21 @@
                         <input class="file-path validate" type="text" placeholder="Adjuntar Archivo">
                     </div>
                 </div>
-                <div class="row">
+                <div class="row ">
+                    <div class="col s6 ">
+                        <div class="g-recaptcha right" data-sitekey="{{ env('RECAPTCHA_KEY') }}"></div>
+                    </div>
                     <div class="col s6">
-                        <div class="col l12 s12">
-                            <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_KEY') }}"></div>
-                        </div>
-                        <div class="col l12 s12">
-                            <p class="mt1">
-                                <label>
-                                    <input type="checkbox" id="contacto_checkbox"/>
-                                    <span>Acepto los términos y condiciones de privacidad</span>
-                                </label>
-                            </p>
-                        </div>
+                        <p class="mt1">
+                            <label>
+                                <input type="checkbox" id="contacto_checkbox"/>
+                                <span>Acepto los términos y condiciones de privacidad</span>
+                            </label>
+                        </p>
                     </div>
                 </div>
             </div>
-            <div class="row center">
+            <div class="row center mt20">
                 <button class="btn waves-effect waves-light" type="submit" style="background-color:#eb252d;">
                         Enviar
                         <i class="material-icons right">send</i>
@@ -119,8 +126,10 @@
 
 @push('scripts')
 <script>
+
+
     M.Datepicker.init(document.querySelector('.datepicker'), {
-            firstDay: true, 
+            firstDay: true,
             format: 'dd / mm / yyyy',
             i18n: {
                 months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],

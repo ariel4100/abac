@@ -21,13 +21,14 @@
                         <span>{!! $p->title_en !!}</span></td>
                     <td><span class="adm-estandar">{!! $p->order !!}</span></td>
                     <td class="text-right">
-                        <a href="{{ route('producto.edit',$p->id) }}"><i class="material-icons">create</i></a>
+                        <a href="{{ route('producto.edit',$p->id) }}" class="waves-effect waves-light btn-small orange right"><i class="material-icons white-text">edit</i></a>
                         {!!Form::open(['class'=>'en-linea', 'route'=>['producto.destroy', $p->id], 'method' => 'DELETE'])!!}
-                            <button type="submit" class="submit-button">
-                                <i class="material-icons red-text">cancel</i>
+                            <button type="submit" class="submit-button btn-small red">
+                                <i class="material-icons  white-text">cancel</i>
                             </button>
                         {!!Form::close()!!}
-                        <a  href="{{ route('producto.tabla',$p->id) }}" class="waves-effect waves-light btn">Tabla</a>
+                        <a  href="{{ route('producto.tabla',$p->id) }}" class="  btn-small">Tabla</a>
+                        <a href="{{ route('producto.edit',$p->id) }}" class="waves-effect waves-light btn-small">Galeria</a>
                     </td>
                 </tr>
             @endforeach

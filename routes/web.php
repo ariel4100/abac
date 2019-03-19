@@ -8,7 +8,7 @@ Route::get('/productos/{producto}', 'ProductoController@show')->name('productos.
 Route::get('/', 'FrontEndController@index')->name('index');
 Route::get('/nosotros', 'FrontEndController@empresa')->name('empresa');
 Route::get('/descargas', 'FrontEndController@descargas')->name('descargas');
-Route::get('/calidad', 'FrontEndController@calidad')->name('calidad');
+Route::get('calidad/index', 'FrontEndController@calidad')->name('calidad');
 Route::get('/videos', 'FrontEndController@videos')->name('videos');
 Route::get('/distribuidores', 'FrontEndController@distribuidores')->name('distribuidores');
 Route::get('/herramientas', 'FrontEndController@herramientas')->name('herramientas');
