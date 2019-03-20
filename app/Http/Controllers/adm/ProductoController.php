@@ -37,6 +37,9 @@ class ProductoController extends Controller
         $file_save = Helpers::saveFile($request->file('ficha'), 'productos');
         $file_save ? $data['ficha'] = $file_save : false;
 
+        $file_save = Helpers::saveFile($request->file('ficha_variante'), 'productos');
+        $file_save ? $data['ficha_variante'] = $file_save : false;
+
         Producto::create($data);
         $success = 'Producto creado con éxito';
 
@@ -58,6 +61,9 @@ class ProductoController extends Controller
 
         $file_save = Helpers::saveFile($request->file('ficha'), 'productos');
         $file_save ? $data['ficha'] = $file_save : false;
+
+        $file_save = Helpers::saveFile($request->file('ficha_variante'), 'productos');
+        $file_save ? $data['ficha_variante'] = $file_save : false;
 
         $producto->update($data);
         $success = 'Producto actualizado con éxito';

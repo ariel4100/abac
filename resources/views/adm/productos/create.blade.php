@@ -7,7 +7,7 @@
                 <div class="col s12">
                     {!!Form::open(['route'=>'producto.store', 'method'=>'POST', 'files' => true])!!}
                     <div class="row">
-                        <div class="file-field input-field col s5">
+                        <div class="file-field input-field col s6">
                             <div class="btn">
                                 <span>Imagen</span>
                                 {!! Form::file('image') !!}
@@ -16,7 +16,11 @@
                                 {!! Form::text('', null, ['class'=>'file-path validate']) !!}
                             </div>
                         </div>
-                        <div class="file-field input-field col s5">
+                        <div class="input-field col s6">
+                            {!!Form::label('Orden')!!}
+                            {!!Form::text('order',null,['class'=>'validate'])!!}
+                        </div>
+                        <div class="file-field input-field col s6">
                             <div class="btn">
                                 <span>Ficha tecnica</span>
                                 {!! Form::file('ficha') !!}
@@ -25,9 +29,14 @@
                                 {!! Form::text('', null, ['class'=>'file-path validate']) !!}
                             </div>
                         </div>
-                        <div class="input-field col s2">
-                            {!!Form::label('Orden')!!}
-                            {!!Form::text('order',null,['class'=>'validate'])!!}
+                        <div class="file-field input-field col s6">
+                            <div class="btn">
+                                <span>Ficha Variante</span>
+                                {!! Form::file('ficha_variante') !!}
+                            </div>
+                            <div class="file-path-wrapper">
+                                {!! Form::text('', null, ['class'=>'file-path validate']) !!}
+                            </div>
                         </div>
                     </div>
                     <div class="row">

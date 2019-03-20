@@ -45,7 +45,9 @@ class FrontEndController extends Controller
     public function distribuidores() {
         $imagen = Contenido::seccionTipo('distribuidores', 'imagen')->first();
         $distribuidores = Contenido::seccionTipo('distribuidores', 'texto')->orderBy('order')->get();
-        return view('page.distribuidores', compact('imagen'));
+        $provincia = Contenido::where('provincia','!=',null)->orderBy('order')->get();
+        $mundo = Contenido::where('provincia',null)->where('section','distribuidores')->orderBy('order')->get();
+        return view('page.distribuidores', compact('imagen','distribuidores','provincia','mundo'));
     }
     public function herramientas() {
         $herramientas = Contenido::seccionTipo('herramientas', 'texto')->orderBy('order')->get();

@@ -11,4 +11,6 @@ class Producto extends Model
     public function familia() {
         return $this->belongsTo('App\Familia');
     }
+
+
 }

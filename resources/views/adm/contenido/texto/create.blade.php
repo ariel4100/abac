@@ -38,17 +38,24 @@
                     
                     @if( $section == 'distribuidores' )
                     <div class="row">
-                        <select name="subtitle_es" class="select col s8">
-                          <option value="" disabled selected required>Elija una opción</option>
-                          <option value="arg">Argentina</option>
-                          <option value="ww">Mundo</option>
-                        </select>
-                        <label>Distribuidores Zona</label>
-                        <div class="input-field col s4">
+                        <div class="col s6">
+                            <select name="subtitle_es" class="select" id="pais">
+                                <option value="" disabled selected required>Elija una opción</option>
+                                <option value="arg">Argentina</option>
+                                <option value="ww">Mundo</option>
+                            </select>
+                        </div>
+                        <div class="col s6">
+                            <select name="provincia" class="select" id="provincia">
+
+                            </select>
+                        </div>
+                        <div class="input-field col m6 s12">
                             {!!Form::label('Orden')!!}
                             {!!Form::text('order',null,['class'=>'validate'])!!}
                         </div>
                     </div>
+
                     @else
                     <div class="row">
                         <div class="input-field col s6">
@@ -104,6 +111,26 @@
 
 @push('scripts')
 <script>
-    M.FormSelect.init(document.querySelector('.select'))
+
+    $(document).ready(function(){
+        $('select').formSelect();
+        window.provincia = ['Ciudad Autónoma de Buenos Aires (CABA)','Buenos Aires','Catamarca','Córdoba','Corrientes','Entre Ríos','Jujuy','Mendoza','La Rioja','Salta','San Juan','San Luis','Santa Fe','Santiago del Estero','Tucumán','Chaco','Chubut','Formosa','Misiones','Neuquén','La Pampa','Río Negro','Santa Cruz','Tierra del Fuego'];
+        $("#pais").on("change", function () {
+            if ($(this).val() == 'arg')
+            {
+                html = "";
+                window.provincia.forEach(function (e) {
+                    html += `<option>${e}</option>`;
+                });
+                $("#provincia").html(html);
+                $('select').formSelect();
+            }else{
+                html = "";
+                $("#provincia").hide(html);
+                $('select').formSelect();
+            }
+        })
+
+    });
 </script>
 @endpush

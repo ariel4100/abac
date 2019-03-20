@@ -108,6 +108,13 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'adm'], function () {
         Route::put('{producto}/update', ['uses' => 'adm\ProductoController@update', 'as' => '.update']);
         Route::delete('{producto}/destroy', ['uses' => 'adm\ProductoController@destroy', 'as' => '.destroy']);
 
+          // GALERIAS DE PRODUCTOS
+          Route::get('pro/{id}/galeria', ['uses' => 'adm\GaleriaController@show', 'as' => '.galeria']);
+          Route::get('/crear/galeria/{id}', ['uses' => 'adm\GaleriaController@create', 'as' => '.galeria.create']);
+          Route::post('galeria/store', ['uses' => 'adm\GaleriaController@store', 'as' => '.galeria.store']);
+          Route::get('/editar/galeria/{id}', ['uses' => 'adm\GaleriaController@edit', 'as' => '.galeria.edit']);
+          Route::put('galeria/actualizar/{id}', ['uses' => 'adm\GaleriaController@update', 'as' => '.galeria.update']);
+          Route::get('galeria/eliminar/{id}', ['uses' => 'adm\GaleriaController@eliminar', 'as' => '.galeria.eliminar']);
 
         // TABLAS DE ESPECIFICACIONES DEL PRODUCTOS
           Route::get('/tabla/{id}', ['uses' => 'adm\ProductoController@tabla', 'as' => '.tabla']);
@@ -152,6 +159,9 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'adm'], function () {
         Route::put('ver/calidad/actualizar/{id}', ['uses' => 'adm\CalidadController@update', 'as' => '.calidad.update']);
         Route::get('eliminar/calidad//{id}', ['uses' => 'adm\CalidadController@eliminar', 'as' => '.calidad.eliminar']);
       });
+    //Ruta para la gestión de metadatos
+    Route::resource('metadatos', 'adm\MetadatoController');
+
 
     //ZONA PRIVADA ADM
     Route::group(['prefix' => 'privada', 'as' => 'privada'], function() {

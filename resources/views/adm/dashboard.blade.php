@@ -137,7 +137,11 @@
                     <div class=""><a href="{{route('contenido.index', ['seccion' => 'logo', 'tipo' => 'imagen'])}}">Editar logos</a></div>
                 </div>
             </li>
-
+            <li class="bold"><a class="collapsible-header waves-effect waves-admin"><i class="material-icons">data_usage</i>Metadatos</a>
+                <div class="collapsible-body">
+                    <div class=""><a href="{{ action('adm\MetadatoController@index') }}">Ver Metadatos</a></div>
+                </div>
+            </li>
             <li class="bold"><a class="collapsible-header waves-effect waves-admin"><i class="material-icons">account_circle</i>Zona Privada</a>
                 <div class="collapsible-body">
                     <div class=""><a href="{{route('privada.descarga.create')}}">Crear Descarga</a></div>

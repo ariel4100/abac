@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Familia;
+use App\Galeria;
 use App\Producto;
 use App\Contenido;
+use App\Tabla;
 use Illuminate\Http\Request;
 
 class ProductoController extends Controller
@@ -29,11 +31,13 @@ class ProductoController extends Controller
     }
 
     public function show(Producto $producto) {
+        $galeria = Galeria::where('producto_id',$producto->id)->get();
+        $tabla = Tabla::where('producto_id',$producto->id)->get();
         $familias = Familia::all();
         $familia = $producto->familia;
         $productos = $familia->productos;
         $contenido = $this->contenido;
         $randomProducts = Producto::where('familia_id', $producto->familia_id)->limit(3)->get();
-        return view('page.productos.producto.show', compact('familias', 'familia', 'contenido', 'producto', 'productos', 'randomProducts'));
+        return view('page.productos.producto.show', compact('galeria','familias', 'familia', 'contenido', 'producto', 'productos', 'randomProducts','tabla'));
     }
 }

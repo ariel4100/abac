@@ -1,11 +1,35 @@
 @extends('page.productos.partials.layout')
-
+@push('style')
+    <style>
+        .bordered tr th {
+            background-color: rgba(0,0,0,0.12);
+            border-left: 1px solid rgba(0,0,0,0.12);
+        }
+        .bordered tr td {
+            border-right: 1px solid rgba(0,0,0,0.12);
+        }
+    </style>
+@endpush
 @section('product')
     <div class="row mb30">
-        <div class="col l6 m12 s12" style="display:flex; justify-content:center; align-items:center">
-            <p style="border:#dddddd 1px solid;">
+        <div class="col l6 m12 s12"  >
+            <p style="border:#dddddd 1px solid;  display: flex; justify-content: center; align-items: center" >
                 <img src="{{asset('img/productos/'.$producto->image)}}" alt="{{$producto->{'title_'.App::getLocale()} }}" class="responsive-img">
             </p>
+            <div class="row" id="galeria" >
+                <div class="col m4">
+                    <p style="border:#dddddd 1px solid;  display: flex; justify-content: center; align-items: center">
+                        <img src="{{asset('img/productos/'.$producto->image)}}" alt="{{$producto->{'title_'.App::getLocale()} }}" class="responsive-img">
+                    </p>
+                </div>
+                @foreach($galeria as $g)
+                    <div class="col m4">
+                        <p style="border:#dddddd 1px solid;  display: flex; justify-content: center; align-items: center">
+                            <img src="{{ asset('img/galeria/'.$g->file_image) }}" class="responsive-img" style="height: 100px" alt="">
+                        </p>
+                    </div>
+                @endforeach
+            </div>
         </div>
         <div class="col l6 m12 s12">
             <h6 class="rederino" style="font-size: 1.7rem">
@@ -14,6 +38,9 @@
             {!! $producto->{'text_'.App::getLocale()} !!}
             @if($producto->ficha !== null)
                 <a class="waves-effect waves-light btn" style="background-color:#E1131B;" href="{{asset('files/productos/'.$producto->ficha)}}" target="_blank">Descargar ficha</a>
+            @endif
+            @if($producto->ficha_variante !== null)
+                <a class="waves-effect waves-light btn " style="background-color:#E1131B;" href="{{asset('files/productos/'.$producto->ficha_variante)}}" target="_blank">Ficha Variante</a>
             @endif
         </div>
     </div>
@@ -37,6 +64,63 @@
     </div>
     @endif
 
+    @if(count($tabla) != 0)
+        <div class=" ">
+            <div class="row">
+                <div class="col s12">
+                    <table class="bordered responsive-table">
+                        <thead>
+                        <tr>
+                            <th colspan="2" class="center">CONEXIONES</th>
+                            <th rowspan="3" class="center">MODELO</th>
+                            <th colspan="2" class="center">P máx.</th>
+                            <th rowspan="3" class="center">Orificio (mm)</th>
+                            <th colspan="7" class="center">DIMENSIONES (mm)</th>
+
+                        </tr>
+                        <tr>
+                            <th rowspan="2" class="center">Entrada</th>
+                            <th rowspan="2" class="center">Salida</th>
+                            <th rowspan="2" class="center">Bar</th>
+                            <th rowspan="2" class="center">Psi</th>
+                            <th rowspan="2" class="center">A</th>
+                            <th rowspan="2" class="center">B</th>
+                            <th rowspan="2" class="center">C</th>
+                            <th colspan="2" class="center">Recta</th>
+                            <th colspan="2" class="center">Angulo</th>
+                        </tr>
+                        <tr>
+                            <th class="center">D</th>
+                            <th class="center">E</th>
+                            <th class="center">D</th>
+                            <th class="center">E</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($tabla as $t)
+                                <tr>
+                                    <td>{{ $t->a }}</td>
+                                    <td>{{ $t->b }}</td>
+                                    <td>{{ $t->c }}</td>
+                                    <td>{{ $t->d }}</td>
+                                    <td>{{ $t->e }}</td>
+                                    <td>{{ $t->f }}</td>
+                                    <td>{{ $t->g }}</td>
+                                    <td>{{ $t->h }}</td>
+                                    <td>{{ $t->i }}</td>
+                                    <td>{{ $t->j }}</td>
+                                    <td>{{ $t->k}}</td>
+                                    <td>{{ $t->l }}</td>
+                                    <td>{{ $t->m }}</td>
+                                </tr>
+                        @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    @endif
     @if(count($randomProducts) >= 0)
         <div class="row mt30 mb50">
             <h5 class="mb30 rederino">Productos Relacionados</h5>
@@ -89,3 +173,12 @@
         </div>
     @endif
 @endsection
+@push('scripts')
+    <script>
+        $("#galeria p").click(function () {
+
+            let src = $(this).find("img").attr("src");
+            $(this).closest("#galeria").prev().find("img").attr("src",src);
+        });
+    </script>
+@endpush
