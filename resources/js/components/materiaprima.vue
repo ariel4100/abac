@@ -54,14 +54,14 @@
                     </div>
                 </div>
             </div>
-                <div class="" v-if="paso3">
+                <div class="" v-if="paso3 && paso2">
                     <div class="row">
                         <div class="col s12" >
                             <div class="row">
                                 <div class="col s12 m6">
                                     <div class="card flecha" style="background-color: white; border: 1px solid red; color: black">
                                         <div class="card-content  " style="padding: 15px;">
-                                            <h6>Ver Certificado</h6>
+                                            <h6>Ver Certificado {{ archivo.materia }}</h6>
                                         </div>
                                     </div>
                                 </div>

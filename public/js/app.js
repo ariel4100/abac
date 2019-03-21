@@ -33323,11 +33323,45 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm.paso3
+      _vm.paso3 && _vm.paso2
         ? _c("div", {}, [
-            _vm._m(3),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col s12" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col s12 m6" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "card flecha",
+                        staticStyle: {
+                          "background-color": "white",
+                          border: "1px solid red",
+                          color: "black"
+                        }
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "card-content  ",
+                            staticStyle: { padding: "15px" }
+                          },
+                          [
+                            _c("h6", [
+                              _vm._v(
+                                "Ver Certificado " + _vm._s(_vm.archivo.materia)
+                              )
+                            ])
+                          ]
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              ])
+            ]),
             _vm._v(" "),
-            _vm._m(4),
+            _vm._m(3),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
               _c(
@@ -33429,40 +33463,6 @@ var staticRenderFns = [
         ])
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col s12" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col s12 m6" }, [
-            _c(
-              "div",
-              {
-                staticClass: "card flecha",
-                staticStyle: {
-                  "background-color": "white",
-                  border: "1px solid red",
-                  color: "black"
-                }
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass: "card-content  ",
-                    staticStyle: { padding: "15px" }
-                  },
-                  [_c("h6", [_vm._v("Ver Certificado")])]
-                )
-              ]
-            )
-          ])
-        ])
-      ])
-    ])
   },
   function() {
     var _vm = this
@@ -45820,8 +45820,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\osole\abac\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\osole\abac\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\ariel\abac3\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\ariel\abac3\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
