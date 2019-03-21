@@ -12,7 +12,10 @@ Route::get('calidad/index', 'FrontEndController@calidad')->name('calidad');
 Route::get('/videos', 'FrontEndController@videos')->name('videos');
 Route::get('/distribuidores', 'FrontEndController@distribuidores')->name('distribuidores');
 Route::get('/herramientas', 'FrontEndController@herramientas')->name('herramientas');
-
+//buscador
+Route::get('/buscador', 'FrontEndController@buscar')->name('buscador');
+Route::post('/buscador/buscar', 'FrontEndController@buscarstore')->name('buscar.store');
+Route::get('/herramientas', 'FrontEndController@herramientas')->name('herramientas');
 // Contacto rutas
 // Solo defino la ruta GET, y al momento de ir al endpoint /contacto a traves del metodo POST puedo usar el mismo nombre de la ruta,
 // pero siempre cambiando el verbo

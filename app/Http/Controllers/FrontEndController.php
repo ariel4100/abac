@@ -7,6 +7,9 @@ use App\Slider;
 use App\Novedad;
 use App\Producto;
 use App\Contenido;
+use Illuminate\Http\Request;
+
+//use http\Env\Request;
 
 class FrontEndController extends Controller
 {
@@ -52,5 +55,29 @@ class FrontEndController extends Controller
     public function herramientas() {
         $herramientas = Contenido::seccionTipo('herramientas', 'texto')->orderBy('order')->get();
         return view('page.herramientas.index', compact('herramientas'));
+    }
+    //BUSCADOR
+    public function buscar() {
+
+        return view('page.buscador.buscar');
+    }
+
+    public function buscarstore(Request $request) {
+        $busqueda  = $request->nombre;
+        //$resultado = Producto::where('title_es', 'like', '%'.$busqueda.'%')->get();
+        $resultado = Producto::leftJoin("familias","productos.familia_id","=","familias.id")
+            ->leftjoin("tablas","productos.id","=","tablas.producto_id")
+            ->Where('productos.title_es', 'like', '%'.$busqueda.'%')
+            ->orWhere('familias.title_es', 'like', '%'.$busqueda.'%')
+            ->orWhere('tablas.a', 'like', '%'.$busqueda.'%')
+            ->select('productos.*', 'tablas.a', 'familias.title_es','familias.title_en')
+            ->get();
+       // dd($resultado);
+        return view('page.buscador.resultado', ['resultado' => $resultado]);
+
+    }
+    public function resultado() {
+
+        return view('page.buscardor.buscar', compact('herramientas'));
     }
 }

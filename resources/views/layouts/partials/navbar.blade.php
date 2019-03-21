@@ -28,7 +28,7 @@
             <li><a href="{{route('contacto')}}" class="uppercase sub-nav-text" style="margin-right: 0; padding-right: 5px">Contacto</a></li>
             <li><a href="https://www.facebook.com/pages/category/Industrial-Company/ABAC-SRL-165035077562951/" target="_blank" class="hide-on-med-and-down" style="height: 64px;"><i class="fab fa-facebook-f"></i></a></li>
             <li><a href="https://www.youtube.com/channel/UCAUMO65Z8Tcg-bj-7JXOmLw" class="hide-on-med-and-down" target="_blank" style="height: 64px;"><i class="fab fa-youtube"></i></a></li>
-             <li><a href="#!" class="hide-on-med-and-down" style="height: 64px;"><i class="fas fa-search"></i></a></li>
+             <li><a href="{{ route('buscador') }}" class="hide-on-med-and-down" style="height: 64px;"><i class="fas fa-search"></i></a></li>
             <li>
                 <a class='dropdown-trigger btn' href='#' style="background-color:rgb(235, 37, 45); margin: 0" data-target='dropdown1'>{{ strtoupper(App::getLocale()) }}</a> 
             </li>
