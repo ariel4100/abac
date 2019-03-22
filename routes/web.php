@@ -126,8 +126,6 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'adm'], function () {
           Route::get('tabla/{id}/eliminar', ['uses' => 'adm\ProductoController@tabladestroy', 'as' => '.tabla.eliminar']);
       });
 
-
-
       Route::group(['prefix' => 'categorias', 'as' => 'categoria'], function() {
         Route::get('', ['uses' => 'adm\CategoriaController@index', 'as' => '.index']);
         Route::get('create', ['uses' => 'adm\CategoriaController@create', 'as' => '.create']);
@@ -165,7 +163,16 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'adm'], function () {
     //Ruta para la gestión de metadatos
     Route::resource('metadatos', 'adm\MetadatoController');
 
-
+    //ZONA PRIVADA ADM
+    Route::group(['prefix' => 'usuario', 'as' => 'usuario'], function() {
+        Route::get('/index', ['uses' => 'adm\UserController@index', 'as' => '.principal']);
+        Route::get('editar/{id}', ['uses' => 'adm\UserController@edit', 'as' => '.edit']);
+        Route::get('crear', ['uses' => 'adm\UserController@create', 'as' => '.create']);
+        Route::post('/crear/usuario', ['uses' => 'adm\UserController@store', 'as' => '.store']);
+        //Usuarios
+        Route::put('actualizar/{id}', ['uses' => 'adm\UserController@update', 'as' => '.update']);
+        Route::get('destroy/{id}', ['uses' => 'adm\UserController@eliminar', 'as' => '.eliminar']);
+    });
     //ZONA PRIVADA ADM
     Route::group(['prefix' => 'privada', 'as' => 'privada'], function() {
         Route::get('/index', ['uses' => 'adm\PrivadaZoneController@index', 'as' => '.principal']);
@@ -187,7 +194,7 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'adm'], function () {
         Route::get('eliminar/descarga/{id}', ['uses' => 'adm\DescargaController@eliminar', 'as' => '.descarga.eliminar']);
     });
 
-      Route::get('/register', 'Auth\Admin\RegisterController@showRegistrationForm')->name('adm.register');
-      Route::post('/register', 'Auth\Admin\RegisterController@register');
+      Route::get('privada/register', 'Auth\Admin\RegisterController@showRegistrationForm')->name('adm.register');
+      Route::post('privada/register', 'Auth\Admin\RegisterController@register');
 
 });

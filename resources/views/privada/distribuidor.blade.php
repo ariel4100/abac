@@ -5,7 +5,7 @@
         @include('templates.error')
 
         @if(Auth::user()->distribuidor == 'Exclusivo')
-            @include('page.partials.title', ['title' =>  __('Materiales para Distribuidores') ])
+            @include('page.partials.title', ['title' =>  __('Materials for Distributors') ])
             <div class="row" style="margin-top: 10%; margin-bottom: 10%;">
                 @foreach($dexclusivo as $d)
                     <div class="col l3 mb20" style="margin-left:-10px; margin-right:10px;">
@@ -33,7 +33,7 @@
             </div>
         @endif
         @if(Auth::user()->distribuidor == 'No Exclusivo')
-            @include('page.partials.title', ['title' =>  __('Materiales para Distribuidores') ])
+            @include('page.partials.title', ['title' =>  __('Materials for Distributors') ])
             <div class="row" style="margin-top: 10%; margin-bottom: 10%;">
                 @foreach($dnoexclusivo as $d)
                     <div class="col l3 mb20" style="margin-left:-10px; margin-right:10px;">
@@ -61,7 +61,7 @@
             </div>
         @endif
         @if(Auth::user()->distribuidor == 'Exterior')
-            @include('page.partials.title', ['title' =>  __('Materiales para Distribuidores') ])
+            @include('page.partials.title', ['title' =>  __('Materials for Distributors') ])
             <div class="row" style="margin-top: 10%; margin-bottom: 10%;">
                 @foreach($dexterior as $d)
                     <div class="col l3 mb20" style="margin-left:-10px; margin-right:10px;">

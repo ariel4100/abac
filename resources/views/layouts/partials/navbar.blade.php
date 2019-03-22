@@ -19,13 +19,13 @@
                         </form>
                     </div>
                 @else
-                    <a href="{{route('acceso')}}" class="uppercase sub-nav-text">Acceso Clientes</a>
+                    <a href="{{route('acceso')}}" class="uppercase sub-nav-text">{{ __('Customer Access') }}</a>
                 @endif
             </li>
             <li><a href="#" class="uppercase sub-nav-text" style="padding:0">|</a></li>
-            <li><a href="{{route('novedades')}}" class="uppercase sub-nav-text">Novedades</a></li>
+            <li><a href="{{route('novedades')}}" class="uppercase sub-nav-text">{{ __('News') }}</a></li>
             <li><a href="#" class="uppercase sub-nav-text" style="padding:0">|</a></li>
-            <li><a href="{{route('contacto')}}" class="uppercase sub-nav-text" style="margin-right: 0; padding-right: 5px">Contacto</a></li>
+            <li><a href="{{route('contacto')}}" class="uppercase sub-nav-text" style="margin-right: 0; padding-right: 5px">{{ __('Contact') }}</a></li>
             <li><a href="https://www.facebook.com/pages/category/Industrial-Company/ABAC-SRL-165035077562951/" target="_blank" class="hide-on-med-and-down" style="height: 64px;"><i class="fab fa-facebook-f"></i></a></li>
             <li><a href="https://www.youtube.com/channel/UCAUMO65Z8Tcg-bj-7JXOmLw" class="hide-on-med-and-down" target="_blank" style="height: 64px;"><i class="fab fa-youtube"></i></a></li>
              <li><a href="{{ route('buscador') }}" class="hide-on-med-and-down" style="height: 64px;"><i class="fas fa-search"></i></a></li>
@@ -56,22 +56,22 @@
 @php($items1 = \App\Contenido::seccionTipo('herramientas', 'texto')->orderBy('order')->get())
 <!-- Dropdown Structure -->
 <ul id="productos" class="dropdown-content">
-    <li><a href="{{route('productos')}}">Todos</a></li>
+    <li><a href="{{route('productos')}}">{{ __('All') }}</a></li>
     @foreach($items as $item)
-        <li><a href="{{route('familias.show', ['familia' => $item->id])}}">{{ $item->title_es }}</a></li>
+        <li><a href="{{route('familias.show', ['familia' => $item->id])}}">{{ $item->{'title_'.App::getLocale()} }}</a></li>
     @endforeach
 </ul>
 
 <ul id="herramientas" class="dropdown-content">
-    <li><a href="{{route('herramientas')}}">Todos</a></li>
+    <li><a href="{{route('herramientas')}}">{{ __('All') }}</a></li>
     @foreach($items1 as $h)
         <li><a href="{{ route($h->ruta) }}">{{ $h->{'title_'.App::getLocale()} }}</a></li>
     @endforeach
 </ul>
 <!-- Dropdown Structure -->
 <ul id='dropdown1' class='dropdown-content'>
-    <li><a href="/abac/setlocale/es" style="color:#eb262d;">ES</a></li>
-    <li><a href="/abac/setlocale/en" style="color:#eb262d;">EN</a></li>
+    <li><a href="/setlocale/es" style="color:#eb262d;">ES</a></li>
+    <li><a href="/setlocale/en" style="color:#eb262d;">EN</a></li>
 </ul>   
 
 <ul class="sidenav" id="mobile-demo">

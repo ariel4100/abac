@@ -152,11 +152,10 @@
                 </div>
             </li>
             @if(Auth::user()->admin_status)
-            <li class="bold"><a class="collapsible-header waves-effect waves-admin"><i class="material-icons">account_circle</i>Cliente</a>
+            <li class="bold"><a class="collapsible-header waves-effect waves-admin"><i class="material-icons">account_circle</i>Usuario</a>
                 <div class="collapsible-body">
-                    <div class=""><a href="{{route('adm.register')}}">Crear Cliente</a></div>
-                    <div class=""><a href="#!">Editar Cliente</a></div>
-                    <div class=""><a href="#!">Cargar CSV C.Materia Prima</a></div>
+                    <div class=""><a href="{{route('usuario.create')}}">Crear Usuario</a></div>
+                    <div class=""><a href="{{route('usuario.principal')}}">Editar Usuario</a></div>
                 </div>
             </li>
             @endif

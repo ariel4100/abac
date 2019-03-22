@@ -5,17 +5,17 @@
         @include('templates.error')
 
         @if(Auth::check())
-            @include('page.partials.title', ['title' =>  __('Certificado de Materia Prima') ])
+            @include('page.partials.title', ['title' =>  __('Certificate of Raw Material') ])
             <example-component></example-component>
 
         @else
-            @include('page.partials.title', ['title' =>  __('Bienvenido al Área de Clientes') ])
+            @include('page.partials.title', ['title' =>  __('Welcome to the Customer Area') ])
             <div class="row" style="margin-bottom: 50px">
                 <div class="col s12 m6 l4" style="margin-top: 25px">
                     <a href="{{ route('login') }}">
                         <div class="card" style="background-color: #E0E0E0;">
                             <div class="card-content white-text" style="height: 120px;">
-                                <p style="font-size: 24px;font-style: oblique;color: #eb262d;">Descargar Certificados de Calidad</p>
+                                <p style="font-size: 24px;font-style: oblique;color: #eb262d;">{{ __('Download Quality Certificates') }}</p>
                             </div>
                         </div>
                     </a>
@@ -24,8 +24,7 @@
                     <a href="{{ route('login') }}">
                         <div class="card" style="background-color: #E0E0E0;">
                             <div class="card-content white-text" style="height: 120px;">
-                                <p style="font-size: 24px;font-style: oblique;color: #eb262d;">Descargar Certificados
-                                    de Materia Prima</p>
+                                <p style="font-size: 24px;font-style: oblique;color: #eb262d;">{{ __('Download Certificates of Raw Material') }}</p>
                             </div>
                         </div>
                     </a>
@@ -34,7 +33,7 @@
                     <a href="{{ route('login') }}">
                         <div class="card" style="background-color: #E0E0E0;">
                             <div class="card-content white-text" style="height: 120px;">
-                                <p style="font-size: 24px;font-style: oblique;color: #eb262d;">Área de Distribuidores</p>
+                                <p style="font-size: 24px;font-style: oblique;color: #eb262d;">{{ __('Distributors Area') }}</p>
                             </div>
                         </div>
                     </a>

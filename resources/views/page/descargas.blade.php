@@ -22,7 +22,7 @@
     </div>
     <div class="three-download-logo-separator mb50"></div>
     <div class="row mb30">
-        <h4 class="rederino mb20">Catalogos</h4>
+        <h4 class="rederino mb20">{{ __('Catalogs') }}</h4>
         @foreach($catalogos as $cat)
         <div class="col l3 mb20" style="margin-left:-10px; margin-right:10px;">
             <div class="descarga flex-column-center" style="border:1px #9a9a9a solid">
@@ -48,7 +48,7 @@
         @endforeach
     </div>
     <div class="row mb30">
-        <h4 class="rederino mb20">Instrucciones de Montaje / Mantenimiento</h4>
+        <h4 class="rederino mb20">{{ __('Assembly / Maintenance instructions') }}</h4>
         @foreach($mm as $m)
         <div class="col l3 mb20" style="margin-left:-10px; margin-right:10px;">
             <div class="descarga flex-column-center" style="border:1px #9a9a9a solid">

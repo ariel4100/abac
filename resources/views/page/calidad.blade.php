@@ -1,8 +1,7 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="container">
-    @include('page.partials.title', ['title' => 'Calidad'])
+    @include('page.partials.title', ['title' => __('Quality')])
 </div>
 <div class="flex-column-center">
     <img src="{{asset('img/contenido/'.$imagenes[0]->image)}}" class="responsive-img" alt="Calidad">
@@ -30,7 +29,7 @@
                     <div class="calidad-text">
                         <a href="{{asset('files/contenido/'.$c->ficha)}}" target="_blank" style="display:flex; flex-direction:column">
                             <p class="mb0 mt0 grayerino">{{ $c->{'title_'.App::getLocale()} }}</p>
-                            <p class="mt0 mb0 grayerino">Ver Certificado</p>
+                            <p class="mt0 mb0 grayerino">{{ __('See Certificate') }}</p>
                         </a>
                     </div>
                     <div class="calidad-go">

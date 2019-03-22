@@ -37,13 +37,16 @@
         </div>
     </div>
     <div >
-        <h4 class="rederino oblique center">Principales Clientes</h4>
-        <div class="clientes-images" style="display: flex; justify-content: center; align-items: center; margin-top:40px; margin-bottom: 40px">
-            @foreach($clientes as $c)
-                <div class="cliente-img" style="display: flex; justify-content: center; align-items: center;">
-                    <img src="{{ asset('img/contenido/'.$c->image) }}" alt="{{ $c->{'title_'.App::getLocale()} }}" class="responsive-img">
-                </div>
-            @endforeach
+        <h4 class="rederino oblique center">{{ __('Main customers') }}</h4>
+        <div class="container">
+            <div class="clientes-images" style="display: flex; justify-content: center; align-items: center; margin-top:40px; margin-bottom: 40px">
+                @foreach($clientes as $c)
+
+                    <div class="cliente-img" style="display: flex; justify-content: center; align-items: center;">
+                        <img src="{{ asset('img/contenido/'.$c->image) }}" alt="img" class="responsive-img">
+                    </div>
+                @endforeach
+            </div>
         </div>
     </div>
 
@@ -51,6 +54,7 @@
 @endsection
 
 @push('scripts')
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script>
 M.Slider.init(document.querySelector('.slider'), {height: 500});
 

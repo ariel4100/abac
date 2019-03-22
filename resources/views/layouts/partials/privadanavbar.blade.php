@@ -14,13 +14,13 @@
                         </form>
                     </div>
                 @else
-                    <a href="{{route('acceso')}}" class="uppercase sub-nav-text">Acceso Clientes</a>
+                    <a href="{{route('acceso')}}" class="uppercase sub-nav-text">{{ __('Customer Access') }}</a>
                 @endif
             </li>
             <li><a href="#" class="uppercase sub-nav-text" style="padding:0">|</a></li>
-            <li><a href="{{route('novedades')}}" class="uppercase sub-nav-text">Novedades</a></li>
+            <li><a href="{{route('novedades')}}" class="uppercase sub-nav-text">{{ __('News') }}</a></li>
             <li><a href="#" class="uppercase sub-nav-text" style="padding:0">|</a></li>
-            <li><a href="{{route('contacto')}}" class="uppercase sub-nav-text" style="margin-right: 0; padding-right: 5px">Contacto</a></li>
+            <li><a href="{{route('contacto')}}" class="uppercase sub-nav-text" style="margin-right: 0; padding-right: 5px">{{ __('Contact') }}</a></li>
             <li><a href="https://www.facebook.com/pages/category/Industrial-Company/ABAC-SRL-165035077562951/" target="_blank" class="hide-on-med-and-down" style="height: 64px;"><i class="fab fa-facebook-f"></i></a></li>
             <li><a href="https://www.youtube.com/channel/UCAUMO65Z8Tcg-bj-7JXOmLw" class="hide-on-med-and-down" target="_blank" style="height: 64px;"><i class="fab fa-youtube"></i></a></li>
              <li><a href="{{ route('buscador') }}" class="hide-on-med-and-down" style="height: 64px;"><i class="fas fa-search"></i></a></li>
@@ -44,8 +44,8 @@
                     @break
                 @case('s3')
                 <li><a href="{{route('privada.index')}}" @if(\Request::is('privada')) class="activerino" @endif>{{ __('Quality Certificates') }}</a></li>
-                <li><a href="{{route('privada.materiaprima')}}" @if(\Request::is('privada/materia-prima')) class="activerino" @endif>{{ __('Certificado de Materia Prima') }}</a></li>
-                <li><a href="{{route('privada.distribuidor')}}" @if(\Request::is('privada/distribuidor')) class="activerino" @endif>{{ __('MATERIALES PARA DISTRIBUIDORES') }}</a></li>
+                <li><a href="{{route('privada.materiaprima')}}" @if(\Request::is('privada/materia-prima')) class="activerino" @endif>{{ __('Certificate of Raw Material') }}</a></li>
+                <li><a href="{{route('privada.distribuidor')}}" @if(\Request::is('privada/distribuidor')) class="activerino" @endif>{{ __('Materials for Distributors') }}</a></li>
                     @break
                 @default
                 <li><a href="{{route('privada.index')}}" @if(\Request::is('privada')) class="activerino" @endif>{{ __('Quality Certificates') }}</a></li>
@@ -70,10 +70,10 @@
         <li><a href="{{ route($h->ruta) }}">{{ $h->{'title_'.App::getLocale()} }}</a></li>
     @endforeach
 </ul>
-<!-- Dropdown Structure -->
+<!-- cambiar url /abac -->
 <ul id='dropdown1' class='dropdown-content'>
-    <li><a href="/abac/setlocale/es" style="color:#eb262d;">ES</a></li>
-    <li><a href="/abac/setlocale/en" style="color:#eb262d;">EN</a></li>
+    <li><a href="/setlocale/es" style="color:#eb262d;">ES</a></li>
+    <li><a href="/setlocale/en" style="color:#eb262d;">EN</a></li>
 </ul>   
 
 <ul class="sidenav" id="mobile-demo">

@@ -21,9 +21,10 @@
             <button class="btn waves-effect waves-light" type="submit" name="action" style="background-color: #E1131B;">{{ __('Login') }}
                 <i class="material-icons right">send</i>
             </button>
-                      <!-- Modal Trigger -->
-            <a class="waves-effect waves-light btn modal-trigger" style="background-color: #E1131B;" href="#modal1">Registrarte</a>
         </form>
+        <div class="black-text" style="margin-top: 20px; margin-bottom: 20px">
+            <a href="{{ route('register') }}" class="black-text">{{ __('Sign in') }}</a> | <a href=" " class="black-text">¿{{ __('Have you forgotten your password') }}?</a>
+        </div>
     </div>
     <!-- Modal Structure -->
     <div id="modal1" class="modal modal-fixed-footer">

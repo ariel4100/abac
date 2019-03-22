@@ -14,10 +14,10 @@
                 <div class="col s12">
                     <div class="flex" style="margin-top: 30px">
                         <div class="title">
-                            <h5 class="rederino">Solicitar Certificado</h5>
+                            <h5 class="rederino">{{ __('Request Certificate') }}</h5>
                         </div>
                     </div>
-                    <p>Complete tantos casilleros como números ubique en el producto.</p>
+                    <p>{{ __('Complete as many boxes as numbers locate in the product') }}.</p>
                 </div>
                 <form class="col m6 s12" action="{{  route('privada.calidad.store') }}"  method="post" style="margin-bottom: 50px">
                     @csrf
@@ -25,34 +25,34 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <input id="first_name" type="text" class="validate" name="numero0">
-                            <label for="first_name">Número grabado en el producto</label>
+                            <label for="first_name">{{ __('Number engraved on the product') }}</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
                             <input id="first_name1" type="text" class="validate" name="numero1">
-                            <label for="first_name1">Número grabado en el producto</label>
+                            <label for="first_name1">{{ __('Number engraved on the product') }}</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
                             <input id="first_name2" type="text" class="validate" name="numero2">
-                            <label for="first_name2">Número grabado en el producto</label>
+                            <label for="first_name2">{{ __('Number engraved on the product') }}</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
                             <input id="first_name3" type="text" class="validate" name="remito">
-                            <label for="first_name3">Número de Remito</label>
+                            <label for="first_name3">{{ __('Sub Number') }}</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
                             <input id="first_name4" type="text" class="validate" name="social">
-                            <label for="first_name4">Razon Social del Cliente</label>
+                            <label for="first_name4">{{ __('Business Name of the Client') }}</label>
                         </div>
                     </div>
-                    <button class="btn waves-effect waves-light" type="submit"  style="background-color: #E1131B;">{{ __('CERTIFICATE REQUEST') }}
+                    <button class="btn waves-effect waves-light" type="submit"  style="background-color: #E1131B;">{{ __('Request Certificate') }}
                     </button>
                 </form>
                 <div class="col m1 s12 hide-on-small-only">
@@ -64,13 +64,13 @@
             </div>
 
         @else
-            @include('page.partials.title', ['title' =>  __('Bienvenido al Área de Clientes') ])
+            @include('page.partials.title', ['title' =>  __('Welcome to the Customer Area') ])
             <div class="row" style="margin-bottom: 50px">
                 <div class="col s12 m6 l4" style="margin-top: 25px">
                     <a href="{{ route('login') }}">
                         <div class="card" style="background-color: #E0E0E0;">
                             <div class="card-content white-text" style="height: 120px;">
-                                <p style="font-size: 24px;font-style: oblique;color: #eb262d;">Descargar Certificados de Calidad</p>
+                                <p style="font-size: 24px;font-style: oblique;color: #eb262d;">{{ __('Download Quality Certificates') }}</p>
                             </div>
                         </div>
                     </a>
@@ -79,8 +79,7 @@
                     <a href="{{ route('login') }}">
                         <div class="card" style="background-color: #E0E0E0;">
                             <div class="card-content white-text" style="height: 120px;">
-                                <p style="font-size: 24px;font-style: oblique;color: #eb262d;">Descargar Certificados
-                                    de Materia Prima</p>
+                                <p style="font-size: 24px;font-style: oblique;color: #eb262d;">{{ __('Download Certificates of Raw Material') }}</p>
                             </div>
                         </div>
                     </a>
@@ -89,7 +88,7 @@
                     <a href="{{ route('login') }}">
                         <div class="card" style="background-color: #E0E0E0;">
                             <div class="card-content white-text" style="height: 120px;">
-                                <p style="font-size: 24px;font-style: oblique;color: #eb262d;">Área de Distribuidores</p>
+                                <p style="font-size: 24px;font-style: oblique;color: #eb262d;">{{ __('Distributors Area') }}</p>
                             </div>
                         </div>
                     </a>

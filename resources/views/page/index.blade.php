@@ -9,7 +9,7 @@
             <div class="col l6 m6 s12 ">
                 <div class="novedad">
                     <div class="novedad-card" style="height: 300px !important;">
-                        <h5 class="ultimas-novedades mb40">Últimas novedades</h5>
+                        <h5 class="ultimas-novedades mb40">{{ __('Latest news') }}</h5>
                         <div class="row">
                             <div class="col l5">
                                 <img src="{{asset('img//novedades/'.$n->image)}}" class="responsive-img" alt="">
@@ -36,7 +36,7 @@
         </div>
         @if($calidad)
             <div class="row center mb50 mt30">
-                <h4 class="center uppercase rederino oblique fw6 mb50">CALIDAD</h4>
+                <h4 class="center uppercase rederino oblique fw6 mb50">{{ __('Quality') }}</h4>
                 @foreach($calidad as $c)
                     <div class="col s12 m4">
                         <div class="" style=" ">
@@ -52,7 +52,7 @@
             </div>
         @endif
         <div class="row" style="margin-bottom: 5%">
-            <h4 class="center uppercase rederino oblique fw6 mb50">Productos destacados</h4>
+            <h4 class="center uppercase rederino oblique fw6 mb50">{{ __('Featured Products') }}</h4>
             <div class="row">
                 @foreach($productos as $p)
                       <a class="product-item col s12 m6 l3"  href="{{route('productos.show', $p->id)}}">
@@ -111,7 +111,7 @@
                     {!! $text->{'text_'.App::getLocale()} !!}
                 </span>
             </p>
-        <a class="waves-effect waves-light btn" href="{{route('empresa')}}" style="background-color:#eb252d;">CONOCÉ MÁS</a>
+        <a class="waves-effect waves-light btn" href="{{route('empresa')}}" style="background-color:#eb252d;">{{ __('More') }}</a>
         </div>
     </div>
 @endsection

@@ -726,7 +726,7 @@
             <div class="col s12">
                 <ul class="tabs">
                     <li class="tab col s6" class="active"><a href="#test1">ARGENTINA</a></li>
-                    <li class="tab col s6"><a href="#test2">MUNDO</a></li>
+                    <li class="tab col s6"><a href="#test2">{{ __('WORLD') }}</a></li>
                 </ul>
             </div>
         </div>
@@ -736,16 +736,18 @@
 <div class="row distribuidores">
     <div class="container">
         <div id="test1" class="col s12 mt20">
-            <div class="row">
-                <div class="input-field col m4">
+            <div class="row" >
+                <div class="col m4"></div>
+                <div class="input-field col m4 ">
                     <select class="select2" id="provincia">
 
                     </select>
                     <label>Filtro por Provincia</label>
                 </div>
-                <div class="input-field col m8">
+                <div class="col m4"></div>
+                <div class="input-field col m12">
                     @foreach($provincia as $p)
-                        <div class="col l6">
+                        <div class="col l4">
                             <div class="car d" style="padding: 10px; background-color:white;  ">
                                 <h6 class="rederino"><i class="fas fa-map-marker-alt" style="font-size: 25px"></i> ABAC CASA CENTRAL</h6>
 
@@ -793,7 +795,7 @@
 <!---<div class="container"  >
             <div class="row">
                <div class="col l3 center">
-                    <img src="{{ asset('img/contenido/'.$imagen->image) }}" class="responsive-img" alt="">
+                    <img src=" " class="responsive-img" alt="">
                 </div>
                 <div class="col l9">
                     <div class="row">
@@ -818,10 +820,13 @@
 
 @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.1/js/i18n/es.js"></script>
 <script>
     // In your Javascript (external .js resource or <script> tag)
     $(document).ready(function() {
-        $('.select2').select2();
+        $('.select2').select2({
+            language: "es"
+        });
         window.provincia = ['Ciudad Autónoma de Buenos Aires (CABA)','Buenos Aires','Catamarca','Córdoba','Corrientes','Entre Ríos','Jujuy','Mendoza','La Rioja','Salta','San Juan','San Luis','Santa Fe','Santiago del Estero','Tucumán','Chaco','Chubut','Formosa','Misiones','Neuquén','La Pampa','Río Negro','Santa Cruz','Tierra del Fuego'];
             html = "<option disabled selected>Buscar... </option>";
             window.provincia.forEach(function (e) {

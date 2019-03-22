@@ -15,14 +15,14 @@
                 </div>
             </div>
             <div class="col l3 m6 s12">
-                <h6 class="rederino mb10 uppercase mt20">Certificaciones</h6>
+                <h6 class="rederino mb10 uppercase mt20">{{ __('Certifications') }}</h6>
                 <div class="flex">
                     <img src="{{asset('img/contenido/'.$logos[8]->image)}}" class="responsive-img" style="margin-right:20px">
                     <img src="{{asset('img/contenido/'.$logos[7]->image)}}" class="responsive-img" alt="">
                 </div>
             </div>
             <div class="col l3 m6 s12">
-                <h6 class="rederino uppercase mt20">MIEMBRO DE</h6>
+                <h6 class="rederino uppercase mt20">{{ __('Contact') }}</h6>
                 <div class="flex" style="justify-content:space-between; align-items:center">
                         <img src="{{asset('img/contenido/'.$logos[5]->image)}}" class="responsive-img mt20" alt="">
                         <img src="{{asset('img/contenido/'.$logos[6]->image)}}" class="responsive-img mt20" alt="">
