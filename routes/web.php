@@ -51,6 +51,7 @@ Route::get('/download/{file}', function($file) {
   return response()->download('files/contenido/'.$file, $file);
 })->name('downloadFile');
 
+Route::get('pdf', 'PrivadaController@pdf')->name('pdf');
 
 Route::get('descarga/download/{file}', function($file) {
     return response()->download('files/descarga/'.$file, $file);

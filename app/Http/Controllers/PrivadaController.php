@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Csv;
 use App\Descarga;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 
 class PrivadaController extends Controller
@@ -78,6 +79,12 @@ class PrivadaController extends Controller
             return response()->json(['alert' => 'Partida de materia prima incorrecta']);
         }
     }
-
+    public function pdf(Request $request)
+    {
+        $data = Csv::where('materia','=',$request->materia)
+            ->where('partida',$request->partida)->first();
+        $pdf = PDF::loadView('privada.pdf', ['data' => $data]);
+        return $pdf->stream();
+    }
 
 }

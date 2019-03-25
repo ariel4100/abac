@@ -55,6 +55,7 @@
     "Distributors Area":"Área de Distribuidores",
     "Sign up":"Registrate",
     "Sign in":"Registrarse",
+
     "Have you forgotten your password":"Has olvidado tu contraseña",
     "Quality Certificates":"Certificados de Calidad",
     "Request Certificate":"Solicitar Certificado",
@@ -63,6 +64,19 @@
     "Sub Number":"Número de Remito",
     "Business Name of the Client":"Razón Social del Cliente",
     "Materials for Distributors":"Materiales para Distribuidores",
-    "The ABAC product quality certificate, the results of the Traceability of materials table, the starting number of each component and the entry into the cell. Press the SEARCH button and the starting numbers of the related raw materials.":"Del Certificado de Calidad del producto ABAC, extraer del cuadro Rastreabilidad de Materiales, el número de partida de cada componente e ingresarlo en la celda. Presione el botón BUSCAR y obtendrá los números de partida de las materias primas relacionadas."
+    "The ABAC product quality certificate, the results of the Traceability of materials table, the starting number of each component and the entry into the cell. Press the SEARCH button and the starting numbers of the related raw materials.":"Del Certificado de Calidad del producto ABAC, extraer del cuadro Rastreabilidad de Materiales, el número de partida de cada componente e ingresarlo en la celda. Presione el botón BUSCAR y obtendrá los números de partida de las materias primas relacionadas.",
+    "Certificate of Raw Material":"Certificado de Materia Prima",
+    "Enter Component item":"Ingrese partida de Componente",
+    "Enter Raw Material Item":"Ingrese Partida de Materia Prima",
+    "Print":"IMPRIMIR",
+    "Raw Material Item":"Partida de Materia Prima",
+    "departure":"Partida",
+    "component":"Componente",
+    "description":"Descripcion",
 
+
+    "Search":"BUSCAR",
+    "Repeat these steps for all required components":"Repita estos pasos para todos los componentes requeridos",
+    "Print the Certificate of Raw Materials":"Imprimir el Certificado de Materias Primas",
+    "Print the Raw Material Traceability Record (optional).":"Imprima el Registro de Rastreabilidad de Materia Prima (opcional)."
 }

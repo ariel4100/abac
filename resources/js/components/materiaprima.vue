@@ -5,9 +5,7 @@
                 <img src="/img/number1.png" class="responsive-img" alt="">
             </div>
             <div class="">
-                <p>
-                    Del Certificado de Calidad del producto ABAC, extraer del cuadro Rastreabilidad de Materiales, el número de partida de cada componente e ingresarlo en la celda. Presione el botón BUSCAR y obtendrá los números de partida de las materias primas relacionadas.
-                </p>
+                <p>{{ title.title1 }}</p>
             </div>
         </div>
         <div class="row">
@@ -15,20 +13,20 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="first_name" type="text" class="validate" v-model="partidacomponente">
-                        <label for="first_name">Ingrese partida de Componente</label>
+                        <label for="first_name">{{ input.input1 }}</label>
                     </div>
                 </div>
-                <a class="btn waves-effect waves-light" @click="buscarPartida()" style="background-color: #E1131B;">BUSCAR</a>
+                <a class="btn waves-effect waves-light" @click="buscarPartida()" style="background-color: #E1131B;">  {{ input.boton1 }}</a>
             </div>
             <div class="col s12"  v-if="paso2">
                 <div class="row">
                     <div class="col s12 m6">
                         <div class="card flecha" style="background-color: white; border: 1px solid red;">
                             <div class="card-content  ">
-                                <p><b>Partida de Materia Prima</b></p>
-                                <p><span style="color: red">PARTIDA:</span> {{ materiaPrima.materia }}</p>
-                                <p><span style="color: red">COMPONENTE:</span> {{ materiaPrima.articulo }}</p>
-                                <p><span style="color: red">DESCRIPCION:</span> {{ materiaPrima.descripcion }}</p>
+                                <p><b>{{ input.partidat }}</b></p>
+                                <p><span style="color: red">  {{ title.partida.toUpperCase() }}:</span> {{ materiaPrima.materia }}</p>
+                                <p><span style="color: red">  {{ title.componente.toUpperCase() }}:</span> {{ materiaPrima.articulo }}</p>
+                                <p><span style="color: red">  {{ title.descripcion.toUpperCase() }}:</span> {{ materiaPrima.descripcion }}</p>
                             </div>
                         </div>
                     </div>
@@ -39,7 +37,7 @@
                     </div>
                     <div class="">
                         <p>
-                            Imprima el Certificado de Materias Primas
+                            {{ title.title2 }}
                         </p>
                     </div>
                 </div>
@@ -48,7 +46,7 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <input id="first_name1" type="text" class="validate" v-model="materiaprima" v-on:keyup.enter="buscarPartidaMateriaPrima">
-                                <label for="first_name1">Ingrese Partida de Materia Prima</label>
+                                <label for="first_name1">{{ input.input2 }}</label>
                             </div>
                         </div>
                     </div>
@@ -61,7 +59,7 @@
                                 <div class="col s12 m6">
                                     <div class="card flecha" style="background-color: white; border: 1px solid red; color: black">
                                         <div class="card-content  " style="padding: 15px;">
-                                            <h6>Ver Certificado {{ archivo.materia }}</h6>
+                                            <h6>{{ title.ver }} {{ archivo.materia }}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -74,16 +72,16 @@
                         </div>
                         <div class="">
                             <p>
-                                Imprima el Registro de Rastreabilidad de Materia Prima (opcional).
+                                {{ title.title3 }}
                             </p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col s6" style="margin: 30px">
-                            <a class="btn waves-effect waves-light" @click="descargar()"  style="background-color: #E1131B;">IMPRIMIR</a>
+                            <a class="btn waves-effect waves-light" @click="descargar()"  style="background-color: #E1131B;">{{ input.boton2 }}</a>
                         </div>
                     </div>
-                    <p>Repita estos pasos para todos los componentes requeridos</p>
+                    <p>{{ title.last }}</p>
                 </div>
 
         </div>
@@ -93,6 +91,7 @@
 <script>
     import axios from 'axios';
     export default {
+        props: ['title','input'],
         data() {
             return {
                 paso2: false,
@@ -101,6 +100,7 @@
                 partidacomponente: '',
                 materiaprima: '',
                 archivo: [],
+                url : 'http://localhost/osole/abac/public/'
             }
         },
         created(){
@@ -109,8 +109,8 @@
         },
         methods: {
             buscarPartida() {
-
-                axios.post('/api/buscar', {partidacomponente: this.partidacomponente}).then(res => {
+                console.log(window.location);
+                axios.post(this.url+'/api/buscar', {partidacomponente: this.partidacomponente}).then(res => {
                     console.log(res.data);
                     this.materiaPrima = res.data;
                     this.paso2 = res.data.alert ? false : true;
@@ -121,7 +121,7 @@
             },
             buscarPartidaMateriaPrima() {
 
-                axios.post('/api/materia', {materiaprima: this.materiaprima,partidacomponente: this.partidacomponente}).then(res => {
+                axios.post(this.url+'/api/materia', {materiaprima: this.materiaprima,partidacomponente: this.partidacomponente}).then(res => {
                     console.log(res.data);
                     this.archivo = res.data;
                     this.paso3 = res.data.alert ? false : true;
@@ -130,12 +130,14 @@
                 });
             },
             descargar() {
+                axios.get(this.url+'/api/descargar', {
+                    params:   this.archivo
 
-                axios.get('/api/descargar/' + this.archivo.materia+'.pdf').then(res => {
+                }).then(res => {
                     let url = window.URL.createObjectURL(new Blob([res.data]));
                     let link = document.createElement('a');
                     link.href = url;
-                    link.setAttribute('download', this.archivo.materia+'.pdf'); //or any other extension
+                    link.setAttribute('download','_blank'); //or any other extension
                     document.body.appendChild(link);
                     link.click();
                     /*this.archivo = res.data;

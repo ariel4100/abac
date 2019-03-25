@@ -45,12 +45,14 @@ class FrontEndController extends Controller
         $videos = Contenido::seccionTipo('videos', 'video')->orderBy('order')->get();
         return view('page.videos', compact('videos'));
     }
-    public function distribuidores() {
+    public function distribuidores(Request $request) {
+        $filtro = $request->get('provincia');
+        $pro = ['Ciudad Autónoma de Buenos Aires (CABA)','Buenos Aires','Catamarca','Córdoba','Corrientes','Entre Ríos','Jujuy','Mendoza','La Rioja','Salta','San Juan','San Luis','Santa Fe','Santiago del Estero','Tucumán','Chaco','Chubut','Formosa','Misiones','Neuquén','La Pampa','Río Negro','Santa Cruz','Tierra del Fuego'];
         $imagen = Contenido::seccionTipo('distribuidores', 'imagen')->first();
         $distribuidores = Contenido::seccionTipo('distribuidores', 'texto')->orderBy('order')->get();
-        $provincia = Contenido::where('provincia','!=',null)->orderBy('order')->get();
+        $provincia = Contenido::where('provincia','!=',null)->where('provincia','LIKE',"%$filtro%")->orderBy('order')->get();
         $mundo = Contenido::where('provincia',null)->where('section','distribuidores')->orderBy('order')->get();
-        return view('page.distribuidores', compact('imagen','distribuidores','provincia','mundo'));
+        return view('page.distribuidores', compact('imagen','distribuidores','provincia','mundo','pro'));
     }
     public function herramientas() {
         $herramientas = Contenido::seccionTipo('herramientas', 'texto')->orderBy('order')->get();
@@ -79,5 +81,21 @@ class FrontEndController extends Controller
     public function resultado() {
 
         return view('page.buscardor.buscar', compact('herramientas'));
+    }
+    //FILTRAR POR PROVINCIA
+    public function filtrar(Request $request)
+    {
+
+        $pro = ['Ciudad Autónoma de Buenos Aires (CABA)','Buenos Aires','Catamarca','Córdoba','Corrientes','Entre Ríos','Jujuy','Mendoza','La Rioja','Salta','San Juan','San Luis','Santa Fe','Santiago del Estero','Tucumán','Chaco','Chubut','Formosa','Misiones','Neuquén','La Pampa','Río Negro','Santa Cruz','Tierra del Fuego'];
+        $imagen = Contenido::seccionTipo('distribuidores', 'imagen')->first();
+        $distribuidores = Contenido::seccionTipo('distribuidores', 'texto')->orderBy('order')->get();
+        if ($request->provincia)
+        {
+            $provincia = Contenido::where('provincia',$request->provincia)->orderBy('order')->get();
+        }else{
+            return back();
+        }
+        $mundo = Contenido::where('provincia',null)->where('section','distribuidores')->orderBy('order')->get();
+        return view('page.distribuidores', compact('imagen','distribuidores','provincia','mundo','pro'));
     }
 }

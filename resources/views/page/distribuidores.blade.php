@@ -718,6 +718,29 @@
             font-size: 0.8rem;
         }
     </style>
+    <style>
+        .buscar {
+            width: 300px;
+        }
+        .centro{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        @media only screen and (max-width: 900px) {
+            .buscar {
+                width: auto;
+            }
+            .row .col {
+                float: unset;
+            }
+            .centro{
+                display: unset;
+                justify-content: unset;
+                align-items: unset;
+            }
+        }
+    </style>
 @endpush
 @section('content')
 <div class="container">
@@ -737,19 +760,24 @@
     <div class="container">
         <div id="test1" class="col s12 mt20">
             <div class="row" >
-                <div class="col m4"></div>
-                <div class="input-field col m4 ">
-                    <select class="select2" id="provincia">
-
-                    </select>
-                    <label>Filtro por Provincia</label>
-                </div>
-                <div class="col m4"></div>
+                <div class="col m3"></div>
+                <form action="{{ route('distribuidores') }}" method="GET" class="col m6 centro" >
+                    <div class="input-field buscar">
+                        <select class="select2" name="provincia">
+                            <option value="1" disabled="disabled" selected> Buscar Provincia...</option>
+                            @foreach($pro as $p)
+                                <option value="{{ $p }}">{{ $p }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <button type="submit" class="waves-effect btn-small right" style="margin: 5px;">Buscar</button>
+                </form>
+                <div class="col m3"></div>
                 <div class="input-field col m12">
                     @foreach($provincia as $p)
                         <div class="col l4">
                             <div class="car d" style="padding: 10px; background-color:white;  ">
-                                <h6 class="rederino"><i class="fas fa-map-marker-alt" style="font-size: 25px"></i> ABAC CASA CENTRAL</h6>
+                                <h6 class="rederino"><i class="fas fa-map-marker-alt" style="font-size: 25px"></i>{{ $p->provincia }}</h6>
 
                                 <hr style="background-color: #212121">
                                 <p style="color:black">
@@ -827,23 +855,18 @@
         $('.select2').select2({
             language: "es"
         });
-        window.provincia = ['Ciudad Autónoma de Buenos Aires (CABA)','Buenos Aires','Catamarca','Córdoba','Corrientes','Entre Ríos','Jujuy','Mendoza','La Rioja','Salta','San Juan','San Luis','Santa Fe','Santiago del Estero','Tucumán','Chaco','Chubut','Formosa','Misiones','Neuquén','La Pampa','Río Negro','Santa Cruz','Tierra del Fuego'];
+        /*window.provincia = ['Ciudad Autónoma de Buenos Aires (CABA)','Buenos Aires','Catamarca','Córdoba','Corrientes','Entre Ríos','Jujuy','Mendoza','La Rioja','Salta','San Juan','San Luis','Santa Fe','Santiago del Estero','Tucumán','Chaco','Chubut','Formosa','Misiones','Neuquén','La Pampa','Río Negro','Santa Cruz','Tierra del Fuego'];
             html = "<option disabled selected>Buscar... </option>";
             window.provincia.forEach(function (e) {
                 html += `<option>${e}</option>`;
             });
-            $("#provincia").html(html);
-            $('select').formSelect();
+            //$("#provincia").html(html);
+            $('select').formSelect();*/
 
-        $("#card").on("change", function () {
-            if ($(this).val() == 'arg')
+        $("#provincia").on("change", function () {
+            if ($(this).val())
             {
-                html = "";
-                window.provincia.forEach(function (e) {
-                    html += ` `;
-                });
-                $("#provincia").html(html);
-
+                alert($(this).val());
             }
         })
 

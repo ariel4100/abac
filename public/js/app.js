@@ -1855,10 +1855,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['title', 'input'],
   data: function data() {
     return {
       paso2: false,
@@ -1866,7 +1865,8 @@ __webpack_require__.r(__webpack_exports__);
       materiaPrima: [],
       partidacomponente: '',
       materiaprima: '',
-      archivo: []
+      archivo: [],
+      url: 'http://localhost/osole/abac/public/'
     };
   },
   created: function created() {//this.saveData();
@@ -1877,7 +1877,8 @@ __webpack_require__.r(__webpack_exports__);
     buscarPartida: function buscarPartida() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/buscar', {
+      console.log(window.location);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url + '/api/buscar', {
         partidacomponente: this.partidacomponente
       }).then(function (res) {
         console.log(res.data);
@@ -1891,7 +1892,7 @@ __webpack_require__.r(__webpack_exports__);
     buscarPartidaMateriaPrima: function buscarPartidaMateriaPrima() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/materia', {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url + '/api/materia', {
         materiaprima: this.materiaprima,
         partidacomponente: this.partidacomponente
       }).then(function (res) {
@@ -1903,13 +1904,13 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     descargar: function descargar() {
-      var _this3 = this;
-
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/descargar/' + this.archivo.materia + '.pdf').then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.url + '/api/descargar', {
+        params: this.archivo
+      }).then(function (res) {
         var url = window.URL.createObjectURL(new Blob([res.data]));
         var link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', _this3.archivo.materia + '.pdf'); //or any other extension
+        link.setAttribute('download', '_blank'); //or any other extension
 
         document.body.appendChild(link);
         link.click();
@@ -33167,7 +33168,22 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", {}, [
-    _vm._m(0),
+    _c(
+      "div",
+      {
+        staticClass: "row",
+        staticStyle: {
+          display: "flex",
+          "align-items": "center",
+          "margin-top": "30px"
+        }
+      },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", {}, [_c("p", [_vm._v(_vm._s(_vm.title.title1))])])
+      ]
+    ),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
@@ -33199,7 +33215,7 @@ var render = function() {
               }),
               _vm._v(" "),
               _c("label", { attrs: { for: "first_name" } }, [
-                _vm._v("Ingrese partida de Componente")
+                _vm._v(_vm._s(_vm.input.input1))
               ])
             ])
           ]),
@@ -33215,7 +33231,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("BUSCAR")]
+            [_vm._v("  " + _vm._s(_vm.input.boton1))]
           )
         ]
       ),
@@ -33235,25 +33251,35 @@ var render = function() {
                   },
                   [
                     _c("div", { staticClass: "card-content  " }, [
-                      _vm._m(1),
+                      _c("p", [_c("b", [_vm._v(_vm._s(_vm.input.partidat))])]),
                       _vm._v(" "),
                       _c("p", [
                         _c("span", { staticStyle: { color: "red" } }, [
-                          _vm._v("PARTIDA:")
+                          _vm._v(
+                            "  " + _vm._s(_vm.title.partida.toUpperCase()) + ":"
+                          )
                         ]),
                         _vm._v(" " + _vm._s(_vm.materiaPrima.materia))
                       ]),
                       _vm._v(" "),
                       _c("p", [
                         _c("span", { staticStyle: { color: "red" } }, [
-                          _vm._v("COMPONENTE:")
+                          _vm._v(
+                            "  " +
+                              _vm._s(_vm.title.componente.toUpperCase()) +
+                              ":"
+                          )
                         ]),
                         _vm._v(" " + _vm._s(_vm.materiaPrima.articulo))
                       ]),
                       _vm._v(" "),
                       _c("p", [
                         _c("span", { staticStyle: { color: "red" } }, [
-                          _vm._v("DESCRIPCION:")
+                          _vm._v(
+                            "  " +
+                              _vm._s(_vm.title.descripcion.toUpperCase()) +
+                              ":"
+                          )
                         ]),
                         _vm._v(" " + _vm._s(_vm.materiaPrima.descripcion))
                       ])
@@ -33263,7 +33289,30 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(2),
+            _c(
+              "div",
+              {
+                staticClass: "row",
+                staticStyle: {
+                  display: "flex",
+                  "align-items": "center",
+                  "margin-top": "20px"
+                }
+              },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("div", {}, [
+                  _c("p", [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.title.title2) +
+                        "\n                    "
+                    )
+                  ])
+                ])
+              ]
+            ),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
               _c(
@@ -33313,7 +33362,7 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("label", { attrs: { for: "first_name1" } }, [
-                        _vm._v("Ingrese Partida de Materia Prima")
+                        _vm._v(_vm._s(_vm.input.input2))
                       ])
                     ])
                   ])
@@ -33349,7 +33398,9 @@ var render = function() {
                           [
                             _c("h6", [
                               _vm._v(
-                                "Ver Certificado " + _vm._s(_vm.archivo.materia)
+                                _vm._s(_vm.title.ver) +
+                                  " " +
+                                  _vm._s(_vm.archivo.materia)
                               )
                             ])
                           ]
@@ -33361,7 +33412,30 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(3),
+            _c(
+              "div",
+              {
+                staticClass: "row",
+                staticStyle: {
+                  display: "flex",
+                  "align-items": "center",
+                  "margin-top": "30px"
+                }
+              },
+              [
+                _vm._m(2),
+                _vm._v(" "),
+                _c("div", {}, [
+                  _c("p", [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.title.title3) +
+                        "\n                        "
+                    )
+                  ])
+                ])
+              ]
+            ),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
               _c(
@@ -33379,15 +33453,13 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("IMPRIMIR")]
+                    [_vm._v(_vm._s(_vm.input.boton2))]
                   )
                 ]
               )
             ]),
             _vm._v(" "),
-            _c("p", [
-              _vm._v("Repita estos pasos para todos los componentes requeridos")
-            ])
+            _c("p", [_vm._v(_vm._s(_vm.title.last))])
           ])
         : _vm._e()
     ])
@@ -33400,29 +33472,12 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "div",
-      {
-        staticClass: "row",
-        staticStyle: {
-          display: "flex",
-          "align-items": "center",
-          "margin-top": "30px"
-        }
-      },
+      { staticStyle: { width: "100px", "margin-right": "20px" } },
       [
-        _c("div", { staticStyle: { width: "100px", "margin-right": "20px" } }, [
-          _c("img", {
-            staticClass: "responsive-img",
-            attrs: { src: "/img/number1.png", alt: "" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", {}, [
-          _c("p", [
-            _vm._v(
-              "\n                Del Certificado de Calidad del producto ABAC, extraer del cuadro Rastreabilidad de Materiales, el número de partida de cada componente e ingresarlo en la celda. Presione el botón BUSCAR y obtendrá los números de partida de las materias primas relacionadas.\n            "
-            )
-          ])
-        ])
+        _c("img", {
+          staticClass: "responsive-img",
+          attrs: { src: "/img/number1.png", alt: "" }
+        })
       ]
     )
   },
@@ -33430,71 +33485,23 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", [_c("b", [_vm._v("Partida de Materia Prima")])])
+    return _c("div", { staticStyle: { "margin-right": "20px" } }, [
+      _c("img", {
+        staticClass: "responsive-img",
+        attrs: { src: "/img/number2.png", alt: "" }
+      })
+    ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "row",
-        staticStyle: {
-          display: "flex",
-          "align-items": "center",
-          "margin-top": "20px"
-        }
-      },
-      [
-        _c("div", { staticStyle: { "margin-right": "20px" } }, [
-          _c("img", {
-            staticClass: "responsive-img",
-            attrs: { src: "/img/number2.png", alt: "" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", {}, [
-          _c("p", [
-            _vm._v(
-              "\n                        Imprima el Certificado de Materias Primas\n                    "
-            )
-          ])
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "row",
-        staticStyle: {
-          display: "flex",
-          "align-items": "center",
-          "margin-top": "30px"
-        }
-      },
-      [
-        _c("div", { staticStyle: { "margin-right": "20px" } }, [
-          _c("img", {
-            staticClass: "responsive-img",
-            attrs: { src: "/img/number3.png", alt: "" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", {}, [
-          _c("p", [
-            _vm._v(
-              "\n                            Imprima el Registro de Rastreabilidad de Materia Prima (opcional).\n                        "
-            )
-          ])
-        ])
-      ]
-    )
+    return _c("div", { staticStyle: { "margin-right": "20px" } }, [
+      _c("img", {
+        staticClass: "responsive-img",
+        attrs: { src: "/img/number3.png", alt: "" }
+      })
+    ])
   }
 ]
 render._withStripped = true
@@ -45820,8 +45827,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\ariel\abac3\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\ariel\abac3\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\osole\abac\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\osole\abac\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
