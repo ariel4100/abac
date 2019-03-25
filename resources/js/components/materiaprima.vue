@@ -100,7 +100,7 @@
                 partidacomponente: '',
                 materiaprima: '',
                 archivo: [],
-                url : 'http://localhost/osole/abac/public/'
+                url : 'http://localhost/ariel/abac3/public/'
             }
         },
         created(){
@@ -130,14 +130,18 @@
                 });
             },
             descargar() {
+                console.log('aca');
                 axios.get(this.url+'/api/descargar', {
                     params:   this.archivo
 
                 }).then(res => {
+
+                    //$scope.content = $sce.trustAsResourceUrl(fileURL);
                     let url = window.URL.createObjectURL(new Blob([res.data]));
+                    console.log(url);
                     let link = document.createElement('a');
                     link.href = url;
-                    link.setAttribute('download','_blank'); //or any other extension
+                    link.setAttribute('target','_blank'); //or any other extension
                     document.body.appendChild(link);
                     link.click();
                     /*this.archivo = res.data;

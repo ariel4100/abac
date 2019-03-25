@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('liquido','adm\CalculoController@liquido');
+Route::get('gas','adm\CalculoController@gas');/*
 Route::get('descargar','PrivadaController@pdf');/*
 Route::get('descargar/{file}',function ($file) {
     return response()->download("materiaprima/$file");

@@ -61,6 +61,7 @@
                     <div class="collapsible-body">
                             <div class=""><a href="{{route('contenido.create', ['seccion' => 'herramientas', 'tipo' => 'texto'])}}">Crear Contenido</a></div>
                             <div class=""><a href="{{route('contenido.index', ['seccion' => 'herramientas', 'tipo' => 'texto'])}}">Editar Contenido</a></div>
+                            <div class=""><a href="{{route('calculo.index')}}">Editar Calculo CV</a></div>
                     </div>
                 </li>
 

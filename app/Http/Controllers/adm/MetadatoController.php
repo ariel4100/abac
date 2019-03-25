@@ -32,6 +32,5 @@ class MetadatoController extends Controller
             return redirect('adm/metadatos')->with('alert', "Registro actualizado exitósamente" );
         else
             return redirect('adm/metadatos')->with('errors', "Ocurrió un error al intentar actualizar el registro" );
-
     }
 }

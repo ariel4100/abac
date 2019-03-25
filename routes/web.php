@@ -159,10 +159,11 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'adm'], function () {
         Route::post('ver/calidad/cargar', ['uses' => 'adm\CalidadController@store', 'as' => '.calidad.store']);
         Route::get('ver/calidad/editar/{id}', ['uses' => 'adm\CalidadController@edit', 'as' => '.calidad.edit']);
         Route::put('ver/calidad/actualizar/{id}', ['uses' => 'adm\CalidadController@update', 'as' => '.calidad.update']);
-        Route::get('eliminar/calidad//{id}', ['uses' => 'adm\CalidadController@eliminar', 'as' => '.calidad.eliminar']);
+        Route::get('eliminar/calidad/{id}', ['uses' => 'adm\CalidadController@eliminar', 'as' => '.calidad.eliminar']);
       });
     //Ruta para la gestión de metadatos
     Route::resource('metadatos', 'adm\MetadatoController');
+    Route::resource('calculo', 'adm\CalculoController');
 
     //ZONA PRIVADA ADM
     Route::group(['prefix' => 'usuario', 'as' => 'usuario'], function() {
@@ -199,3 +200,4 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'adm'], function () {
       Route::post('privada/register', 'Auth\Admin\RegisterController@register');
 
 });
+Route::get('pdf','PrivadaController@pdf');

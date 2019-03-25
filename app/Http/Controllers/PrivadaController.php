@@ -7,6 +7,7 @@ use App\Descarga;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 
+
 class PrivadaController extends Controller
 {
     public function index()
@@ -81,10 +82,13 @@ class PrivadaController extends Controller
     }
     public function pdf(Request $request)
     {
-        $data = Csv::where('materia','=',$request->materia)
-            ->where('partida',$request->partida)->first();
+        $data = Csv::find(3);
+        /*$data = Csv::where('materia','=',$request->materia)
+            ->where('partida',$request->partida)->first();*/
         $pdf = PDF::loadView('privada.pdf', ['data' => $data]);
-        return $pdf->stream();
+        //$pdf->Output();
+        //return $pdf->stream('hola.pdf',array('Attachment'=> true));
+        return $pdf->download();
     }
 
 }
