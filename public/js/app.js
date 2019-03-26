@@ -1911,24 +1911,99 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      // arrays para completar los campos select
+      temperatura: {
+        farenheit: 'ºFarenheit',
+        celcius: 'ºCelcius',
+        kelvin: 'ºkelvin'
+      },
+      presion: {
+        psi: 'PSI',
+        bar: 'Bar',
+        mpa: 'MPa',
+        kpa: 'KPa',
+        kgcm: 'Kg/cm^2'
+      },
+      indicecaudalliquido: {
+        gpm: 'Gpm',
+        m3h: 'm^3/h',
+        lh: 'l/h',
+        lm: 'l/m'
+      },
+      indicecaudalgas: {
+        scfm: 'SCFM',
+        nlh: 'Nl/h',
+        nm3h: 'Nm^3/h',
+        nlm: 'Nl/m'
+      },
+      //selected para obtener lo seleccionado y calcular
+      selectedp1: '',
+      selectedp2: '',
+      selectedtemp: '',
+      selectedicaudal: '',
+      selectedicaudalgas: '',
       selectedliquido: '',
       selectedgas: '',
-      tipogas: [],
-      tipoliquido: [],
+      //tipos
       tipo1: 'cv',
       tipo2: 'liquido',
+      //obtenido por api
+      tipogas: [],
+      tipoliquido: [],
       calculo: {
         p1: '',
         p2: '',
         temp: '',
-        peso: '',
-        indicecaudal: ''
-      }
+        pesoliquido: '',
+        pesogas: '',
+        indicecaudal: '',
+        indicecv: '',
+        indicecvgas: '',
+        indicecaudalgas: ''
+      },
+      // variables de cv
+      caudaliquido: 0,
+      cvliquido: 0,
+      caudalgas: 0,
+      cvgas: 0,
+      resultado: 0,
+      temp: 0
     };
   },
   created: function created() {
@@ -1940,8 +2015,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/gas').then(function (res) {
-        _this.tipogas = res.data;
-        console.log(res.data);
+        _this.tipogas = res.data; //console.log(res.data);
+
         var self = _this;
         Vue.nextTick(function () {
           $(self.$el).find('select').formSelect();
@@ -1954,8 +2029,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/liquido').then(function (res) {
-        _this2.tipoliquido = res.data;
-        console.log(res.data);
+        _this2.tipoliquido = res.data; //console.log(res.data);
+
         var self = _this2;
         Vue.nextTick(function () {
           $(self.$el).find('select').formSelect();
@@ -1964,12 +2039,219 @@ __webpack_require__.r(__webpack_exports__);
         console.log(e);
       });
     },
-    cv: function cv() {
-      if (this.tipo1 == 'cv') {
-        console.log('fdsfs');
-        $('select').formSelect();
+    // CALCULO DEL CV
+    calcv: function calcv(data) {
+      console.log(data); //Temperatura: Kelvin  = (77 F° - 32°)*5/9 + 273,15 = 298,15 K°;
+
+      if (this.selectedtemp == 'ºFarenheit') {
+        //PASANDO A KELVIN
+        //ºF = (ºC * 9/5) +32   Kelvin = Cº + 273.15
+        this.temp = (parseInt(data.temp) - 32) * 5 / 9 + 273.15;
       }
-    }
+
+      if (this.selectedtemp == 'ºCelcius') {
+        //PASANDO A KELVIN
+        this.temp = parseInt(data.temp) + 273.15;
+      }
+
+      if (this.selectedtemp == 'ºkelvin') {
+        //PASANDO A KELVIN
+        this.temp = parseInt(data.temp);
+      } //FLUIDO DES SISTEMA PESO
+
+
+      var peso = parseFloat(data.pesoliquido); // obtengo de fluidos del sistema del peso su valor
+
+      var pesogas = parseFloat(data.pesogas); // obtengo de fluidos del sistema del peso su valor
+      //CONDICIONES DEL INDICE CAUDAL LIQUIDO
+
+      if (this.selectedicaudal == 'Gpm') {
+        this.caudaliquido = parseFloat(data.indicecaudal) / 0.2119; //dividir para pasar a litro por minuto (l/m)
+
+        this.cvliquido = parseFloat(data.indicecv) / 0.2119; //console.log(this.caudaliquido.toFixed(2));
+      }
+
+      if (this.selectedicaudal == 'l/h') {
+        this.caudaliquido = parseFloat(data.indicecaudal) / 60; //dividir para pasar a litro por minuto (l/m)
+
+        this.cvliquido = parseFloat(data.indicecv) / 60;
+      }
+
+      if (this.selectedicaudal == 'l/m') {
+        this.caudaliquido = parseFloat(data.indicecaudal); //dividir para pasar a litro por minuto (l/m)
+
+        this.cvliquido = parseFloat(data.indicecv);
+      }
+
+      if (this.selectedicaudal == 'm^3/h') {
+        this.caudaliquido = parseFloat(data.indicecaudal) / 0.06; //dividir para pasar a litro por minuto (l/m)
+
+        this.cvliquido = parseFloat(data.indicecv) / 0.06;
+      } //CONDICIONES DEL INDICE CAUDAL GAS
+
+
+      if (this.selectedicaudalgas == 'SCFM') {
+        this.caudalgas = parseFloat(data.indicecaudalgas) / 0.03531; //dividir para pasar a litro por minuto (l/m)
+
+        this.cvgas = parseFloat(data.indicecvgas) / 0.03531; //console.log(this.caudaliquido.toFixed(2));
+      }
+
+      if (this.selectedicaudalgas == 'Nl/h') {
+        this.caudalgas = parseFloat(data.indicecaudalgas) / 60; //dividir para pasar a litro por minuto (l/m)
+
+        this.cvgas = parseFloat(data.indicecvgas) / 60;
+      }
+
+      if (this.selectedicaudalgas == 'Nm^3/h') {
+        this.caudalgas = parseFloat(data.indicecaudalgas) / 0.06; //dividir para pasar a litro por minuto (l/m)
+
+        this.cvgas = parseFloat(data.indicecvgas) / 0.06;
+      }
+
+      if (this.selectedicaudalgas == 'Nl/m') {
+        this.caudalgas = parseFloat(data.indicecaudalgas); //dividir para pasar a litro por minuto (l/m)
+
+        this.cvgas = parseFloat(data.indicecvgas);
+      } // CONDICIONES EN PRESION P1 Y P2
+
+
+      if (this.selectedp1 == 'Bar' && this.selectedp2 == 'Bar') {
+        //PASAR A BAR
+        var p1 = parseInt(data.p1); //dividir para pasar a bar
+
+        var p2 = parseInt(data.p2); //dividir para pasar a bar
+
+        var ap = p1 - p2; //DOS IF PARA LOS DE GAS CV Y CAUDAL
+
+        if (this.tipo1 == 'caudal' && this.tipo2 == 'gas') {
+          console.log('si es caudal y gas Y Bar el res es igual a: '); //PARA HALLAR EL Q
+
+          console.log('p1: ' + p1);
+          console.log('peso: ' + pesogas);
+          console.log('temp: ' + this.temp);
+          var a = Math.sqrt(ap / (p1 * pesogas * this.temp));
+          console.log('mitad: ' + a);
+          this.resultado = 6950 * this.caudalgas.toFixed(2) * p1 * (1 - 2 * ap / 3 * p1) * Math.sqrt(ap / p1 * pesogas * this.temp);
+        }
+
+        if (this.tipo1 == 'cv' && this.tipo2 == 'gas') {
+          console.log('si es cv y gas Y Bar el res es igual a: '); //PARA HALLAR EL CV
+
+          this.resultado = 3 * this.caudalgas.toFixed(2) / 6950 * (3 * p1 - 2 * ap) * Math.sqrt(p1 * peso * this.temp / ap.toFixed(2));
+        } //DOS IF PARA LOS DE LIQUIDOS CV Y CAUDAL
+
+
+        if (this.tipo1 == 'caudal' && this.tipo2 == 'liquido') {
+          console.log('si es caudal y liquido Y Bar el res es igual a: '); //PARA HALLAR EL Q
+
+          this.resultado = 14.42 * this.cvliquido.toFixed(2) * Math.sqrt(ap.toFixed(2) / peso);
+        }
+
+        if (this.tipo1 == 'cv' && this.tipo2 == 'liquido') {
+          console.log('si es cv y liquido Y Bar el res es igual a: '); //PARA HALLAR EL CV
+
+          this.resultado = this.caudaliquido.toFixed(2) / 14.42 * Math.sqrt(peso / ap.toFixed(2));
+        }
+
+        console.log(parseFloat(this.resultado));
+      }
+
+      if (this.selectedp1 == 'PSI' && this.selectedp2 == 'PSI') {
+        //PASAR A BAR
+        var _p = parseFloat(data.p1) / 14.50; //dividir para pasar a bar
+
+
+        var _p2 = parseFloat(data.p2) / 14.50; //dividir para pasar a bar
+
+
+        var _ap = _p - _p2;
+
+        if (this.tipo1 == 'caudal' && this.tipo2 == 'liquido') {
+          console.log('si es caudal y liquido Y PSI el res es igual a: '); //PARA HALLAR EL Q
+
+          this.resultado = 14.42 * this.cvliquido.toFixed(2) * Math.sqrt(_ap.toFixed(2) / peso);
+        }
+
+        if (this.tipo1 == 'cv' && this.tipo2 == 'liquido') {
+          console.log('si es cv y liquido Y PSI el res es igual a: '); //PARA HALLAR EL CV
+
+          this.resultado = this.caudaliquido.toFixed(2) / 14.42 * Math.sqrt(peso / _ap.toFixed(2));
+        }
+
+        console.log(parseFloat(this.resultado));
+      }
+
+      if (this.selectedp1 == 'MPa' && this.selectedp2 == 'MPa') {
+        //PASAR A BAR
+        var _p3 = parseFloat(data.p1) / 0.1; //dividir para pasar a bar
+
+
+        var _p4 = parseFloat(data.p2) / 0.1; //dividir para pasar a bar
+
+
+        var _ap2 = _p3 - _p4;
+
+        if (this.tipo1 == 'caudal' && this.tipo2 == 'liquido') {
+          console.log('si es caudal y liquido Y MPA el res es igual a: '); //PARA HALLAR EL Q
+
+          this.resultado = 14.42 * this.cvliquido.toFixed(2) * Math.sqrt(_ap2.toFixed(2) / peso);
+        } else {
+          console.log('si es cv y liquido Y MPA el res es igual a: '); //PARA HALLAR EL CV
+
+          this.resultado = this.caudaliquido.toFixed(2) / 14.42 * Math.sqrt(peso / _ap2.toFixed(2));
+        }
+
+        console.log(parseFloat(this.resultado));
+      }
+
+      if (this.selectedp1 == 'KPa' && this.selectedp2 == 'KPa') {
+        //PASAR A BAR
+        var _p5 = parseFloat(data.p1) / 100; //dividir para pasar a bar
+
+
+        var _p6 = parseFloat(data.p2) / 100; //dividir para pasar a bar
+
+
+        var _ap3 = _p5 - _p6;
+
+        if (this.tipo1 == 'caudal' && this.tipo2 == 'liquido') {
+          console.log('si es caudal y liquido Y kPA el res es igual a: '); //PARA HALLAR EL Q
+
+          this.resultado = 14.42 * this.cvliquido.toFixed(2) * Math.sqrt(_ap3.toFixed(2) / peso);
+        } else {
+          console.log('si es cv y liquido Y kPA el res es igual a: '); //PARA HALLAR EL CV
+
+          this.resultado = this.caudaliquido.toFixed(2) / 14.42 * Math.sqrt(peso / _ap3.toFixed(2));
+        }
+
+        console.log(parseFloat(this.resultado));
+      }
+
+      if (this.selectedp1 == 'Kg/cm^2' && this.selectedp2 == 'Kg/cm^2') {
+        //PASAR A BAR
+        var _p7 = parseFloat(data.p1) / 1.019; //dividir para pasar a bar
+
+
+        var _p8 = parseFloat(data.p2) / 1.019; //dividir para pasar a bar
+
+
+        var _ap4 = _p7 - _p8;
+
+        if (this.tipo1 == 'caudal' && this.tipo2 == 'liquido') {
+          console.log('si es caudal y liquido Y KGCM el res es igual a: '); //PARA HALLAR EL Q
+
+          this.resultado = 14.42 * this.cvliquido.toFixed(2) * Math.sqrt(_ap4.toFixed(2) / peso);
+        } else {
+          console.log('si es cv y liquido Y KGCM el res es igual a: '); //PARA HALLAR EL CV
+
+          this.resultado = this.caudaliquido.toFixed(2) / 14.42 * Math.sqrt(peso / _ap4.toFixed(2));
+        }
+
+        console.log(parseFloat(this.resultado));
+      }
+    },
+    calcvygas: function calcvygas() {},
+    calcaudal: function calcaudal() {}
   }
 });
 
@@ -45780,9 +46062,6 @@ var render = function() {
                 attrs: { type: "radio", value: "cv", checked: "" },
                 domProps: { checked: _vm._q(_vm.tipo1, "cv") },
                 on: {
-                  click: function($event) {
-                    return _vm.cv()
-                  },
                   change: function($event) {
                     _vm.tipo1 = "cv"
                   }
@@ -45872,10 +46151,226 @@ var render = function() {
         _vm._m(0)
       ]),
       _vm._v(" "),
-      _vm._m(1),
+      _c("div", { staticClass: "row", staticStyle: { "margin-top": "30px" } }, [
+        _c("div", { staticClass: "col m5" }, [
+          _c("div", {}, [
+            _c("label", { attrs: { for: "first_name" } }, [
+              _vm._v("Presion de Entrada (P1)")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticStyle: { display: "flex" } }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.calculo.p1,
+                    expression: "calculo.p1"
+                  }
+                ],
+                staticClass: "validate",
+                attrs: { id: "first_name", type: "text" },
+                domProps: { value: _vm.calculo.p1 },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.calculo, "p1", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.selectedp1,
+                      expression: "selectedp1"
+                    }
+                  ],
+                  staticClass: "browser-default",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.selectedp1 = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                _vm._l(_vm.presion, function(item, index) {
+                  return _c("option", { domProps: { value: item } }, [
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(item) +
+                        "\n                            "
+                    )
+                  ])
+                }),
+                0
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col m2" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "col m5" }, [
+          _c("div", {}, [
+            _c("label", { attrs: { for: "Temperatura" } }, [
+              _vm._v("Temperatura")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticStyle: { display: "flex" } }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.calculo.temp,
+                    expression: "calculo.temp"
+                  }
+                ],
+                staticClass: "validate",
+                attrs: { id: "Temperatura", type: "text" },
+                domProps: { value: _vm.calculo.temp },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.calculo, "temp", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.selectedtemp,
+                      expression: "selectedtemp"
+                    }
+                  ],
+                  staticClass: "browser-default",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.selectedtemp = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                _vm._l(_vm.temperatura, function(item, index) {
+                  return _c("option", { domProps: { value: item } }, [
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(item) +
+                        "\n                            "
+                    )
+                  ])
+                }),
+                0
+              )
+            ])
+          ])
+        ])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "row", staticStyle: { "margin-top": "30px" } }, [
-        _vm._m(2),
+        _c("div", { staticClass: "col m5" }, [
+          _c("div", {}, [
+            _c("label", { attrs: { for: "Presion" } }, [
+              _vm._v("Presion de Salida (P2)")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticStyle: { display: "flex" } }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.calculo.p2,
+                    expression: "calculo.p2"
+                  }
+                ],
+                staticClass: "validate",
+                attrs: { id: "Presion", type: "text" },
+                domProps: { value: _vm.calculo.p2 },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.calculo, "p2", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.selectedp2,
+                      expression: "selectedp2"
+                    }
+                  ],
+                  staticClass: "browser-default",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.selectedp2 = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                _vm._l(_vm.presion, function(item, index) {
+                  return _c("option", { domProps: { value: item } }, [
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(item) +
+                        "\n                            "
+                    )
+                  ])
+                }),
+                0
+              )
+            ])
+          ])
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "col m2" }),
         _vm._v(" "),
@@ -45908,8 +46403,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.selectedliquido,
-                            expression: "selectedliquido"
+                            value: _vm.calculo.pesoliquido,
+                            expression: "calculo.pesoliquido"
                           }
                         ],
                         staticClass: "browser-default",
@@ -45923,9 +46418,13 @@ var render = function() {
                                 var val = "_value" in o ? o._value : o.value
                                 return val
                               })
-                            _vm.selectedliquido = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
+                            _vm.$set(
+                              _vm.calculo,
+                              "pesoliquido",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
                           }
                         }
                       },
@@ -45952,7 +46451,7 @@ var render = function() {
                     staticClass: "validate",
                     staticStyle: { width: "200px" },
                     attrs: { id: "Fluido", type: "text" },
-                    domProps: { value: _vm.selectedliquido }
+                    domProps: { value: _vm.calculo.pesoliquido }
                   })
                 ])
               ]
@@ -45981,8 +46480,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.selectedgas,
-                            expression: "selectedgas"
+                            value: _vm.calculo.pesogas,
+                            expression: "calculo.pesogas"
                           }
                         ],
                         staticClass: "browser-default",
@@ -45996,9 +46495,13 @@ var render = function() {
                                 var val = "_value" in o ? o._value : o.value
                                 return val
                               })
-                            _vm.selectedgas = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
+                            _vm.$set(
+                              _vm.calculo,
+                              "pesogas",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
                           }
                         }
                       },
@@ -46025,7 +46528,7 @@ var render = function() {
                     staticClass: "validate",
                     staticStyle: { width: "200px" },
                     attrs: { id: "Fluido", type: "text" },
-                    domProps: { value: _vm.selectedgas }
+                    domProps: { value: _vm.calculo.pesogas }
                   })
                 ])
               ]
@@ -46043,15 +46546,77 @@ var render = function() {
                 {
                   name: "show",
                   rawName: "v-show",
-                  value: _vm.tipo1 == "cv",
-                  expression: "tipo1 == 'cv'"
+                  value: _vm.tipo1 == "cv" && _vm.tipo2 == "liquido",
+                  expression: "tipo1 == 'cv' && tipo2 == 'liquido'"
                 }
               ]
             },
             [
               _c("label", [_vm._v("Índice de caudal (Q)")]),
               _vm._v(" "),
-              _vm._m(3)
+              _c("div", { staticStyle: { display: "flex" } }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.calculo.indicecaudal,
+                      expression: "calculo.indicecaudal"
+                    }
+                  ],
+                  staticClass: "validate",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.calculo.indicecaudal },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.calculo, "indicecaudal", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.selectedicaudal,
+                        expression: "selectedicaudal"
+                      }
+                    ],
+                    staticClass: "browser-default",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.selectedicaudal = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  _vm._l(_vm.indicecaudalliquido, function(item, index) {
+                    return _c("option", { domProps: { value: item } }, [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(item) +
+                          "\n                            "
+                      )
+                    ])
+                  }),
+                  0
+                )
+              ])
             ]
           ),
           _vm._v(" "),
@@ -46062,23 +46627,274 @@ var render = function() {
                 {
                   name: "show",
                   rawName: "v-show",
-                  value: _vm.tipo1 == "caudal",
-                  expression: "tipo1 == 'caudal'"
+                  value: _vm.tipo1 == "caudal" && _vm.tipo2 == "liquido",
+                  expression: "tipo1 == 'caudal' && tipo2 == 'liquido'"
                 }
               ]
             },
             [
               _c("label", [_vm._v("CV")]),
               _vm._v(" "),
-              _vm._m(4),
+              _c("div", { staticStyle: { display: "flex" } }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.calculo.indicecv,
+                      expression: "calculo.indicecv"
+                    }
+                  ],
+                  staticClass: "validate",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.calculo.indicecv },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.calculo, "indicecv", $event.target.value)
+                    }
+                  }
+                })
+              ]),
               _vm._v(" "),
               _c("label", [_vm._v("Unidades de caudal")]),
               _vm._v(" "),
-              _vm._m(5)
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.selectedicaudal,
+                      expression: "selectedicaudal"
+                    }
+                  ],
+                  staticClass: "browser-default",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.selectedicaudal = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                _vm._l(_vm.indicecaudalliquido, function(item, index) {
+                  return _c("option", { domProps: { value: item } }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(item) +
+                        "\n                        "
+                    )
+                  ])
+                }),
+                0
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.tipo1 == "cv" && _vm.tipo2 == "gas",
+                  expression: "tipo1 == 'cv' && tipo2 == 'gas'"
+                }
+              ]
+            },
+            [
+              _c("label", [_vm._v("Índice de caudal (Q)")]),
+              _vm._v(" "),
+              _c("div", { staticStyle: { display: "flex" } }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.calculo.indicecvgas,
+                      expression: "calculo.indicecvgas"
+                    }
+                  ],
+                  staticClass: "validate",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.calculo.indicecvgas },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.calculo, "indicecvgas", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.selectedicaudalgas,
+                        expression: "selectedicaudalgas"
+                      }
+                    ],
+                    staticClass: "browser-default",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.selectedicaudalgas = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  _vm._l(_vm.indicecaudalgas, function(item, index) {
+                    return _c("option", { domProps: { value: item } }, [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(item) +
+                          "\n                            "
+                      )
+                    ])
+                  }),
+                  0
+                )
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.tipo1 == "caudal" && _vm.tipo2 == "gas",
+                  expression: "tipo1 == 'caudal' && tipo2 == 'gas'"
+                }
+              ]
+            },
+            [
+              _c("label", [_vm._v("CV")]),
+              _vm._v(" "),
+              _c("div", { staticStyle: { display: "flex" } }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.calculo.indicecaudalgas,
+                      expression: "calculo.indicecaudalgas"
+                    }
+                  ],
+                  staticClass: "validate",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.calculo.indicecaudalgas },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.calculo,
+                        "indicecaudalgas",
+                        $event.target.value
+                      )
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("label", [_vm._v("Unidades de caudal")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.selectedicaudalgas,
+                      expression: "selectedicaudalgas"
+                    }
+                  ],
+                  staticClass: "browser-default",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.selectedicaudalgas = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                _vm._l(_vm.indicecaudalgas, function(item, index) {
+                  return _c("option", { domProps: { value: item } }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(item) +
+                        "\n                        "
+                    )
+                  ])
+                }),
+                0
+              )
             ]
           )
         ])
       ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "row",
+          staticStyle: { "margin-bottom": "10px", "margin-top": "20px" }
+        },
+        [
+          _vm.resultado > 0
+            ? _c(
+                "span",
+                {
+                  staticStyle: { border: "1px solid darkgray", padding: "10px" }
+                },
+                [
+                  _vm._v(
+                    "\n            " + _vm._s(_vm.resultado) + "\n        "
+                  )
+                ]
+              )
+            : _vm._e()
+        ]
+      ),
       _vm._v(" "),
       _c(
         "a",
@@ -46091,7 +46907,7 @@ var render = function() {
           },
           on: {
             click: function($event) {
-              return _vm.calcv(_vm.tipo1)
+              return _vm.calcv(_vm.calculo)
             }
           }
         },
@@ -46112,123 +46928,6 @@ var staticRenderFns = [
         staticClass: "responsive-img",
         attrs: { src: "/../img/calculocv.png", alt: "" }
       })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "row", staticStyle: { "margin-top": "30px" } },
-      [
-        _c("div", { staticClass: "col m5" }, [
-          _c("div", {}, [
-            _c("label", { attrs: { for: "first_name" } }, [
-              _vm._v("Presion de Entrada (P1)")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticStyle: { display: "flex" } }, [
-              _c("input", {
-                staticClass: "validate",
-                attrs: { id: "first_name", type: "text" }
-              }),
-              _vm._v(" "),
-              _c("select", [
-                _c("option", { attrs: { value: "1" } }, [_vm._v("PSI")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "2" } }, [_vm._v("bar")])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col m2" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "col m5" }, [
-          _c("div", {}, [
-            _c("label", { attrs: { for: "Temperatura" } }, [
-              _vm._v("Temperatura")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticStyle: { display: "flex" } }, [
-              _c("input", {
-                staticClass: "validate",
-                attrs: { id: "Temperatura", type: "text" }
-              }),
-              _vm._v(" "),
-              _c("select", [
-                _c("option", { attrs: { value: "1" } }, [_vm._v("Farenheit")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "2" } }, [_vm._v("Celcius")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "2" } }, [_vm._v("Kelvin")])
-              ])
-            ])
-          ])
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col m5" }, [
-      _c("div", {}, [
-        _c("label", { attrs: { for: "Presion" } }, [
-          _vm._v("Presion de Salida (P2)")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticStyle: { display: "flex" } }, [
-          _c("input", {
-            staticClass: "validate",
-            attrs: { id: "Presion", type: "text" }
-          }),
-          _vm._v(" "),
-          _c("select", [
-            _c("option", { attrs: { value: "1" } }, [_vm._v("PSI")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "2" } }, [_vm._v("bar")])
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticStyle: { display: "flex" } }, [
-      _c("input", { staticClass: "validate", attrs: { type: "text" } }),
-      _vm._v(" "),
-      _c("select", [
-        _c("option", { attrs: { value: "1" } }, [_vm._v("Option 1")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "2" } }, [_vm._v("Option 2")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "3" } }, [_vm._v("Option 3")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticStyle: { display: "flex" } }, [
-      _c("input", { staticClass: "validate", attrs: { type: "text" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("select", [
-      _c("option", { attrs: { value: "1" } }, [_vm._v("Option 1")]),
-      _vm._v(" "),
-      _c("option", { attrs: { value: "2" } }, [_vm._v("Option 2")]),
-      _vm._v(" "),
-      _c("option", { attrs: { value: "3" } }, [_vm._v("Option 3")])
     ])
   }
 ]
