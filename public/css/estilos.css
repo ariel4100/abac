@@ -93,6 +93,12 @@ p {
 .novedad {
     //padding: 20px !important;
 }
+.alverino {
+    color: #666;
+}
+.alverino:hover {
+    color: #e1131b;
+}
 .novedad-card {
     background-color: #f8f8f8;
     height: auto;
