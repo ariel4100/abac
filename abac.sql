@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-03-2019 a las 20:57:23
--- Versión del servidor: 10.1.31-MariaDB
--- Versión de PHP: 7.3.0
+-- Tiempo de generación: 27-03-2019 a las 02:57:29
+-- Versión del servidor: 10.1.37-MariaDB
+-- Versión de PHP: 7.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -52,6 +52,47 @@ INSERT INTO `admins` (`id`, `name`, `username`, `admin_status`, `email`, `email_
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `calculos`
+--
+
+CREATE TABLE `calculos` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `peso` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `valor` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tipo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `orden` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `calculos`
+--
+
+INSERT INTO `calculos` (`id`, `peso`, `valor`, `tipo`, `orden`, `created_at`, `updated_at`) VALUES
+(2, 'Acetona', '0.792', 'liquido', NULL, NULL, NULL),
+(3, 'Alcohol Etílico', '0.798', 'liquido', NULL, NULL, NULL),
+(4, 'Metanol ', '0.796', 'liquido', NULL, NULL, NULL),
+(5, 'Benceno', '0.902', 'liquido', NULL, NULL, NULL),
+(6, 'Gasolina ', '0.69', 'liquido', NULL, NULL, NULL),
+(7, 'Queroseno', '0.815', 'liquido', NULL, NULL, NULL),
+(8, 'Agua Marina', '1.025', 'liquido', NULL, NULL, NULL),
+(9, 'Agua', '1', 'liquido', NULL, NULL, NULL),
+(10, 'Aire', '1', 'gas', NULL, '2019-03-27 02:26:32', '2019-03-27 02:26:32'),
+(11, 'Acetileno', '0.907', 'gas', NULL, '2019-03-27 02:26:42', '2019-03-27 02:26:42'),
+(12, 'Amoníaco', '0.578', 'gas', NULL, '2019-03-27 02:26:55', '2019-03-27 02:26:55'),
+(13, 'Argón', '1.38', 'gas', NULL, '2019-03-27 02:27:05', '2019-03-27 02:27:05'),
+(14, 'Butano', '2.07', 'gas', NULL, '2019-03-27 02:27:20', '2019-03-27 02:27:20'),
+(15, 'Dióxido de Carbono', '1.529', 'gas', NULL, '2019-03-27 02:27:31', '2019-03-27 02:27:31'),
+(16, 'Helio', '0.137', 'gas', NULL, '2019-03-27 02:27:41', '2019-03-27 02:27:41'),
+(17, 'Hidrógeno', '0.07', 'gas', NULL, '2019-03-27 02:27:53', '2019-03-27 02:27:53'),
+(18, 'Metano', '0.554', 'gas', NULL, '2019-03-27 02:28:05', '2019-03-27 02:28:05'),
+(19, 'Nitrógeno', '0.967', 'gas', NULL, '2019-03-27 02:28:17', '2019-03-27 02:28:17'),
+(20, 'Gas Natural', '0.560', 'gas', NULL, '2019-03-27 02:28:29', '2019-03-27 02:28:29');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `calidads`
 --
 
@@ -65,15 +106,6 @@ CREATE TABLE `calidads` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `calidads`
---
-
-INSERT INTO `calidads` (`id`, `file_image`, `nombre_es`, `nombre_en`, `pdf`, `orden`, `created_at`, `updated_at`) VALUES
-(1, 'calidad__descarga.jpg', 'prueba', 'quality', 'calidad__abac-logo.png', 'aa', '2019-03-18 22:25:43', '2019-03-18 22:44:33'),
-(5, '0', NULL, NULL, '0', NULL, '2019-03-18 22:44:12', '2019-03-18 22:44:12'),
-(6, '0', NULL, NULL, '0', NULL, '2019-03-18 22:44:15', '2019-03-18 22:44:15');
 
 -- --------------------------------------------------------
 
@@ -150,7 +182,7 @@ INSERT INTO `contenidos` (`id`, `image`, `title_es`, `subtitle_es`, `provincia`,
 (17, 'contenido__queloquee_valeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee.jpg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'calidad', 'imagen', 'AA', NULL, NULL, 1, '2019-02-27 21:17:28', '2019-02-27 21:17:28'),
 (18, 'contenido__bureau.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'calidad', 'imagen', 'BB', NULL, NULL, 1, '2019-02-27 21:32:53', '2019-02-27 21:32:53'),
 (19, 'contenido__dmv.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'calidad', 'imagen', 'CC', NULL, NULL, 1, '2019-02-27 21:32:59', '2019-02-27 21:32:59'),
-(20, NULL, 'Certificado de calidad en cada etapa del proceso: diseño, desarrollo, fabricación y comercialización', NULL, NULL, '<p><span style=\"font-size:16px\">ABAC cuenta con un sistema de Gesti&oacute;n de Calidad certificado por DNV seg&uacute;n norma ISO 9001:2008. Los conectores ABALOK cumplen con la norma ASTM F1387-Standard Specification for Performance of piping and tubing mechanically attached fittings.</span></p>\r\n\r\n<p><span style=\"font-size:16px\">Dedicados al desarrollo, fabricaci&oacute;n y comercializaci&oacute;n de componentes para control de fluidos, contamos con una trayectoria de m&aacute;s de 39 a&ntilde;os en el rubro. &nbsp;Mantenemos un nivel de calidad internacional, adoptando las normas y est&aacute;ndares internacionales de normalizaci&oacute;n en cada etapa del proceso, desde el dise&ntilde;o y desarrollo, hasta la fabricaci&oacute;n y producci&oacute;n.&nbsp;</span></p>', 'Quality certificate at each stage of the process: design, development, manufacturing and marketing', NULL, '<p><span style=\"font-size:16px\">ABAC has a Quality Management system certified by DNV according to ISO 9001: 2008. The ABALOK connectors comply with ASTM F1387 Standard-Standard Specification for Performance of piping and tubing mechanically attached fittings.</span></p>\r\n\r\n<p><span style=\"font-size:16px\">Dedicated to the development, manufacture and commercialization of components for fluid control, we have a trajectory of more than 39 years in the field. We maintain a level of international quality, adopting international standardization norms and standards at every stage of the process, from design and development, to manufacturing and production.</span></p>', NULL, 'calidad', 'texto', NULL, NULL, NULL, 1, '2019-02-27 21:33:28', '2019-03-08 15:01:06'),
+(20, 'contenido__buscar.blade.php', 'Certificado de calidad en cada etapa del proceso: diseño, desarrollo, fabricación y comercialización', NULL, NULL, '<p><span style=\"font-size:16px\">ABAC cuenta con un sistema de Gesti&oacute;n de Calidad certificado por DNV seg&uacute;n norma ISO 9001:2008. Los conectores ABALOK cumplen con la norma ASTM F1387-Standard Specification for Performance of piping and tubing mechanically attached fittings.</span></p>\r\n\r\n<p><span style=\"font-size:16px\">Dedicados al desarrollo, fabricaci&oacute;n y comercializaci&oacute;n de componentes para control de fluidos, contamos con una trayectoria de m&aacute;s de 39 a&ntilde;os en el rubro. &nbsp;Mantenemos un nivel de calidad internacional, adoptando las normas y est&aacute;ndares internacionales de normalizaci&oacute;n en cada etapa del proceso, desde el dise&ntilde;o y desarrollo, hasta la fabricaci&oacute;n y producci&oacute;n.&nbsp;</span></p>', 'Quality certificate at each stage of the process: design, development, manufacturing and marketing', NULL, '<p><span style=\"font-size:16px\">ABAC has a Quality Management system certified by DNV according to ISO 9001: 2008. The ABALOK connectors comply with ASTM F1387 Standard-Standard Specification for Performance of piping and tubing mechanically attached fittings.</span></p>\r\n\r\n<p><span style=\"font-size:16px\">Dedicated to the development, manufacture and commercialization of components for fluid control, we have a trajectory of more than 39 years in the field. We maintain a level of international quality, adopting international standardization norms and standards at every stage of the process, from design and development, to manufacturing and production.</span></p>', NULL, 'calidad', 'texto', NULL, NULL, NULL, 1, '2019-02-27 21:33:28', '2019-03-12 16:59:24'),
 (21, NULL, 'CERTIFICADO ABALOKAT 0167-13', NULL, NULL, NULL, 'CERTIFICATE ABALOKAT 0167-13', NULL, NULL, 'contenido__CERTIFICADO-ABALOKAT-0167-13 ASTM.pdf', 'calidad', 'descargable', 'aa', NULL, NULL, 1, '2019-02-27 22:04:11', '2019-03-08 15:04:50'),
 (22, NULL, 'ABALOK certifica ASTM 1387-99', NULL, NULL, 'Los conectores a doble virola ABALOK de ABAC SRL están ahora certificados según la norma ASTM F1387 -99 ( 2005 ).', 'ABALOK certifies ASTM 1387-99', NULL, 'The ABALOK double ferrule connectors from ABAC SRL are now certified according to ASTM F1387 -99 (2005).', NULL, 'videos', 'video', 'AA', NULL, 'cPLyx_lVed8', 1, '2019-02-28 04:53:44', '2019-03-08 14:51:04'),
 (23, NULL, 'EXPERIENCIA LÍDER EN EL RUBRO', '39 AÑOS DE TRAYECTORIA', NULL, '<p><span style=\"font-size:18px\">ABAC es una empresa argentina fundada en 1979. Contamos con m&aacute;s de 39 a&ntilde;os de experiencia y trayectoria en el rubro del dise&ntilde;o, fabricaci&oacute;n y comercializaci&oacute;n de v&aacute;lvulas, manifolds para instrumentos, conectores y otros accesorios para instrumentaci&oacute;n industrial y control de flu&iacute;dos.</span></p>', NULL, NULL, '<p><span style=\"font-size:18px\">ABAC is an Argentine company founded in 1979. We have over 39 years of experience and experience in the design, manufacture and marketing of valves, manifolds for instruments, connectors and other accessories for industrial instrumentation and fluid control.</span></p>', NULL, 'home', 'texto', NULL, NULL, NULL, 1, '2019-02-28 15:13:47', '2019-03-08 14:56:03'),
@@ -183,7 +215,8 @@ INSERT INTO `contenidos` (`id`, `image`, `title_es`, `subtitle_es`, `provincia`,
 (50, 'contenido__distribuidores.jpg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'distribuidores', 'imagen', 'AA', NULL, NULL, 1, '2019-03-08 15:39:04', '2019-03-08 15:40:05'),
 (52, NULL, 'ABAC CASA CENTRAL', 'arg', NULL, '<p>Tronador 374 (B1706BAB) Haedo Tel: +54 (011) 4659-4146 Fax: +54 (011) 4460-0052 abac@abac.com.ar www.abac.com.ar</p>', 'ABAC HEADQUARTERS', NULL, '<p>Tronador 374 (B1706BAB) Haedo Tel: +54 (011) 4659-4146 Fax: +54 (011) 4460-0052 abac@abac.com.ar www.abac.com.ar</p>', NULL, 'distribuidores', 'texto', 'AA', NULL, NULL, 1, '2019-03-08 16:25:25', '2019-03-08 16:25:25'),
 (53, NULL, 'ABAC CASA CENTRAL WORLD', 'ww', NULL, '<p>Tronador 374 (B1706BAB) Haedo Tel: +54 (011) 4659-4146 Fax: +54 (011) 4460-0052 abac@abac.com.ar www.abac.com.ar</p>', 'ABAC WORLD HEADQUARTERS', NULL, '<p>Tronador 374 (B1706BAB) Haedo Tel: +54 (011) 4659-4146 Fax: +54 (011) 4460-0052 abac@abac.com.ar www.abac.com.ar</p>', NULL, 'distribuidores', 'texto', 'AA', NULL, NULL, 1, '2019-03-08 16:26:01', '2019-03-08 16:26:17'),
-(54, NULL, 'sasa', 'arg', 'Córdoba', '<p>ddfasasdasdasd</p>', 'sasa', NULL, NULL, NULL, 'distribuidores', 'texto', 'zz', NULL, NULL, 1, '2019-03-20 22:14:10', '2019-03-20 22:14:10');
+(54, NULL, 'aaaaaaaa', 'arg', 'Buenos Aires', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'eeeeeeeeeeeee', NULL, 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', NULL, 'distribuidores', 'texto', 'aa', NULL, NULL, 1, '2019-03-23 20:58:08', '2019-03-23 20:58:08'),
+(55, NULL, 'cccccccccc', 'arg', 'Catamarca', '<p>dddddddddd</p>', 'vvvvvvvvvvv', NULL, '<p>dsssssssss</p>', NULL, 'distribuidores', 'texto', 'cc', NULL, NULL, 1, '2019-03-23 20:58:55', '2019-03-23 20:58:55');
 
 -- --------------------------------------------------------
 
@@ -207,10 +240,10 @@ CREATE TABLE `csvs` (
 --
 
 INSERT INTO `csvs` (`id`, `partida`, `materia`, `articulo`, `descripcion`, `orden`, `created_at`, `updated_at`) VALUES
-(1, 'partida', 'materia prima', 'articulo', 'descripcion', NULL, '2019-03-14 22:19:43', '2019-03-14 22:19:43'),
-(2, '76110', 'w4550', '123456', 'descripcion del 1', NULL, '2019-03-14 22:19:43', '2019-03-14 22:19:43'),
-(3, '76120', 'w4560', '123457', 'descripcion del 2', NULL, '2019-03-14 22:19:43', '2019-03-14 22:19:43'),
-(4, '76130', 'w4570', '123458', 'descripcion del 3', NULL, '2019-03-14 22:19:43', '2019-03-14 22:19:43');
+(1, 'partida', 'materia prima', 'articulo', 'descripcion', NULL, '2019-03-15 04:28:12', '2019-03-15 04:28:12'),
+(2, '76110', 'w4550', '123456', 'descripcion del 1', NULL, '2019-03-15 04:28:13', '2019-03-15 04:28:13'),
+(3, '76120', 'w4560', '123457', 'descripcion del 2', NULL, '2019-03-15 04:28:13', '2019-03-15 04:28:13'),
+(4, '76130', 'w4570', '123458', 'descripcion del 3', NULL, '2019-03-15 04:28:13', '2019-03-15 04:28:13');
 
 -- --------------------------------------------------------
 
@@ -229,13 +262,6 @@ CREATE TABLE `descargas` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `descargas`
---
-
-INSERT INTO `descargas` (`id`, `nombre_es`, `nombre_en`, `distribuidor`, `file`, `file_image`, `orden`, `created_at`, `updated_at`) VALUES
-(1, 'prueba', 'prueba', 'Exclusivo', 'descarga__abalok.png', 'descarga__descarga.jpg', 'aa', '2019-03-18 17:51:50', '2019-03-18 18:52:16');
 
 -- --------------------------------------------------------
 
@@ -297,20 +323,6 @@ CREATE TABLE `metadatos` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Volcado de datos para la tabla `metadatos`
---
-
-INSERT INTO `metadatos` (`id`, `seccion`, `keyword`, `descripcion`, `url`, `created_at`, `updated_at`) VALUES
-(1, 'Home', '/', '<p>Pagina Principal</p>', '/', NULL, '2019-03-20 19:45:58'),
-(2, 'Nosotros', 'nosotros', '<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>Descripcion de la empresa</td>\r\n		</tr>\r\n	</tbody>\r\n</table>', 'nosotros', NULL, '2019-03-20 19:46:39'),
-(3, 'Productos', 'productos', '<p>productos</p>', 'productos', NULL, '2019-03-20 19:47:16'),
-(4, 'Descargas', 'descarga', '<p>descarga</p>', 'descarga', NULL, '2019-03-20 19:48:07'),
-(5, 'Herramientas', 'herramientas', '<p>herramientas</p>', 'herramientas', NULL, '2019-03-20 19:48:45'),
-(6, 'Calidad', 'calidad', '<p>calidad</p>', 'calidad', NULL, '2019-03-20 19:50:00'),
-(7, 'Videos', 'videos', '<p>videos</p>', 'videos', NULL, '2019-03-20 19:50:27'),
-(8, 'Distribuidores', 'distribuidores', '<p>distribuidores</p>', 'distribuidores', NULL, '2019-03-20 19:51:03');
-
 -- --------------------------------------------------------
 
 --
@@ -339,15 +351,16 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (9, '2019_02_27_050607_create_novedades_table', 2),
 (10, '2019_02_27_050608_alter_novedades_table', 3),
 (11, '2019_02_27_224411_alter_productos_table', 4),
-(13, '2019_03_14_191412_create_csvs_table', 6),
-(14, '2019_03_15_010119_create_tablas_table', 7),
-(17, '2019_03_18_140249_add__descarga_user_to_users_table', 8),
-(19, '2019_03_16_204725_create_calidads_table', 9),
-(20, '2019_03_18_125720_create_descargas_table', 9),
-(21, '2019_03_19_190230_create_galerias_table', 10),
-(22, '2019_03_20_152156_add_ficha_variente_to_productos', 11),
-(23, '2019_03_20_155425_create_metadatos_table', 12),
-(24, '2019_03_20_184749_add_provincia_to_contenidos', 13);
+(12, '2019_03_14_191412_create_csvs_table', 5),
+(13, '2019_03_15_010119_create_tablas_table', 5),
+(14, '2019_03_16_204725_create_calidads_table', 6),
+(15, '2019_03_18_125720_create_descargas_table', 6),
+(16, '2019_03_18_140249_add__descarga_user_to_users_table', 6),
+(17, '2019_03_19_190230_create_galerias_table', 6),
+(18, '2019_03_20_152156_add_ficha_variente_to_productos', 6),
+(19, '2019_03_20_155425_create_metadatos_table', 6),
+(20, '2019_03_20_184749_add_provincia_to_contenidos', 6),
+(21, '2019_03_25_133917_create_calculos_table', 7);
 
 -- --------------------------------------------------------
 
@@ -375,7 +388,7 @@ CREATE TABLE `novedades` (
 
 INSERT INTO `novedades` (`id`, `image`, `title_es`, `title_en`, `text_es`, `text_en`, `destacado`, `order`, `categoria_id`, `created_at`, `updated_at`) VALUES
 (2, 'novedades__a.png', 'Exposición AOG 2017', 'AOG Exhibition 2017', '<p>Del 25 al 28 de septiembre, tuvo lugar en el predio La Rural esta importante muestra.</p>\r\n\r\n<p>En la muestra, ABAC se present&oacute; junto a su representada MAXIMATOR GmbH, mostrando toda la l&iacute;nea de v&aacute;lvulas y accesorios para ALTA y MUY ALTA presi&oacute;n.</p>\r\n\r\n<p>Se hicieron demostraciones en el stand del funcionamiento de una unidad generadora de presi&oacute;n, especialmente dise&ntilde;ada para aplicaciones en testing, accionamientos, etc.</p>\r\n\r\n<p>Tambien se realizaron seminarios t&eacute;cnicos sobre el tema.</p>', '<p>From 25 to 28 September, this important exhibition took place in the La Rural property.</p>\r\n\r\n<p>In the sample, ABAC was presented together with its represented MAXIMATOR GmbH, showing the entire line of valves and accessories for HIGH and VERY HIGH pressure.</p>\r\n\r\n<p>Demonstrations were made on the stand of the operation of a pressure generating unit, specially designed for applications in testing, drives, etc.</p>\r\n\r\n<p>Technical seminars on the subject were also held.</p>', 1, 'bb', 2, '2019-03-07 22:28:05', '2019-03-08 14:40:31'),
-(3, 'novedades__40-anos.jpg', 'ABAC cumple 40 Años', 'ABAC celebrates 40 years', '<p>Con mucha satisfacci&oacute;n anunciamos que este a&ntilde;o ABAC cumple 40 a&ntilde;os en la industria, ofreciendo siempre productos y servicios calificados para aplicaciones de alta exigencia.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>', '<p>It is with great satisfaction that we announce that ABAC is celebrating 40 years in the industry this year, always offering qualified products and services for highly demanding applications.</p>', 1, 'aa', 2, '2019-03-08 14:44:02', '2019-03-11 17:23:01');
+(3, 'novedades__40-anos.jpg', 'ABAC cumple 40 Años', 'ABAC celebrates 40 years', '<p>Con mucha satisfacci&oacute;n anunciamos que este a&ntilde;o ABAC cumple 40 a&ntilde;os en la industria, ofreciendo siempre productos y servicios calificados para aplicaciones de alta exigencia.</p>', '<p>It is with great satisfaction that we announce that ABAC is celebrating 40 years in the industry this year, always offering qualified products and services for highly demanding applications.</p>', 1, 'aa', 2, '2019-03-08 14:44:02', '2019-03-16 23:51:37');
 
 -- --------------------------------------------------------
 
@@ -419,7 +432,7 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `image`, `ficha`, `ficha_variante`, `title_es`, `title_en`, `text_es`, `text_en`, `especificaciones_es`, `especificaciones_en`, `video_url`, `familia_id`, `order`, `destacado`, `created_at`, `updated_at`) VALUES
-(3, 'productos__VA1.png', 'productos__VA1.pdf', NULL, 'VA1 VÁLVULAS AGUJA DE BLOQUEO', 'VA1 LOCKING NEEDLE VALVES', '<p><span style=\"font-size:16px\"><span style=\"color:#999999\"><strong>DESCRIPCI&Oacute;N:</strong><br />\r\nRobustas v&aacute;lvulas de bloqueo de aplicaci&oacute;n general en instrumentaci&oacute;n y peque&ntilde;as l&iacute;neas de proceso, combinan la estanqueidad de su configuraci&oacute;n aguja con una gran capacidad de pasaje.</span></span></p>\r\n\r\n<p><span style=\"font-size:16px\"><span style=\"color:#999999\"><strong>CARACTER&Iacute;STICAS:</strong><br />\r\n&bull;&nbsp;Bonete roscado, sin arandela de sello<br />\r\n&bull;&nbsp;V&aacute;stago con contracierre que evita el riesgo de expulsi&oacute;n<br />\r\n&bull;&nbsp;Manivela recta, para una operaci&oacute;n m&aacute;s c&oacute;moda<br />\r\n&bull;&nbsp;Disponible en acero carbono y en inox. AISI 316<br />\r\n&bull;&nbsp;Dise&ntilde;adas para operaci&oacute;n ON/OFF</span></span></p>', '<p><span style=\"font-size:16px\"><span style=\"color:#999999\"><strong>DESCRIPTION:</strong><br />\r\nRobust blocking valves of general application in instrumentation and small process lines, combine the tightness of their needle configuration with a large capacity of passage.</span></span></p>\r\n\r\n<p><span style=\"font-size:16px\"><span style=\"color:#999999\"><strong>CHARACTERISTICS:</strong><br />\r\n&bull;&nbsp;Threaded bonnet, without seal washer<br />\r\n&bull;&nbsp;Stalk with counterclock that avoids the risk of expulsion<br />\r\n&bull;&nbsp;Straight crank, for a more comfortable operation<br />\r\n&bull;&nbsp;Available in carbon steel and stainless steel. AISI 316<br />\r\n&bull;&nbsp;Designed for ON / OFF operation</span></span></p>', '<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:500px\">\r\n	<tbody>\r\n		<tr>\r\n			<td>Presi&oacute;n de servicio@21 C</td>\r\n			<td>420 kg/cm2 - Standard&nbsp;<br />\r\n			700 Kg/cm2 - Opcional</td>\r\n		</tr>\r\n		<tr>\r\n			<td>Temperaturas maximas</td>\r\n			<td>260&deg;C - Empaq. PTFE&nbsp;<br />\r\n			500&deg;C - Empaq. Grafoil</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>', '<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:500px\">\r\n	<tbody>\r\n		<tr>\r\n			<td>Service pressure @ 21 C</td>\r\n			<td>420 kg/cm2 - Standard&nbsp;<br />\r\n			700 Kg/cm2 - Opcional</td>\r\n		</tr>\r\n		<tr>\r\n			<td>Maximum temperatures</td>\r\n			<td>260&deg;C - Empaq. PTFE&nbsp;<br />\r\n			500&deg;C - Empaq. Grafoil</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>', NULL, 3, 'aa', 1, '2019-03-07 23:51:58', '2019-03-20 18:43:30'),
+(3, 'productos__VA1.png', 'productos__VA1.pdf', NULL, 'VA1 VÁLVULAS AGUJA DE BLOQUEO', 'VA1 LOCKING NEEDLE VALVES', '<p><span style=\"font-size:16px\"><span style=\"color:#999999\"><strong>DESCRIPCI&Oacute;N:</strong><br />\r\nRobustas v&aacute;lvulas de bloqueo de aplicaci&oacute;n general en instrumentaci&oacute;n y peque&ntilde;as l&iacute;neas de proceso, combinan la estanqueidad de su configuraci&oacute;n aguja con una gran capacidad de pasaje.</span></span></p>\r\n\r\n<p><span style=\"font-size:16px\"><span style=\"color:#999999\"><strong>CARACTER&Iacute;STICAS:</strong><br />\r\n&bull;&nbsp;Bonete roscado, sin arandela de sello<br />\r\n&bull;&nbsp;V&aacute;stago con contracierre que evita el riesgo de expulsi&oacute;n<br />\r\n&bull;&nbsp;Manivela recta, para una operaci&oacute;n m&aacute;s c&oacute;moda<br />\r\n&bull;&nbsp;Disponible en acero carbono y en inox. AISI 316<br />\r\n&bull;&nbsp;Dise&ntilde;adas para operaci&oacute;n ON/OFF</span></span></p>', '<p><span style=\"font-size:16px\"><span style=\"color:#999999\"><strong>DESCRIPTION:</strong><br />\r\nRobust blocking valves of general application in instrumentation and small process lines, combine the tightness of their needle configuration with a large capacity of passage.</span></span></p>\r\n\r\n<p><span style=\"font-size:16px\"><span style=\"color:#999999\"><strong>CHARACTERISTICS:</strong><br />\r\n&bull;&nbsp;Threaded bonnet, without seal washer<br />\r\n&bull;&nbsp;Stalk with counterclock that avoids the risk of expulsion<br />\r\n&bull;&nbsp;Straight crank, for a more comfortable operation<br />\r\n&bull;&nbsp;Available in carbon steel and stainless steel. AISI 316<br />\r\n&bull;&nbsp;Designed for ON / OFF operation</span></span></p>', '<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:500px\">\r\n	<tbody>\r\n		<tr>\r\n			<td>Presi&oacute;n de servicio@21 C</td>\r\n			<td>420 kg/cm2 - Standard&nbsp;<br />\r\n			700 Kg/cm2 - Opcional</td>\r\n		</tr>\r\n		<tr>\r\n			<td>Temperaturas maximas</td>\r\n			<td>260&deg;C - Empaq. PTFE&nbsp;<br />\r\n			500&deg;C - Empaq. Grafoil</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>', '<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:500px\">\r\n	<tbody>\r\n		<tr>\r\n			<td>Service pressure @ 21 C</td>\r\n			<td>420 kg/cm2 - Standard&nbsp;<br />\r\n			700 Kg/cm2 - Opcional</td>\r\n		</tr>\r\n		<tr>\r\n			<td>Maximum temperatures</td>\r\n			<td>260&deg;C - Empaq. PTFE&nbsp;<br />\r\n			500&deg;C - Empaq. Grafoil</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>', NULL, 3, 'aa', 1, '2019-03-07 23:51:58', '2019-03-08 14:23:03'),
 (4, 'productos__VA2.png', 'productos__VA2.pdf', NULL, 'VA2 VÁLVULAS AGUJA BONETE ROSCADO', 'VA2 NEEDLE VALVE BONETE THREADED', '<p><span style=\"font-size:16px\"><span style=\"color:#999999\"><strong>DESCRIPCI&Oacute;N:</strong><br />\r\nV&aacute;lvulas aguja con cuerpo de barra o forjado, y bonete roscado, con contracierre. Cumplen con requerimientos tanto de bloqueo como de regulaci&oacute;n. Se emplean en l&iacute;neas de muestreo, sistemas hidr&aacute;ulicos y neum&aacute;ticos, bancos de prueba, tableros, manifolds, aplicaciones en laboratorios, etc.</span></span></p>\r\n\r\n<p><span style=\"font-size:16px\"><span style=\"color:#999999\"><strong>CARACTER&Iacute;STICAS:</strong><br />\r\n&bull;&nbsp;&nbsp;Bonete roscado, sin arandela de sello<br />\r\n&bull;&nbsp;&nbsp;V&aacute;stagos de bloqueo y de regulaci&oacute;n. Con contracierre<br />\r\n&bull;&nbsp;&nbsp;Distintos materiales y empaquetaduras<br />\r\n&bull;&nbsp;&nbsp;Disposici&oacute;n recta o en &aacute;ngulo<br />\r\n&bull;&nbsp;&nbsp;Conexiones roscadas y a doble virola<br />\r\n&bull;&nbsp;&nbsp;Tuerca pasachapa que permite un f&aacute;cil montaje<br />\r\n&bull;&nbsp;&nbsp;Ajuste de la empaquetadura desde el exterior del panel<br />\r\n&bull;&nbsp;&nbsp;Volante pl&aacute;stico con inserto met&aacute;lico para operaci&oacute;n c&oacute;moda</span></span></p>', '<p><span style=\"font-size:16px\"><span style=\"color:#999999\"><strong>DESCRIPTION:</strong><br />\r\nNeedle valves with bar or forged body, and threaded bonnet, with counterclock. They comply with both blocking and regulation requirements. They are used in sampling lines, hydraulic and pneumatic systems, test benches, boards, manifolds, laboratory applications, etc.</span></span></p>\r\n\r\n<p><span style=\"font-size:16px\"><span style=\"color:#999999\"><strong>CHARACTERISTICS:</strong><br />\r\n&bull;&nbsp;&nbsp;Threaded bonnet, without seal washer<br />\r\n&bull;&nbsp;&nbsp;Blocks of blocking and regulation. With counterclock<br />\r\n&bull;&nbsp;&nbsp;Different materials and packings<br />\r\n&bull;&nbsp;&nbsp;Right or angled layout<br />\r\n&bull;&nbsp;&nbsp;Threaded connections and double ferrule<br />\r\n&bull;&nbsp;&nbsp;Nut nut that allows easy assembly<br />\r\n&bull;&nbsp;&nbsp;Adjustment of the packing from the outside of the panel<br />\r\n&bull;&nbsp;&nbsp;Plastic steering wheel with metal insert for comfortable operation</span></span></p>', '<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:500px\">\r\n	<tbody>\r\n		<tr>\r\n			<td>Presi&oacute;n de servicio@21&deg;C</td>\r\n			<td>420 kg/cm2 - Ac. Carbono / Ac Inox<br />\r\n			210 Kg/cm2 - Lat&oacute;n</td>\r\n		</tr>\r\n		<tr>\r\n			<td>Temperaturas maximas</td>\r\n			<td>260&deg;C - Empaq. PTFE<br />\r\n			500&deg;C - Empaq. Grafoil.</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>', '<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:500px\">\r\n	<tbody>\r\n		<tr>\r\n			<td>Service pressure @ 21 &deg; C</td>\r\n			<td>420 kg / cm2 - Ac. Carbon / Ac Stainless<br />\r\n			210 Kg / cm2 - Brass</td>\r\n		</tr>\r\n		<tr>\r\n			<td>Maximum temperatures</td>\r\n			<td>260 &deg; C - Empaq. PTFE<br />\r\n			500 &deg; C - Empaq. Grafoil.</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>', NULL, 3, 'bb', 1, '2019-03-08 00:02:52', '2019-03-08 14:24:11'),
 (5, 'productos__VF2.png', 'productos__V2F.pdf', NULL, 'VF2 VÁLVULAS BONETE INTEGRAL', 'VF2 VALVES BONETE INTEGRAL', '<p><span style=\"font-size:16px\"><span style=\"color:#999999\"><strong>DESCRIPCI&Oacute;N</strong><br />\r\nSu cuerpo forjado con bonete integral le confiere una gran resistencia y al mismo tiempo reduce la posibilidad de p&eacute;rdidas. Posee v&aacute;stago de acero inoxidable que ofrece un fino control de caudal y un bloqueo estanco. Se puede proveer un obturador blando de Acetal o Peek para un cierre muy suave, cuando las condiciones de servicio lo permiten. Se emplean en l&iacute;neas de aire de instrumentaci&oacute;n, tomamuestras, cromatograf&iacute;a, tableros, etc.</span></span></p>\r\n\r\n<p><span style=\"font-size:16px\"><span style=\"color:#999999\"><strong>CARACTER&Iacute;STICAS</strong><br />\r\n&bull;&nbsp;&nbsp;V&aacute;stago de bloqueo y de regulaci&oacute;n. Con opci&oacute;n de obturador blando<br />\r\n&bull;&nbsp;&nbsp;Distintos materiales y empaquetaduras<br />\r\n&bull;&nbsp;&nbsp;Disposici&oacute;n recta o en &aacute;ngulo<br />\r\n&bull;&nbsp;&nbsp;Conexiones roscadas y a doble virola<br />\r\n&bull;&nbsp;&nbsp;Aptitud para montaje en panel<br />\r\n&bull;&nbsp;&nbsp;Prensa-estopa ajustable, para aumentar la vida &uacute;til de la empaquetadura</span></span></p>', '<p><span style=\"font-size:16px\"><span style=\"color:#999999\"><strong>DESCRIPTION</strong><br />\r\nIts forged body with integral bonnet gives it great strength and at the same time reduces the possibility of losses. It has a stainless steel stem that offers a fine flow control and a tight lock. A soft Acetal or Peek plug can be provided for a very soft closure when service conditions permit. They are used in instrumentation air lines, sampler, chromatography, boards, etc.</span></span></p>\r\n\r\n<p><span style=\"font-size:16px\"><span style=\"color:#999999\"><strong>CHARACTERISTICS</strong><br />\r\n&bull; Blocking and regulation stem. With soft shutter option<br />\r\n&bull; Different materials and packings<br />\r\n&bull; Straight or angled layout<br />\r\n&bull; Threaded and double ferrule connections<br />\r\n&bull; Suitability for panel mounting<br />\r\n&bull; Press-adjustable tow, to increase the life of the packing</span></span></p>', '<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:500px\">\r\n	<tbody>\r\n		<tr>\r\n			<td>Presi&oacute;n de servicio@21&deg;C</td>\r\n			<td>350 bar - Ac. Carbono / Ac Inox.<br />\r\n			210 bar - Lat&oacute;n</td>\r\n		</tr>\r\n		<tr>\r\n			<td>Temperaturas maximas</td>\r\n			<td>260&deg;C - Empaq. PTFE<br />\r\n			500&deg;C - Empaq. Grafoil<br />\r\n			95&deg;C - Empaq. Fluorelast&oacute;mero<br />\r\n			95&deg;C - Obturador Blando</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>', '<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:500px\">\r\n	<tbody>\r\n		<tr>\r\n			<td>Service pressure @ 21 &deg; C</td>\r\n			<td>350 bar - Ac. Carbon / Ac Stainless.<br />\r\n			210 bar - Brass</td>\r\n		</tr>\r\n		<tr>\r\n			<td>Maximum temperatures</td>\r\n			<td>260 &deg; C - Empaq. PTFE<br />\r\n			500 &deg; C - Empaq. Grafoil<br />\r\n			95 &deg; C - Empaq. Fluorelastomer<br />\r\n			95 &deg; C - Soft Shutter</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>', NULL, 3, 'cc', 0, '2019-03-08 00:09:47', '2019-03-08 14:24:31'),
 (6, 'productos__VTM.png', 'productos__VTM.pdf', NULL, 'VTM VÁLVULAS TOMAMUESTRAS', 'VTM VALVES TAKES SAMPLES', '<p><span style=\"color:#999999\"><span style=\"font-size:16px\"><strong>DESCRIPCI&Oacute;N</strong><br />\r\nEsta v&aacute;lvula reune una serie de caracter&iacute;sticas que la hacen especialmente apta para instalar en cilindros tomamuestras.</span></span></p>\r\n\r\n<p><span style=\"color:#999999\"><span style=\"font-size:16px\"><strong>CARACTER&Iacute;STICAS</strong><br />\r\n&bull; Asiento blando, que asegura cierre herm&eacute;tico con bajo torque de operaci&oacute;n<br />\r\n&bull; Empaquetadura debajo de la rosca del v&aacute;stago, que mantiene a &eacute;sta aislada del fluido de proceso<br />\r\n&bull; Su empaquetadura de arosello provee bajo torque de accionamiento y no requiere mantenimiento<br />\r\n&bull; Dise&ntilde;o de manivela que protege al v&aacute;stago de golpes y torceduras<br />\r\n&bull; Constru&iacute;da en acero inox. AISI 316</span></span></p>', '<p><span style=\"color:#999999\"><span style=\"font-size:16px\"><strong>DESCRIPTION</strong><br />\r\nThis valve has a series of characteristics that make it especially suitable for installation in samplers cylinders.</span></span></p>\r\n\r\n<p><span style=\"color:#999999\"><span style=\"font-size:16px\"><strong>CHARACTERISTICS</strong><br />\r\n&bull; Soft seat, which ensures a tight seal with low operating torque<br />\r\n&bull; Packing below the stem thread, which keeps the stem isolated from the process fluid<br />\r\n&bull; Its arosello gasket provides low drive torque and requires no maintenance<br />\r\n&bull; Crank design that protects the shank from bumps and kinks<br />\r\n&bull; Built in stainless steel. AISI 316</span></span></p>', '<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:500px\">\r\n	<tbody>\r\n		<tr>\r\n			<td>Presi&oacute;n de servicio@21&deg;C</td>\r\n			<td>210 bar-</td>\r\n		</tr>\r\n		<tr>\r\n			<td>Temperaturas m&aacute;ximas</td>\r\n			<td>-40&deg;C a 230&deg;C</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>', '<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:500px\">\r\n	<tbody>\r\n		<tr>\r\n			<td>Service pressure @ 21 &deg; C</td>\r\n			<td>210 bar-</td>\r\n		</tr>\r\n		<tr>\r\n			<td>Maximum temperatures</td>\r\n			<td>-40&deg;C a 230&deg;C</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>', NULL, 3, 'dd', 1, '2019-03-08 14:29:12', '2019-03-08 14:29:12'),
@@ -434,7 +447,8 @@ INSERT INTO `productos` (`id`, `image`, `ficha`, `ficha_variante`, `title_es`, `
 (15, 'productos__ABALOK.jpg', 'productos__conexiones-tubos.pdf', NULL, 'ABALOK UNIONES PARA TUBOS', 'ABALOK UNIONS FOR TUBES', '<p><span style=\"font-size:16px\"><strong>DESCRIPCI&Oacute;N</strong><br />\r\nLas uniones ABALOK&reg; son del tipo doble virola. Se aplican en instrumentaci&oacute;n, sistemas de control, cromatograf&iacute;a, petroqu&iacute;mica, refiner&iacute;as, instalaciones de GNC y GNL y, en general, en aplicaciones de alta exigencia y confiabilidad</span></p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>CARACTER&Iacute;STICAS</strong><br />\r\n&bull; F&aacute;ciles de armar, con bajo torque<br />\r\n&bull;&nbsp;No transmiten torsi&oacute;n al ca&ntilde;o<br />\r\n&bull; Virola frontal con resalto que provee un limite de ajuste. Impide una expansion del cuerpo por exceso de torque<br />\r\n&bull; Estanqueidad aun con gases muy livianos como el helio<br />\r\n&bull; Tres puntos de sujeci&oacute;n del tubo para un mejor comportamiento ante vibraciones<br />\r\n&bull; Perfecto sello entre los componentes, luego del ensamble y en posteriores rearmados<br />\r\n&bull; Roscas interiores con revestimiento de plata para evitar engranes y disminuir el torque de ajuste<br />\r\n&bull; Probada intercambiabilidad con otros similares (ver Informe de Intercambiabilidad)<br />\r\n&bull; Trazabilidad de material y de lote de fabricacion en cuerpos y tuercas. Un n&uacute;mero grabado en forma indeleble en las piezas asegura rastreabilidad<br />\r\n&bull; Cumplen con la norma ASTM F1387-99</span></p>', '<p><span style=\"font-size:16px\"><strong>DESCRIPTION</strong><br />\r\nABALOK&reg; unions are of the double ferrule type. They are applied in instrumentation, control systems, chromatography, petrochemicals, refineries, CNG and LNG facilities and, in general, in applications of high demand and reliability</span></p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>CHARACTERISTICS</strong><br />\r\n&bull; Easy to assemble, with low torque<br />\r\n&bull; They do not transmit torsion to the spout<br />\r\n&bull; Front bolster with shoulder that provides a limit of adjustment. Prevents body expansion due to excess torque<br />\r\n&bull; Sealing even with very light gases such as helium<br />\r\n&bull; Three tube clamping points for better vibration behavior<br />\r\n&bull; Perfect seal between the components, after the assembly and in subsequent rearming<br />\r\n&bull; Internal threads with silver coating to avoid gear and decrease the adjustment torque<br />\r\n&bull; Proven interchangeability with similar ones (see Interchangeability Report)<br />\r\n&bull; Traceability of material and batch manufacturing in bodies and nuts. A number engraved indelibly on the pieces ensures traceability<br />\r\n&bull; Comply with ASTM F1387-99</span></p>', NULL, NULL, NULL, 6, 'aa', 0, '2019-03-08 16:21:39', '2019-03-08 16:21:39'),
 (16, 'productos__ACR.jpg', 'productos__conexiones-tubos.pdf', NULL, 'ACR ACCESORIOS ROSCADOS PARA INSTRUMENTACIÓN', 'ACR THREADED ACCESSORIES FOR INSTRUMENTATION', '<p><span style=\"font-size:16px\"><strong>DESCRIPCI&Oacute;N</strong><br />\r\nAccesorios para unir ca&ntilde;erias roscadas. Fabricados a partir de barras y forjados de acero al carbono e inoxidable grado 316</span></p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>CARACTER&Iacute;STICAS</strong><br />\r\n&bull; Conexiones roscadas NPT y cilindricas con asiento conico tipo Autoclave<br />\r\n&bull; Gama completa de entreroscas, tes, cuplas, niples, bujes, etc</span></p>', '<p><span style=\"font-size:16px\"><strong>DESCRIPTION</strong><br />\r\nAccessories to join threaded pipes. Manufactured from carbon and stainless steel grade 316 bars and slabs</span></p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>CHARACTERISTICS</strong><br />\r\n&bull; NPT and cylindrical threaded connections with conical seat type Autoclave<br />\r\n&bull; Full range of threads, tees, couplings, nipples, bushings, etc.</span></p>', '<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:500px\">\r\n	<tbody>\r\n		<tr>\r\n			<td><span style=\"font-size:16px\"><strong>Tipo Rosca</strong></span></td>\r\n			<td><span style=\"font-size:16px\"><strong>Presi&oacute;n M&aacute;x.</strong></span></td>\r\n		</tr>\r\n		<tr>\r\n			<td><span style=\"font-size:16px\">NPT</span></td>\r\n			<td><span style=\"font-size:16px\">1050 bar</span></td>\r\n		</tr>\r\n		<tr>\r\n			<td><span style=\"font-size:16px\">Cil&iacute;ndrica con asiento c&oacute;nico</span></td>\r\n			<td><span style=\"font-size:16px\">2100 bar</span></td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>', '<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:500px\">\r\n	<tbody>\r\n		<tr>\r\n			<td><strong><span style=\"font-size:16px\">Thread Type</span></strong></td>\r\n			<td><strong><span style=\"font-size:16px\">Max. Pressure</span></strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td><span style=\"font-size:16px\">NPT</span></td>\r\n			<td><span style=\"font-size:16px\">1050 bar</span></td>\r\n		</tr>\r\n		<tr>\r\n			<td><span style=\"font-size:16px\">Cylindrical with conical seat</span></td>\r\n			<td><span style=\"font-size:16px\">2100 bar</span></td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>', NULL, 6, 'bb', 0, '2019-03-08 16:35:40', '2019-03-08 16:35:40'),
 (17, 'productos__T.jpg', NULL, NULL, 'T TUBOS DE ACERO INOXIDABLE', 'T STAINLESS STEEL TUBES', '<p><span style=\"font-size:16px\"><strong>DESCRIPCI&Oacute;N</strong><br />\r\nTubos de AISI 316 y AISI 316L sin costura, aptos para instrumentaci&oacute;n</span></p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>CARACTER&Iacute;STICAS</strong><br />\r\n&bull; Di&aacute;metros desde 1/8&quot; hasta 3/4&quot; y espesores de 0.71 a 1.65 mm</span></p>', '<p><span style=\"font-size:16px\"><strong>DESCRIPTION</strong><br />\r\nSeamless AISI 316 and AISI 316L tubes, suitable for instrumentation</span></p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>CHARACTERISTICS</strong><br />\r\n&bull; Diameters from 1/8 &quot;to 3/4&quot; and thicknesses from 0.71 to 1.65 mm</span></p>', '<p><span style=\"font-size:16px\">Seg&uacute;n normas ASTM&nbsp; A269 o A213</span></p>', '<p><span style=\"font-size:16px\">According to ASTM standards&nbsp; A269 or A213</span></p>', NULL, 6, 'cc', 0, '2019-03-08 16:39:24', '2019-03-08 16:39:24'),
-(18, 'productos__ST.jpg', NULL, NULL, 'ST SOPORTES PARA TUBOS', 'ST SUPPORTS FOR TUBES', '<p><span style=\"font-size:16px\"><strong>DESCRIPCI&Oacute;N</strong><br />\r\nSoportes para tubos, de polipropileno, en dos mitades, para 1 o 2 tubos</span></p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>CARACTER&Iacute;STICAS</strong><br />\r\n&bull; Base de acero al carbono, para soldar o abulonar<br />\r\n&bull; Opcional base de acero inoxidable AISI 304/316</span></p>', '<p><span style=\"font-size:16px\"><strong>DESCRIPTION</strong><br />\r\nSupports for tubes, polypropylene, in two halves, for 1 or 2 tubes</span></p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>CHARACTERISTICS</strong><br />\r\n&bull; Carbon steel base, for welding or abulonar<br />\r\n&bull; Optional AISI 304/316 stainless steel base</span></p>', '<p>Para 1 o 2 tubos de:<br />\r\n1/8, 1/4 ,3/8 , 1/2 , y 1&quot; OD</p>', '<p>For 1 or 2 tubes of:<br />\r\n1/8, 1/4, 3/8, 1/2, and 1 &quot;OD</p>', NULL, 6, 'dd', 0, '2019-03-08 16:41:50', '2019-03-08 16:41:50');
+(18, 'productos__ST.jpg', NULL, NULL, 'ST SOPORTES PARA TUBOS', 'ST SUPPORTS FOR TUBES', '<p><span style=\"font-size:16px\"><strong>DESCRIPCI&Oacute;N</strong><br />\r\nSoportes para tubos, de polipropileno, en dos mitades, para 1 o 2 tubos</span></p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>CARACTER&Iacute;STICAS</strong><br />\r\n&bull; Base de acero al carbono, para soldar o abulonar<br />\r\n&bull; Opcional base de acero inoxidable AISI 304/316</span></p>', '<p><span style=\"font-size:16px\"><strong>DESCRIPTION</strong><br />\r\nSupports for tubes, polypropylene, in two halves, for 1 or 2 tubes</span></p>\r\n\r\n<p><span style=\"font-size:16px\"><strong>CHARACTERISTICS</strong><br />\r\n&bull; Carbon steel base, for welding or abulonar<br />\r\n&bull; Optional AISI 304/316 stainless steel base</span></p>', '<p>Para 1 o 2 tubos de:<br />\r\n1/8, 1/4 ,3/8 , 1/2 , y 1&quot; OD</p>', '<p>For 1 or 2 tubes of:<br />\r\n1/8, 1/4, 3/8, 1/2, and 1 &quot;OD</p>', NULL, 6, 'dd', 0, '2019-03-08 16:41:50', '2019-03-08 16:41:50'),
+(19, 'productos__VE225.jpg', 'productos__ESF2V_07-18.pdf', NULL, 'VÁLVULA ESFÉRICA ESF2V', 'BALL VALVE ESF2V', '<p>Valvula de 2 vias etc.</p>', '<p>Two-way ball valve etc.</p>', '<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:500px\">\r\n	<tbody>\r\n		<tr>\r\n			<td>\r\n			<p><span style=\"color:#c0392b\"><strong>Material</strong></span></p>\r\n			</td>\r\n			<td>\r\n			<p><span style=\"color:#c0392b\"><strong>Presion Maxima (bar)</strong></span></p>\r\n			</td>\r\n			<td>\r\n			<p><span style=\"color:#c0392b\"><strong>Temperatura (C&ordm;)</strong></span></p>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td>PCTFE</td>\r\n			<td>345</td>\r\n			<td>-26 a 177</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:500px\">\r\n	<tbody>\r\n		<tr>\r\n			<td><strong>Material</strong></td>\r\n			<td><strong>Maximum Pressure (PSI)</strong></td>\r\n			<td><strong>Temperatura (F&ordm;)</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>PCTFE</td>\r\n			<td>5000</td>\r\n			<td>-15 to 350</td>\r\n		</tr>\r\n	</tbody>\r\n</table>', '<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:500px\">\r\n	<tbody>\r\n		<tr>\r\n			<td><strong>Material</strong></td>\r\n			<td><strong>Maximum Pressure (PSI)</strong></td>\r\n			<td><strong>Temperatura (F&ordm;)</strong></td>\r\n		</tr>\r\n		<tr>\r\n			<td>PCTFE</td>\r\n			<td>5000</td>\r\n			<td>-15 to 350</td>\r\n		</tr>\r\n	</tbody>\r\n</table>', NULL, 7, 'AB', 0, '2019-03-14 21:13:22', '2019-03-14 21:17:44');
 
 -- --------------------------------------------------------
 
@@ -461,7 +475,8 @@ CREATE TABLE `sliders` (
 
 INSERT INTO `sliders` (`id`, `title_es`, `subtitle_es`, `title_en`, `subtitle_en`, `image`, `section`, `order`, `created_at`, `updated_at`) VALUES
 (1, 'Soluciones confiables para aplicaciones de alta exigencia', NULL, 'Reliable solutions', NULL, 'sliders__abacsliderhome.jpg', 'home', 'AA', '2019-02-26 20:16:19', '2019-03-08 16:36:45'),
-(2, NULL, NULL, NULL, NULL, 'sliders__sd.jpg', 'empresa', 'AA', '2019-02-27 15:31:36', '2019-03-07 21:24:16');
+(2, NULL, NULL, NULL, NULL, 'sliders__sd.jpg', 'empresa', 'AA', '2019-02-27 15:31:36', '2019-03-07 21:24:16'),
+(5, 'VEC25: Redefiniendo la industria del GNC.', 'Redefiniendo la industria del GNC.', 'VEC25: Redefining the GNC industry.', 'Redefining the GNC industry.', 'sliders__Vec 25 Abierta 02.jpg', 'home', 'BB', '2019-03-11 21:02:33', '2019-03-11 21:04:33');
 
 -- --------------------------------------------------------
 
@@ -490,13 +505,6 @@ CREATE TABLE `tablas` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Volcado de datos para la tabla `tablas`
---
-
-INSERT INTO `tablas` (`id`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `h`, `i`, `j`, `k`, `l`, `m`, `producto_id`, `o`, `created_at`, `updated_at`) VALUES
-(1, 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 3, NULL, '2019-03-20 17:14:49', '2019-03-20 17:14:49');
-
 -- --------------------------------------------------------
 
 --
@@ -523,8 +531,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `nivel`, `distribuidor`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Esaú Murillo', 'esaujose7', 'esaujose7@gmail.com', 's3', NULL, NULL, '$2y$10$5NLXOV8uNgTlzkVSXft8JuzeYNx2U7ue9lYSrw9v3nzHPV.q5x6D6', 'RfWNsb28ofnR8C5DeRMn3febtN8bw0TFbk3xMCGOom98BPB8nuT2YdpRhj8s', NULL, NULL),
-(2, 'Pablo Cabañuz', 'pablo', 'pcabanuz@osole.es', 's3', NULL, NULL, '$2y$10$xeTuMaMQ2vV3njSWIkq7.Oe4hN2a/JTDQhqfhbbYVT4ldKdNXiWEy', 'sPJHzwPJDkf9wpAAL1FTeJAfDfF6oTCtL4szBoz0NePmUS6TxgsTa2qdL2R8', NULL, NULL),
-(3, 'ariel', 'ariel', 'arielcallisaya00@gmail.com', 's3', 'Exclusivo', NULL, '$2y$10$Jk6XpEYDqYeLmsrXYvWpQOXxhFlWu7wVmrB.j/ooQrMdX3wmD8iY.', 'PSoesnhLzKlP7OYgu58nITwA2QlI1fGVDjUzFUNFpbVKQPh35oqUdp1oVzsb', '2019-03-11 20:31:44', '2019-03-18 20:54:01');
+(2, 'Pablo Cabañuz', 'pablo', 'pcabanuz@osole.es', 's3', NULL, NULL, '$2y$10$xeTuMaMQ2vV3njSWIkq7.Oe4hN2a/JTDQhqfhbbYVT4ldKdNXiWEy', 'adD3bqK7dhZAd6Fwnfo75WoW4iDavHZjvG3FQVMMuQq2QDve4IEvcUBJZNm8', NULL, NULL),
+(3, 'ariel', 'ariel', 'arielcallisaya00@gmail.com', 's3', NULL, NULL, '$2y$10$9G.iwOU4y933zQyXdbp30eRHl3QqGDRKkitqs7qIxjn83PfzaWJt.', '1n6ycYl9GY94HWGM5fPXuAGcUUEHzKxjceNk1Y7jR3gDiubM7oKeItTVNtST', '2019-03-11 18:42:32', '2019-03-16 20:07:57');
 
 --
 -- Índices para tablas volcadas
@@ -537,6 +545,12 @@ ALTER TABLE `admins`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `admins_username_unique` (`username`),
   ADD UNIQUE KEY `admins_email_unique` (`email`);
+
+--
+-- Indices de la tabla `calculos`
+--
+ALTER TABLE `calculos`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `calidads`
@@ -645,10 +659,16 @@ ALTER TABLE `admins`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de la tabla `calculos`
+--
+ALTER TABLE `calculos`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
 -- AUTO_INCREMENT de la tabla `calidads`
 --
 ALTER TABLE `calidads`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias`
@@ -660,7 +680,7 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `contenidos`
 --
 ALTER TABLE `contenidos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT de la tabla `csvs`
@@ -672,7 +692,7 @@ ALTER TABLE `csvs`
 -- AUTO_INCREMENT de la tabla `descargas`
 --
 ALTER TABLE `descargas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `familias`
@@ -690,13 +710,13 @@ ALTER TABLE `galerias`
 -- AUTO_INCREMENT de la tabla `metadatos`
 --
 ALTER TABLE `metadatos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `novedades`
@@ -708,19 +728,19 @@ ALTER TABLE `novedades`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `sliders`
 --
 ALTER TABLE `sliders`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `tablas`
 --
 ALTER TABLE `tablas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `users`

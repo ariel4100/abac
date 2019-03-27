@@ -162,8 +162,8 @@
                 </div>
 
             </div>
-            <div class="row" style="margin-bottom: 10px; margin-top: 20px">
-                 <span class="" v-if="resultado > 0" style="border: 1px solid darkgray; padding: 10px">
+            <div class="row" style="margin-bottom: 10px; margin-top: 30px; ">
+                 <span class="" v-if="resultado > 0" style="border: 1px solid darkgray; padding: 30px; background-color: #ededed;">
                 {{ resultado }}
             </span>
             </div>
@@ -175,7 +175,7 @@
 
 <script>
     import axios from 'axios';
-    import 'materialize-css/dist/js/materialize.js'
+
     export default {
         data() {
             return {
@@ -249,10 +249,7 @@
                 axios.get('/api/gas').then(res => {
                     this.tipogas = res.data;
                     //console.log(res.data);
-                    let self = this
-                    Vue.nextTick(function () {
-                        $(self.$el).find('select').formSelect();
-                    })
+
                 }).catch(e => {
                     console.log(e);
                 });
@@ -261,10 +258,7 @@
                 axios.get('/api/liquido').then(res => {
                     this.tipoliquido = res.data;
                     //console.log(res.data);
-                    let self = this
-                    Vue.nextTick(function () {
-                        $(self.$el).find('select').formSelect();
-                    })
+
                 }).catch(e => {
                     console.log(e);
                 });
@@ -272,6 +266,9 @@
             // CALCULO DEL CV
             calcv(data){
                 console.log(data);
+                //Q [Nl/m] = 6950 * 1,1 * 100 (1-2/300) * SQRT(1/100*2.07*343,15) = 2849,34 Nl/m.
+                let nose = (6950 * 1.1 *100)*(1-(2/300)) * Math.sqrt(1/100*2.07*343.15);
+                console.log('original: '+ nose);
                 //Temperatura: Kelvin  = (77 F° - 32°)*5/9 + 273,15 = 298,15 K°;
                 if(this.selectedtemp == 'ºFarenheit')
                 {
@@ -349,25 +346,38 @@
                     let p1 = parseInt(data.p1); //dividir para pasar a bar
                     let p2 = parseInt(data.p2); //dividir para pasar a bar
                     let ap = p1 - p2;
-                    //DOS IF PARA LOS DE GAS CV Y CAUDAL
-                    if (this.tipo1 == 'caudal' && this.tipo2 == 'gas')
+                    //DOS IF PARA LOS DE GAS CV Y CAUDAL DONDE P1 ES MENOR A 2*P2
+                    if (p1 < (2*p2))
                     {
-                        console.log('si es caudal y gas Y Bar el res es igual a: ');
-                        //PARA HALLAR EL Q
-                        console.log('p1: '+ p1);
-                        console.log('peso: '+ pesogas);
-                        console.log('temp: '+ this.temp);
-                        let a = Math.sqrt(ap / (p1*pesogas*this.temp));
-                        console.log('mitad: '+ a);
-                        this.resultado = ((6950 * this.caudalgas.toFixed(2)  * p1) * (1 - (2*ap/3*p1)) ) * Math.sqrt(ap / p1*pesogas*this.temp);
+                        if (this.tipo1 == 'caudal' && this.tipo2 == 'gas')
+                        {
+                            console.log('si es caudal y gas Y Bar el res es igual a: ');
+                            //PARA HALLAR EL Q
+                            this.resultado = (6950 * this.caudalgas.toFixed(2) * p1) * (1 - ((2*ap)/(3*p1))) * Math.sqrt(ap / p1*pesogas*this.temp);
+                        }
+                        if (this.tipo1 == 'cv' && this.tipo2 == 'gas')
+                        {
+                            console.log('si es cv y gas Y Bar el res es igual a: ');
+                            //PARA HALLAR EL CV
+                            this.resultado = (3*this.cvgas.toFixed(2) / 6950 *((3*p1) - (2*ap))) * Math.sqrt(p1 * pesogas * this.temp  / ap);
+                        }
                     }
-                    if (this.tipo1 == 'cv' && this.tipo2 == 'gas')
+                    //DOS IF PARA LOS DE GAS CV Y CAUDAL DONDE P1 ES mayor 0 igual A 2*P2
+                    if (p1 >= (2*p2))
                     {
-                        console.log('si es cv y gas Y Bar el res es igual a: ');
-                        //PARA HALLAR EL CV
-                        this.resultado = (3*this.caudalgas.toFixed(2) / 6950 *(3*p1 - 2*ap) ) * Math.sqrt(p1 * peso * this.temp  / ap.toFixed(2));
+                        if (this.tipo1 == 'caudal' && this.tipo2 == 'gas')
+                        {
+                            console.log('si es caudal y gas Y Bar el res es igual a: ');
+                            //PARA HALLAR EL Q
+                            this.resultado = (3273 * this.caudalgas.toFixed(2) * p1) * Math.sqrt(1 / pesogas*this.temp);
+                        }
+                        if (this.tipo1 == 'cv' && this.tipo2 == 'gas')
+                        {
+                            console.log('si es cv y gas Y Bar el res es igual a: ');
+                            //PARA HALLAR EL CV
+                            this.resultado = (this.cvgas.toFixed(2) / (3273 * p1)) * Math.sqrt(pesogas * this.temp);
+                        }
                     }
-
                     //DOS IF PARA LOS DE LIQUIDOS CV Y CAUDAL
                     if (this.tipo1 == 'caudal' && this.tipo2 == 'liquido')
                     {
@@ -390,6 +400,38 @@
                     let p1 = parseFloat(data.p1) / 14.50; //dividir para pasar a bar
                     let p2 = parseFloat(data.p2) / 14.50; //dividir para pasar a bar
                     let ap = p1 - p2;
+                    //DOS IF PARA LOS DE GAS CV Y CAUDAL DONDE P1 ES MENOR A 2*P2
+                    if (p1 < (2*p2))
+                    {
+                        if (this.tipo1 == 'caudal' && this.tipo2 == 'gas')
+                        {
+                            console.log('si es caudal y gas Y Bar el res es igual a: ');
+                            //PARA HALLAR EL Q
+                            this.resultado = (6950 * this.caudalgas.toFixed(2) * p1) * (1 - ((2*ap)/(3*p1))) * Math.sqrt(ap / p1*pesogas*this.temp);
+                        }
+                        if (this.tipo1 == 'cv' && this.tipo2 == 'gas')
+                        {
+                            console.log('si es cv y gas Y Bar el res es igual a: ');
+                            //PARA HALLAR EL CV
+                            this.resultado = (3*this.cvgas.toFixed(2) / 6950 *((3*p1) - (2*ap))) * Math.sqrt(p1 * pesogas * this.temp  / ap);
+                        }
+                    }
+                    //DOS IF PARA LOS DE GAS CV Y CAUDAL DONDE P1 ES mayor 0 igual A 2*P2
+                    if (p1 >= (2*p2))
+                    {
+                        if (this.tipo1 == 'caudal' && this.tipo2 == 'gas')
+                        {
+                            console.log('si es caudal y gas Y Bar el res es igual a: ');
+                            //PARA HALLAR EL Q
+                            this.resultado = (3273 * this.caudalgas.toFixed(2) * p1) * Math.sqrt(1 / pesogas*this.temp);
+                        }
+                        if (this.tipo1 == 'cv' && this.tipo2 == 'gas')
+                        {
+                            console.log('si es cv y gas Y Bar el res es igual a: ');
+                            //PARA HALLAR EL CV
+                            this.resultado = (this.cvgas.toFixed(2) / (3273 * p1)) * Math.sqrt(pesogas * this.temp);
+                        }
+                    }
                     if (this.tipo1 == 'caudal' && this.tipo2 == 'liquido')
                     {
                         console.log('si es caudal y liquido Y PSI el res es igual a: ');
@@ -410,6 +452,38 @@
                     let p1 = parseFloat(data.p1) / 0.1; //dividir para pasar a bar
                     let p2 = parseFloat(data.p2) / 0.1; //dividir para pasar a bar
                     let ap = p1 - p2;
+                    //DOS IF PARA LOS DE GAS CV Y CAUDAL DONDE P1 ES MENOR A 2*P2
+                    if (p1 < (2*p2))
+                    {
+                        if (this.tipo1 == 'caudal' && this.tipo2 == 'gas')
+                        {
+                            console.log('si es caudal y gas Y Bar el res es igual a: ');
+                            //PARA HALLAR EL Q
+                            this.resultado = (6950 * this.caudalgas.toFixed(2) * p1) * (1 - ((2*ap)/(3*p1))) * Math.sqrt(ap / p1*pesogas*this.temp);
+                        }
+                        if (this.tipo1 == 'cv' && this.tipo2 == 'gas')
+                        {
+                            console.log('si es cv y gas Y Bar el res es igual a: ');
+                            //PARA HALLAR EL CV
+                            this.resultado = (3*this.cvgas.toFixed(2) / 6950 *((3*p1) - (2*ap))) * Math.sqrt(p1 * pesogas * this.temp  / ap);
+                        }
+                    }
+                    //DOS IF PARA LOS DE GAS CV Y CAUDAL DONDE P1 ES mayor 0 igual A 2*P2
+                    if (p1 >= (2*p2))
+                    {
+                        if (this.tipo1 == 'caudal' && this.tipo2 == 'gas')
+                        {
+                            console.log('si es caudal y gas Y Bar el res es igual a: ');
+                            //PARA HALLAR EL Q
+                            this.resultado = (3273 * this.caudalgas.toFixed(2) * p1) * Math.sqrt(1 / pesogas*this.temp);
+                        }
+                        if (this.tipo1 == 'cv' && this.tipo2 == 'gas')
+                        {
+                            console.log('si es cv y gas Y Bar el res es igual a: ');
+                            //PARA HALLAR EL CV
+                            this.resultado = (this.cvgas.toFixed(2) / (3273 * p1)) * Math.sqrt(pesogas * this.temp);
+                        }
+                    }
                     if (this.tipo1 == 'caudal' && this.tipo2 == 'liquido')
                     {
                         console.log('si es caudal y liquido Y MPA el res es igual a: ');
@@ -428,6 +502,38 @@
                     let p1 = parseFloat(data.p1) / 100; //dividir para pasar a bar
                     let p2 = parseFloat(data.p2) / 100; //dividir para pasar a bar
                     let ap = p1 - p2;
+                    //DOS IF PARA LOS DE GAS CV Y CAUDAL DONDE P1 ES MENOR A 2*P2
+                    if (p1 < (2*p2))
+                    {
+                        if (this.tipo1 == 'caudal' && this.tipo2 == 'gas')
+                        {
+                            console.log('si es caudal y gas Y Bar el res es igual a: ');
+                            //PARA HALLAR EL Q
+                            this.resultado = (6950 * this.caudalgas.toFixed(2) * p1) * (1 - ((2*ap)/(3*p1))) * Math.sqrt(ap / p1*pesogas*this.temp);
+                        }
+                        if (this.tipo1 == 'cv' && this.tipo2 == 'gas')
+                        {
+                            console.log('si es cv y gas Y Bar el res es igual a: ');
+                            //PARA HALLAR EL CV
+                            this.resultado = (3*this.cvgas.toFixed(2) / 6950 *((3*p1) - (2*ap))) * Math.sqrt(p1 * pesogas * this.temp  / ap);
+                        }
+                    }
+                    //DOS IF PARA LOS DE GAS CV Y CAUDAL DONDE P1 ES mayor 0 igual A 2*P2
+                    if (p1 >= (2*p2))
+                    {
+                        if (this.tipo1 == 'caudal' && this.tipo2 == 'gas')
+                        {
+                            console.log('si es caudal y gas Y Bar el res es igual a: ');
+                            //PARA HALLAR EL Q
+                            this.resultado = (3273 * this.caudalgas.toFixed(2) * p1) * Math.sqrt(1 / pesogas*this.temp);
+                        }
+                        if (this.tipo1 == 'cv' && this.tipo2 == 'gas')
+                        {
+                            console.log('si es cv y gas Y Bar el res es igual a: ');
+                            //PARA HALLAR EL CV
+                            this.resultado = (this.cvgas.toFixed(2) / (3273 * p1)) * Math.sqrt(pesogas * this.temp);
+                        }
+                    }
                     if (this.tipo1 == 'caudal' && this.tipo2 == 'liquido')
                     {
                         console.log('si es caudal y liquido Y kPA el res es igual a: ');
@@ -446,6 +552,38 @@
                     let p1 = parseFloat(data.p1) / 1.019; //dividir para pasar a bar
                     let p2 = parseFloat(data.p2) / 1.019; //dividir para pasar a bar
                     let ap = p1 - p2;
+                    //DOS IF PARA LOS DE GAS CV Y CAUDAL DONDE P1 ES MENOR A 2*P2
+                    if (p1 < (2*p2))
+                    {
+                        if (this.tipo1 == 'caudal' && this.tipo2 == 'gas')
+                        {
+                            console.log('si es caudal y gas Y Bar el res es igual a: ');
+                            //PARA HALLAR EL Q
+                            this.resultado = (6950 * this.caudalgas.toFixed(2) * p1) * (1 - ((2*ap)/(3*p1))) * Math.sqrt(ap / p1*pesogas*this.temp);
+                        }
+                        if (this.tipo1 == 'cv' && this.tipo2 == 'gas')
+                        {
+                            console.log('si es cv y gas Y Bar el res es igual a: ');
+                            //PARA HALLAR EL CV
+                            this.resultado = (3*this.cvgas.toFixed(2) / 6950 *((3*p1) - (2*ap))) * Math.sqrt(p1 * pesogas * this.temp  / ap);
+                        }
+                    }
+                    //DOS IF PARA LOS DE GAS CV Y CAUDAL DONDE P1 ES mayor 0 igual A 2*P2
+                    if (p1 >= (2*p2))
+                    {
+                        if (this.tipo1 == 'caudal' && this.tipo2 == 'gas')
+                        {
+                            console.log('si es caudal y gas Y Bar el res es igual a: ');
+                            //PARA HALLAR EL Q
+                            this.resultado = (3273 * this.caudalgas.toFixed(2) * p1) * Math.sqrt(1 / pesogas*this.temp);
+                        }
+                        if (this.tipo1 == 'cv' && this.tipo2 == 'gas')
+                        {
+                            console.log('si es cv y gas Y Bar el res es igual a: ');
+                            //PARA HALLAR EL CV
+                            this.resultado = (this.cvgas.toFixed(2) / (3273 * p1)) * Math.sqrt(pesogas * this.temp);
+                        }
+                    }
                     if (this.tipo1 == 'caudal' && this.tipo2 == 'liquido')
                     {
                         console.log('si es caudal y liquido Y KGCM el res es igual a: ');
@@ -459,14 +597,7 @@
                     console.log(parseFloat(this.resultado));
                 }
             },
-            calcvygas()
-            {
 
-            },
-            calcaudal()
-            {
-
-            },
         }
     }
 </script>
