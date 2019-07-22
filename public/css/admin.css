@@ -1,0 +1,45 @@
+.nave {
+    background-color: #376fb5;
+}
+a {
+    outline: none;
+    color: darkgrey;
+    font-weight: bold;
+}
+i {
+    color: darkgrey;
+}
+
+.collapsible-body > div {
+    padding-left: 60px;
+    margin: 10px 0;
+}
+
+div {
+    border: 0;
+}
+
+.collapsible-header {
+    border: inherit;
+}
+
+.collapsible-body {
+    border: inherit;
+    padding: 0;
+}
+
+.collapsible {
+    border: inherit;
+    margin: 0;
+}
+
+.btn {
+    background-color: #376fb5;
+}
+
+.waves-button-input {
+    cursor: pointer;
+}
+.btn:hover {
+    background-color: #376fb5;
+}
