@@ -136,11 +136,11 @@
     @endif
 
     @if($producto->video_url !== null)
-    <div class="row especificaciones flex-center">
-        <div class="col l6">
-            <h5 class="mt0 mb0 rederino" style="margin-top:-80px">{{__('For more information, watch the video below')}}</h5>
-        </div>
-        <div class="col l6">
+    <div class="row   flex-center">
+        {{--<div class="col l6">--}}
+            {{--<h5 class="mt0 mb0 rederino" style="margin-top:-80px">{{__('For more information, watch the video below')}}</h5>--}}
+        {{--</div>--}}
+        <div class="col l12">
             <iframe class="responsive-video" src="https://www.youtube.com/embed/{{$producto->video_url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>

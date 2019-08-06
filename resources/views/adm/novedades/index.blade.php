@@ -26,6 +26,6 @@
         const action = document.querySelector('.gogo')
         M.FormSelect.init(selector);
 
-        selector.addEventListener('change', () => action.href = `/abac/adm/novedad/${selector.value}/show`)
+        selector.addEventListener('change', () => action.href = `{{ url('/') }}/adm/novedad/${selector.value}/show`)
     </script>
 @endpush

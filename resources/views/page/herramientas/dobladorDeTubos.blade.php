@@ -12,7 +12,7 @@
 <p style="color:#666666;" class="mt0 mb0">- {{__('The length and the angle will always be loaded at the end of it. Therefore, the final section will be loaded without angle.')}}</p>
 <p style="color:#666666;" class="mt0 mb0">- {{__('It is recommended to mark the lengths of the tube with a T, with the leg of the tube pointing towards the reference end. Also make a mark at the reference end.')}}</p>
 <p style="color:#666666;" class="mt0 mb0">- {{__('Depending on which side of the tool the tube is inserted, the corresponding reference must be used.')}}</p>
-<p style="color:#666666;" class="mt0 mb0">- {{__('RIGID tools')}}</p>
+<p style="color:#666666;" class="mt0 mb0">- {{__('RIDGID tools')}}</p>
 <p style="color:#666666;" class="mt0 mb0">- {{__('The bend angles of 40º are negligible in the development.')}}</p>
     </p>
     <p class="red-text mb30"> * {{__('Obligatory')}}</p>

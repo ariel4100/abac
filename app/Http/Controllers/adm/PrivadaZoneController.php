@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\adm;
 
-use App\csv;
+use App\Csv;
 use App\Nivel;
 use App\User;
 use Illuminate\Http\Request;
@@ -113,7 +113,7 @@ class PrivadaZoneController extends Controller
         for ($i=0;$i<count($data);$i++)
         {
             $data[$i] = explode(';',$data[$i][0]);
-            csv::create([
+            Csv::create([
                 'partida' => $data[$i][0],
                 'materia' => $data[$i][1],
                 'articulo' => $data[$i][2],

@@ -56,7 +56,7 @@
                 @foreach($calidad as $c)
                     <div class="col s12 m4">
                         <div class="" style="border: 1px solid rgb(221, 221, 221);">
-                            <img src="{{ asset('img/calidad/'.$c->file_image) }}"  style="width: 100%; height: 215px; display: block;" class="responsive-img" alt="">
+                            <img src="{{ asset('img/calidad/'.$c->file_image) }}"  style="width: 100%; display: block; " class=" " alt="">
 
                             <div class=" "  style="border-top: 1px solid rgb(221, 221, 221);">
                                 <p class="grayerino" style="margin-bottom: 0.2rem">

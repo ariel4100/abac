@@ -12,6 +12,13 @@
                     </ul>
                 </div>
             @endif
+                @if(session('alert'))
+                    <div class="row">
+                        <div class="col s12 card-panel green lighten-4 green-text text-darken-4"  style="padding: 1%;">
+                            {{ session('alert') }}
+                        </div>
+                    </div>
+                @endif
             <div class="row">
                 <form action="{{ route('privada.csv.store') }}" method="post" enctype="multipart/form-data">
                     @csrf

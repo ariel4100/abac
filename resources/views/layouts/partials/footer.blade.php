@@ -21,14 +21,14 @@
                 </div>
             </div>
             <div class="col l3 m6 s12">
-                <h6 class="rederino uppercase mt20">{{ __('Contact') }}</h6>
+                <h6 class="rederino uppercase mt20">ABAC SRL</h6>
                 <div class="flex" style="justify-content:space-between; align-items:center">
                         <img src="{{asset('img/contenido/'.$logos[5]->image)}}" class="responsive-img mt20" alt="">
                         <img src="{{asset('img/contenido/'.$logos[6]->image)}}" class="responsive-img mt20" alt="">
                 </div>
             </div>
             <div class="col l3 m6 s12">
-                <h6 class="rederino uppercase mt20">ABAC SRL</h6>
+                <h6 class="rederino uppercase mt20">{{ __('Contact') }}</h6>
                 @foreach($contacto as $c)
                 <div class="row mb10">
                     <div class="col l2">

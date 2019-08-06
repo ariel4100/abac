@@ -148,7 +148,7 @@ class CalculoController extends Controller
                     ->where('tablas.d','>',$request->p1)
                     ->where('tablas.f','>=',round($request->calculo,2))
                     ->where('tablas.diametro2',$request->diametro)
-                    ->where('tablas.tipo2',$request->tipo)
+                    ->where('tablas.tipo2',$request->tipo[0])
                     ->select('productos.*','tablas.c','tablas.producto_id','familias.buscado')
                     ->get();
             }
@@ -163,7 +163,7 @@ class CalculoController extends Controller
                     ->where('tablas.d','>',$request->p1)
                     ->where('tablas.f','>=',round($request->calculo,2))
                     ->where('tablas.diametro1',$request->diametro)
-                    ->where('tablas.tipo',$request->tipo)
+                    ->where('tablas.tipo',$request->tipo[0])
                     ->select('productos.*','tablas.c','tablas.producto_id','familias.buscado')
                     ->get();
             }
@@ -178,7 +178,7 @@ class CalculoController extends Controller
                     ->where('tablas.d','>',$request->p1)
                     ->where('tablas.f','>=',round($request->calculo,2))
                     ->where('tablas.diametro2',$request->diametrosalida)
-                    ->where('tablas.tipo2',$request->tiposalida)
+                    ->where('tablas.tipo2',$request->tiposalida[0])
                     ->select('productos.*', 'tablas.c','tablas.producto_id','familias.buscado')
                     ->get();
             }
@@ -206,7 +206,7 @@ class CalculoController extends Controller
                     ->where('familias.buscado',true)
                     ->where('tablas.d','>',$request->p1)
                     ->where('tablas.f','>=',round($request->calculo,2))
-                    ->where('tablas.tipo',$request->tipo)
+                    ->where('tablas.tipo',$request->tipo[0])
                     ->select('productos.*', 'tablas.c','tablas.producto_id','familias.buscado')
                     ->get();
             }
@@ -239,6 +239,21 @@ class CalculoController extends Controller
                     ->get();
             }
 
+            // ESPECIFICO POR TODOS
+            if($request->diametrosalida  != 'todos' && $request->tipo != 'todos' && $request->diametro != 'todos' && $request->tiposalida != 'todos')
+            {
+
+                $resultado = Producto::leftJoin('tablas', 'tablas.producto_id', '=', 'productos.id')
+                    ->leftJoin('familias', 'familias.id', '=', 'productos.familia_id')
+                    ->where('productos.familia_id',$request->familia)
+                    ->where('familias.buscado',true)
+                    ->where('tablas.d','>',$request->p1)
+                    ->where('tablas.f','>=',round($request->calculo,2))
+                    ->where('tablas.diametro2',$request->diametrosalida)
+                    ->select('productos.*', 'tablas.c','tablas.producto_id','familias.buscado')
+                    ->get();
+            }
+
         }
         /*if (round($request->resultado,2) <= 0.45 )
         {
@@ -255,7 +270,7 @@ class CalculoController extends Controller
             //mm 11
             $mm = 2.20;
         }*/
-        if ($request->resultado)
+        if (isset($request->resultado))
         {
 
             //ENTRADA Y SALIDA DONDE NINGUNO ES ESPECIFICO
@@ -268,7 +283,7 @@ class CalculoController extends Controller
                     ->where('tablas.d','>',$request->p1)
                     ->where('tablas.f','>=',round($request->resultado,2))
                     /*->where('tablas.diametro2',$request->diametro)
-                    ->where('tablas.tipo2',$request->tipo[0])*/
+                    ->where('tablas.tipo2',$request->tipo[0][0])*/
                     ->select('productos.image','productos.title_es','productos.title_en','productos.id','tablas.c','tablas.producto_id','familias.buscado')
                     ->get();
 
@@ -277,22 +292,7 @@ class CalculoController extends Controller
             //ENTRADA y SALIDA ESPECIFICO
             if($request->tipo  != 'todos' && $request->diametro != 'todos' && $request->diametrosalida != 'todos' && $request->tiposalida != 'todos')
             {
-
-                $resultado = Producto::leftJoin('tablas', 'tablas.producto_id', '=', 'productos.id')
-                    ->leftJoin('familias', 'familias.id', '=', 'productos.familia_id')
-                    ->where('productos.familia_id',$request->familia)
-                    ->where('familias.buscado',true)
-                    ->where('tablas.d','>',$request->p1)
-                    ->where('tablas.f','>=',round($request->resultado,2))
-                    ->where('tablas.diametro2',$request->diametro)
-                    ->where('tablas.tipo2',$request->tipo)
-                    ->select('productos.*','tablas.c','tablas.producto_id','familias.buscado')
-                    ->get();
-            }
-            //ENTRADA ESPECIFICO
-            if($request->tipo  != 'todos' && $request->diametro != 'todos' && $request->diametrosalida == 'todos' && $request->tiposalida == 'todos')
-            {
-
+//                return $request->tiposalida[0];
                 $resultado = Producto::leftJoin('tablas', 'tablas.producto_id', '=', 'productos.id')
                     ->leftJoin('familias', 'familias.id', '=', 'productos.familia_id')
                     ->where('productos.familia_id',$request->familia)
@@ -300,7 +300,24 @@ class CalculoController extends Controller
                     ->where('tablas.d','>',$request->p1)
                     ->where('tablas.f','>=',round($request->resultado,2))
                     ->where('tablas.diametro1',$request->diametro)
-                    ->where('tablas.tipo',$request->tipo)
+                    ->where('tablas.diametro2',$request->diametrosalida)
+                    ->where('tablas.tipo2',$request->tiposalida[0])
+                    ->where('tablas.tipo',$request->tipo[0])
+                    ->select('productos.*','tablas.c','tablas.producto_id','familias.buscado')
+                    ->get();
+            }
+            //ENTRADA ESPECIFICO
+            if($request->tipo  != 'todos' && $request->diametro != 'todos' && $request->diametrosalida == 'todos' && $request->tiposalida == 'todos')
+            {
+//                return $request->tipo[0];
+                $resultado = Producto::leftJoin('tablas', 'tablas.producto_id', '=', 'productos.id')
+                    ->leftJoin('familias', 'familias.id', '=', 'productos.familia_id')
+                    ->where('productos.familia_id',$request->familia)
+                    ->where('familias.buscado',true)
+                    ->where('tablas.d','>',$request->p1)
+                    ->where('tablas.f','>=',round($request->resultado,2))
+                    ->where('tablas.diametro1',$request->diametro)
+                    ->where('tablas.tipo',$request->tipo[0])
                     ->select('productos.*','tablas.c','tablas.producto_id','familias.buscado')
                     ->get();
             }
@@ -315,7 +332,7 @@ class CalculoController extends Controller
                     ->where('tablas.d','>',$request->p1)
                     ->where('tablas.f','>=',round($request->resultado,2))
                     ->where('tablas.diametro2',$request->diametrosalida)
-                    ->where('tablas.tipo2',$request->tiposalida)
+                    ->where('tablas.tipo2',$request->tiposalida[0])
                     ->select('productos.*', 'tablas.c','tablas.producto_id','familias.buscado')
                     ->get();
             }
@@ -329,7 +346,7 @@ class CalculoController extends Controller
                     ->where('familias.buscado',true)
                     ->where('tablas.d','>',$request->p1)
                     ->where('tablas.f','>=',round($request->resultado,2))
-                    ->where('tablas.tipo2',$request->tiposalida)
+                    ->where('tablas.tipo2',$request->tiposalida[0])
                     ->select('productos.*', 'tablas.c','tablas.producto_id','familias.buscado')
                     ->get();
             }
@@ -343,7 +360,7 @@ class CalculoController extends Controller
                     ->where('familias.buscado',true)
                     ->where('tablas.d','>',$request->p1)
                     ->where('tablas.f','>=',round($request->resultado,2))
-                    ->where('tablas.tipo',$request->tipo)
+                    ->where('tablas.tipo',$request->tipo[0])
                     ->select('productos.*', 'tablas.c','tablas.producto_id','familias.buscado')
                     ->get();
             }

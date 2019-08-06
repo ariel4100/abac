@@ -122,7 +122,7 @@
     "The length and the angle will always be loaded at the end of it. Therefore, the final section will be loaded without angle.":"Siempre se cargará la longitud y el ángulo al final de la misma. Por lo cual, el tramo final se cargará sin ángulo.",
     "It is recommended to mark the lengths of the tube with a T, with the leg of the tube pointing towards the reference end. Also make a mark at the reference end.":"Se recomienda marcar las longitudes del tubo con una “T”, con la pata de la misma apuntando hacia el extremo de referencia. Realizar tambien una marca en el extremo de referencia.",
     "Depending on which side of the tool the tube is inserted, the corresponding reference must be used.":"Según de que lado de la herramienta se ingrese el tubo, se deberá usar la referencia correspondiente.",
-    "RIGID tools":"Herramientas RIGID",
+    "RIDGID tools":"Herramientas RIDGID",
     "The bend angles of 40º are negligible in the development.":"Los ángulos de doblado de 40º son despreciables en el desarrollo.",
     "Select diameter (ø) of tube":"Seleccionar diámetro (ø) de tubo",
     "Enter the thickness (optional)":"Ingrese el espesor (opcional)",
