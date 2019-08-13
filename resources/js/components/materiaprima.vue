@@ -179,8 +179,11 @@
             },
 
             descarga() {
-                console.log('descarga');
-                axios.get(this.url+'/api/descarga/'+this.archivo.materia+'.pdf').then(res => {
+                // console.log('descarga');
+                axios.get(this.url+'/api/descarga', {
+                    params:   this.archivo,
+                    responseType: 'blob', // important
+                }).then(res => {
                     console.log(res);
                     let url = window.URL.createObjectURL(new Blob([res.data]));
                     let link = document.createElement('a');
@@ -193,6 +196,19 @@
                 }).catch(e => {
                     console.log(e);
                 });
+                // axios.get(this.url+'/api/descarga/'+this.archivo.materia+'.pdf').then(res => {
+                //     console.log(res);
+                //     let url = window.URL.createObjectURL(new Blob([res.data]));
+                //     let link = document.createElement('a');
+                //     link.href = url;
+                //     link.setAttribute('download', this.archivo.materia + '.pdf'); //or any other extension
+                //     document.body.appendChild(link);
+                //     link.click();
+                //     /*this.archivo = res.data;
+                //     this.paso3 = res.data.alert ? false : true;*/
+                // }).catch(e => {
+                //     console.log(e);
+                // });
             },
         }
     }

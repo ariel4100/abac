@@ -12,13 +12,13 @@
 <body>
 <div class="row" style="margin-top: -100px">
     <div class="col-md-4">
-        <img class="img-fluid" src="{{ asset('img/contenido/contenido__abac-logo.png') }}" width="200px">
+        <img class="img-fluid" src="img/contenido/contenido__abac-logo.png" width="200px">
     </div>
     <div class="col-md-4">
         <h6 class="text-center"><b>REGISTRO DE MATERIAS PRIMAS <br> APLICADO A COMPONENTES </b><br>Raw Material to Parts Relationship</h6>
     </div>
     <div class="col-md-4 text-right">
-        <img class="img-fluid" src="{{ asset('img/calidad.png') }}"  width="60px" >
+        <img class="img-fluid" src="img/calidad.png"  width="60px" >
     </div>
 </div>
 <hr style="background-color: black">

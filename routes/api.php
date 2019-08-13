@@ -25,9 +25,11 @@ Route::get('conexion','adm\ConexionController@apiconexion');
 Route::get('descargar','PrivadaController@pdf');
 
 
-Route::get('descarga/{file}',function ($file) {
-    return response()->download("materiaprima/$file");
-});
+Route::get('descarga','PrivadaController@descarga');
+//Route::get('descarga/{file}',function ($file) {
+////    dd($file);
+//    return response()->download("materiaprima/$file");
+//});
 Route::post('buscar','PrivadaController@buscar');
 Route::post('materia','PrivadaController@partidamateriaprima');
 Route::middleware('auth:api')->get('/user', function (Request $request) {

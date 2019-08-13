@@ -2877,8 +2877,12 @@ __webpack_require__.r(__webpack_exports__);
     descarga: function descarga() {
       var _this3 = this;
 
-      console.log('descarga');
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.url + '/api/descarga/' + this.archivo.materia + '.pdf').then(function (res) {
+      // console.log('descarga');
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.url + '/api/descarga', {
+        params: this.archivo,
+        responseType: 'blob' // important
+
+      }).then(function (res) {
         console.log(res);
         var url = window.URL.createObjectURL(new Blob([res.data]));
         var link = document.createElement('a');
@@ -2891,7 +2895,19 @@ __webpack_require__.r(__webpack_exports__);
         this.paso3 = res.data.alert ? false : true;*/
       }).catch(function (e) {
         console.log(e);
-      });
+      }); // axios.get(this.url+'/api/descarga/'+this.archivo.materia+'.pdf').then(res => {
+      //     console.log(res);
+      //     let url = window.URL.createObjectURL(new Blob([res.data]));
+      //     let link = document.createElement('a');
+      //     link.href = url;
+      //     link.setAttribute('download', this.archivo.materia + '.pdf'); //or any other extension
+      //     document.body.appendChild(link);
+      //     link.click();
+      //     /*this.archivo = res.data;
+      //     this.paso3 = res.data.alert ? false : true;*/
+      // }).catch(e => {
+      //     console.log(e);
+      // });
     }
   }
 });

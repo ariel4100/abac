@@ -208,8 +208,11 @@
             </div>
         </div>
     @endif
-
+    @if(App::getLocale() == 'es')
     <p>{{ __('See the') }} <a href="{{asset('files/productos/'.$producto->ficha)}}" target="_blank" style="color: #FA0D1B;">{{ __('product datasheet') }}</a> {{ __('to obtain dimensions') }}</p>
+    @else
+        <p>{{ __('See the') }} <a href="{{asset('files/productos/'.$producto->ficha_variante)}}" target="_blank" style="color: #FA0D1B;">{{ __('product datasheet') }}</a> {{ __('to obtain dimensions') }}</p>
+    @endif
     @if(count($randomProducts) != 0)
         <div class="row mt30 mb50">
             <h5 class="mb30 uppercase rederino oblique fuente fw6">{{__('Related products')}}</h5>

@@ -6,7 +6,7 @@ use App\Csv;
 use App\Descarga;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\File;
 
 class PrivadaController extends Controller
 {
@@ -29,11 +29,19 @@ class PrivadaController extends Controller
 
     public function calidad(Request $request)
     {
-        $data1 = Csv::where('partida',$request->numero0)->first();
+//        dd($request->numero0);
+//        $data1 = Csv::where('partida',$request->numero0)->first();
 
-        if ($data1)
+        if ($request->numero0)
         {
-            return response()->download('calidad/'.$data1->partida.'.pdf');
+//            $path = public_path($request->numero0);
+//            dd($path);
+            if (File::exists('calidad/'.$request->numero0.'.pdf')){
+                return response()->download('calidad/'.$request->numero0.'.pdf');
+            } else {
+                $err = __('Engraved number not found');
+                return back()->with('alert', $err);
+            }
         }else{
             $err = __('Engraved number not found');
             return back()->with('alert', $err);
@@ -104,6 +112,26 @@ class PrivadaController extends Controller
         //file_put_contents( '/files', $output);
         //return $pdf->stream('hola.pdf',array('Attachment'=> true));
         //return $pdf->download();
+    }
+
+    public function descarga(Request $request){
+        set_time_limit(300);
+
+        if ($request->materia)
+        {
+//            $path = public_path($request->numero0);
+//            dd($path);
+            if (File::exists('materiaprima/'.$request->materia.'.pdf')){
+                return response()->download('materiaprima/'.$request->materia.'.pdf');
+            } else {
+                $err = __('Engraved number not found');
+                return back()->with('alert', $err);
+            }
+        }else{
+            $err = __('Engraved number not found');
+            return back()->with('alert', $err);
+        }
+//        return response()->download("materiaprima/$request->materia.pdf");
     }
 
 }
