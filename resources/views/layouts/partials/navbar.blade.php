@@ -121,7 +121,7 @@
         <form  class="hide-on-large-only" action="{{ route('buscar.store') }}" method="post" autocomplete="off">
             @csrf
             @method('POST')
-            <buscador-component></buscador-component>
+            <buscador-component input="{{ __('Search') }}"></buscador-component>
         </form>
         {{--<form id="buscador1" class=" hide-on-large-only" action="{{ route('buscar.store') }}" method="post"  style="display: flex; align-items: center">--}}
             {{--@csrf--}}
