@@ -15,10 +15,19 @@ class ContactoController extends Controller
         return view('page.contacto.index', compact('maps'));
     }
     public function store(Request $request) {
+//        dd($request->all());
         ini_set('max_execution_time', 180); //3 minutes
         $correo = Contenido::seccionTipo('datos', 'texto')->get();
         $correo = $correo[2];
-
+//        dd($correo);
+        Mail::to('arielcallisaya00@gmail.com')->send(new ContactoMail(
+                $request->nombre,
+                $request->telefono,
+                $request->empresa,
+                $request->email,
+                $request->mensaje
+            )
+        );
         Mail::to($correo->title_es)->send(new ContactoMail(
                         $request->nombre,
                         $request->telefono,
@@ -27,6 +36,7 @@ class ContactoController extends Controller
                         $request->mensaje
                     )
         );
+//        dd($correo);
       	if (count(Mail::failures()) > 0) {
           $success = 'Ha ocurrido un error al enviar el correo';
           return back()->with('success', $success);

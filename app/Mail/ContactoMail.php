@@ -35,6 +35,8 @@ class ContactoMail extends Mailable
                 'empresa' => $this->empresa,
                 'email' => $this->email,
                 'mensaje' => $this->mensaje
-            ]);
+            ])
+            ->replyto($this->email)
+            ->subject('Mensaje de Contacto de la Pagina Web');
     }
 }

@@ -70,6 +70,8 @@ class TrabajaConNosotrosMail extends Mailable
             'dni' => $this->dni,
             'sector' => $this->sector,
 
-        ]);
+        ])
+            ->replyto($this->email)
+            ->subject('Mensaje de Trabaje con Nosotros de la Pagina Web');;
     }
 }
