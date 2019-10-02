@@ -23,7 +23,7 @@
             </button>
         </form>
         <div class="black-text" style="margin-top: 20px; margin-bottom: 20px">
-            <a href="{{ route('register') }}" class="black-text">{{ __('Sign in') }}</a> | <a href=" " class="black-text">¿{{ __('Have you forgotten your password') }}?</a>
+            <a href="{{ route('register') }}" class="black-text">{{ __('Sign in') }}</a> | <a href="{{ route('password.reset') }}" class="black-text">¿{{ __('Have you forgotten your password') }}?</a>
         </div>
     </div>
     <!-- Modal Structure -->

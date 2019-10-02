@@ -100,26 +100,56 @@ class PrivadaZoneController extends Controller
 
     public function csvstore(Request $request)
     {
+//        dd($request->all());
+        Csv::query()->truncate();
+        ini_set('max_execution_time', '0'); // for infinite time of execution
+        ini_set('memory_limit', '512MB');
+
+//        set_time_limit(0);
         $request->validate([
             'csv' => 'required',
         ]);
         //$contents = Storage::get('csv/csv.csv');
         $path = $request->file('csv')->getRealPath();
         //$data = Excel::load($path)->get();
-
-        $data = array_map('str_getcsv', file($path));
-        $csv_data = array_slice($data, 0, 3);
-        //return view('import_fields', compact('csv_data'));
-        for ($i=0;$i<count($data);$i++)
+//
+//        $data = array_map('str_getcsv', file($path));
+//        $csv_data = array_slice($data, 0, 3);
+//        dd($csv_data);
+        Excel::filter('chunk')->load($request->file('csv'))->chunk(250, function($results)
         {
-            $data[$i] = explode(';',$data[$i][0]);
-            Csv::create([
-                'partida' => $data[$i][0],
-                'materia' => $data[$i][1],
-                'articulo' => $data[$i][2],
-                'descripcion' => $data[$i][3],
-            ]);
-        }
+            dd($results);
+//                foreach($results as $row)
+//                {
+//                    // resultado
+//                }
+        });
+//        Excel::load($request->file('csv'), function($reader) {
+//            dd($reader->get());
+//            foreach ($reader->get() as $book) {
+//                Csv::create([
+//                    'name' => $book->title,
+//                    'author' => $book->author,
+//                    'year' => $book->publication_year
+//                ]);
+//            }
+//        });
+        //return view('import_fields', compact('csv_data'));
+//        foreach (count($data) as $k =>$item)
+//        {
+//            $data[$k] = explode(';',$data[$k][0]);
+//            dd($data);
+//        }
+//        for ($i=0;$i<count($data);$i++)
+//        {
+//            $data[$i] = explode(';',$data[$i][0]);
+//            Csv::create([
+//                'partida' => $data[$i][0],
+//                'materia' => $data[$i][1],
+//                'articulo' => $data[$i][2],
+//                'descripcion' => $data[$i][3],
+//            ]);
+//        }
         return redirect()->back()->with('alert','Se Cargo correctamente');
 
 
