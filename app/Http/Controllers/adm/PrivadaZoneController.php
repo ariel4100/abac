@@ -13,8 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
-
-
+use Illuminate\Support\Facades\Session;
 
 class PrivadaZoneController extends Controller
 {
@@ -103,119 +102,96 @@ class PrivadaZoneController extends Controller
 
     public function csvstore(Request $request)
     {
-//        dd($request->all());
-//        Csv::query()->truncate();
-//        ini_set('max_execution_time', '0'); // for infinite time of execution
-//        ini_set('memory_limit', '512MB');
+        ///////////////////
+        // Subir CSV
+        /////////////////// 
         set_time_limit(0);
         ini_set('memory_limit', '-1');
-
         $request->validate([
             'csv' => 'required',
         ]);
-        //$contents = Storage::get('csv/csv.csv');
+
+        //
+        // Obtiene las partidas existentes
+        $partidas = DB::table('csvs')->pluck('partida')->toArray();
+
+        //
+        // Ruta donde se guarda el CSV
         $path = $request->file('csv')->getRealPath();
-        //$data = Excel::load($path)->get();
-//        (new UsersImport)->import('users.csv', null, \Maatwebsite\Excel\Excel::CSV);
 
-//
+        //
+        // Convierte un string con formato CSV a un array
         $data = array_map('str_getcsv', file($path));
+
+        //
+        // Se convierte en coleccion la data (collect) y se extrae la primera columna (pluck)
         $valores = collect($data)->pluck(0);
-//        dd($valores);
 
+        //
+        // Se crea un contador
+        $counter = [
+            'created' => 0,
+            'updated' => 0
+        ];
 
-//        foreach($valores  as $k=>$item)
-//        {
-//            $ss = explode(';',$item);
-////            dd($ss);
-//            Csv::create([
-//                'partida' => $ss[0],
-//                'materia' => $ss[1],
-//                'articulo' => $ss[2],
-//                'descripcion' => utf8_encode($ss[3]),
-//            ]);
-//
-//        }
-//        $query = "INSERT INTO `csvs` (Field1, Field2) VALUES (" . $arr[0] . "," . $arr[1] . ")";
-        foreach($valores->chunk(1000)  as $k=>$item)
-        {
-            foreach ($item as $value)
-            {
+        //
+        // se abre un bloque de try/catch
+        try {
+            // Se inicia una transacción
+            DB::beginTransaction();
+
+            //
+            // se iteran los registros
+            foreach ($valores as $value) {
+                //
+                // Se convierte el string a un array por cada (;)
                 $ss = explode(';',$value);
-                DB::table('csvs')->insert(
-                    [
-                    'partida' => $ss[0],
-                    'materia' => $ss[1],
-                    'articulo' => $ss[2],
-                    'descripcion' => utf8_encode($ss[3]),
-                    ]
-                );
-    //                dd(  utf8_encode($valores[4957]));
-//                Csv::firstOrCreate([
-//                    'partida' => $ss[0],
-//                    'materia' => $ss[1],
-//                    'articulo' => $ss[2],
-//                    'descripcion' => utf8_encode($ss[3]),
-//                ]);
 
+                //
+                // Se verifica si existe la partida guardada en la base de datos
+                if (!in_array($ss[0], $partidas)):
+                    DB::table('csvs')->insert([
+                        'partida' => $ss[0],
+                        'materia' => $ss[1],
+                        'articulo' => $ss[2],
+                        'descripcion' => utf8_encode($ss[3]),
+                    ]);
+                    $partidas[] = $ss[0];
+                    $counter['created']++; 
+                else:
+                    DB::table('csvs')
+                        ->where('partida', $ss[0])
+                        ->update([
+                            'materia' => $ss[1],
+                            'articulo' => $ss[2],
+                            'descripcion' => utf8_encode($ss[3]),
+                        ]);
+                    $counter['updated']++; 
+                endif;
             }
 
+            //
+            // Se confirma la transacción
+            DB::commit();
+        } catch (\Exception $e) {
+            //
+            // Si se encuentra algun error, se cancela la transacción
+            DB::rollback();
+            
+            //
+            // arroja el error.
+            return redirect()->back()->with('alert', $e->getMessage());
         }
 
+        //if (ob_get_contents()) ob_clean();
+        // return redirect()->back()->with('alert', 'Se Cargo correctamente');
+        //return redirect()->back()->send();
+        Session::flash('alert', 'Se Cargo correctamente');
 
-//        foreach($data as $k=>$Row)
-//        {
-////            dd($data[2],$Row);
-////            $Row = str_getcsv($Row, ";");
-//            $ss = explode(';',$data[$k][0]);
-////            dd($ss[0]);
-//            Csv::create([
-//                'partida' => $ss[0],
-//                'materia' => $ss[1],
-//                'articulo' => $ss[2],
-//                'descripcion' => $ss[3],
-//            ]);
-//        }
-
-
-
-
-        //return view('import_fields', compact('csv_data'));
-//        foreach (count($data) as $k =>$item)
-//        {
-//            $data[$k] = explode(';',$data[$k][0]);
-//            dd($data);
-//        }
-//        for ($i=0;$i<count($data);$i++)
-//        {
-//            $data[$i] = explode(';',$data[$i][0]);
-//            Csv::create([
-//                'partida' => $data[$i][0],
-//                'materia' => $data[$i][1],
-//                'articulo' => $data[$i][2],
-//                'descripcion' => $data[$i][3],
-//            ]);
-//        }
-        return redirect()->back()->with('alert','Se Cargo correctamente');
-
-
-        /*if($request->file('csv')!=null)
-        {
-
-            $ruta                 = 'csv';
-            $path                 = Storage::putFileAs($ruta, $request->file('csv'),'csv'.'.'.$request->file('csv')->getClientOriginalExtension());
-            $rutaNombre           = 'csv'.'.'.$request->file('csv')->getClientOriginalExtension();
-            return dd($rutaNombre);
-        }else{
-            return 'no va';
-        }*/
-/*
-        if ($path) {
-            $data = Excel::load($path, function($reader) {})->get()->toArray();
-        } else {
-            $data = array_map('str_getcsv', file($path));
-        }
-*/
-
+        exit(redirect()->back()->with('alert', 'Se Cargo correctamente'));
+        ///header('Location: ' . $_SERVER['HTTP_REFERER']);
+        ///////////////////
+        // Fin de Subir CSV
+        /////////////////// 
     }
 }
