@@ -3,14 +3,17 @@
 namespace App\Http\Controllers\adm;
 
 use App\Csv;
+use App\Imports\CsvImport;
 use App\Nivel;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
+
 
 
 class PrivadaZoneController extends Controller
@@ -101,39 +104,82 @@ class PrivadaZoneController extends Controller
     public function csvstore(Request $request)
     {
 //        dd($request->all());
-        Csv::query()->truncate();
-        ini_set('max_execution_time', '0'); // for infinite time of execution
-        ini_set('memory_limit', '512MB');
+//        Csv::query()->truncate();
+//        ini_set('max_execution_time', '0'); // for infinite time of execution
+//        ini_set('memory_limit', '512MB');
+        set_time_limit(0);
+        ini_set('memory_limit', '-1');
 
-//        set_time_limit(0);
         $request->validate([
             'csv' => 'required',
         ]);
         //$contents = Storage::get('csv/csv.csv');
         $path = $request->file('csv')->getRealPath();
         //$data = Excel::load($path)->get();
+//        (new UsersImport)->import('users.csv', null, \Maatwebsite\Excel\Excel::CSV);
+
 //
-//        $data = array_map('str_getcsv', file($path));
-//        $csv_data = array_slice($data, 0, 3);
-//        dd($csv_data);
-        Excel::filter('chunk')->load($request->file('csv'))->chunk(250, function($results)
+        $data = array_map('str_getcsv', file($path));
+        $valores = collect($data)->pluck(0);
+//        dd($valores);
+
+
+//        foreach($valores  as $k=>$item)
+//        {
+//            $ss = explode(';',$item);
+////            dd($ss);
+//            Csv::create([
+//                'partida' => $ss[0],
+//                'materia' => $ss[1],
+//                'articulo' => $ss[2],
+//                'descripcion' => utf8_encode($ss[3]),
+//            ]);
+//
+//        }
+//        $query = "INSERT INTO `csvs` (Field1, Field2) VALUES (" . $arr[0] . "," . $arr[1] . ")";
+        foreach($valores->chunk(1000)  as $k=>$item)
         {
-            dd($results);
-//                foreach($results as $row)
-//                {
-//                    // resultado
-//                }
-        });
-//        Excel::load($request->file('csv'), function($reader) {
-//            dd($reader->get());
-//            foreach ($reader->get() as $book) {
-//                Csv::create([
-//                    'name' => $book->title,
-//                    'author' => $book->author,
-//                    'year' => $book->publication_year
+            foreach ($item as $value)
+            {
+                $ss = explode(';',$value);
+                DB::table('csvs')->insert(
+                    [
+                    'partida' => $ss[0],
+                    'materia' => $ss[1],
+                    'articulo' => $ss[2],
+                    'descripcion' => utf8_encode($ss[3]),
+                    ]
+                );
+    //                dd(  utf8_encode($valores[4957]));
+//                Csv::firstOrCreate([
+//                    'partida' => $ss[0],
+//                    'materia' => $ss[1],
+//                    'articulo' => $ss[2],
+//                    'descripcion' => utf8_encode($ss[3]),
 //                ]);
-//            }
-//        });
+
+            }
+
+        }
+
+
+//        foreach($data as $k=>$Row)
+//        {
+////            dd($data[2],$Row);
+////            $Row = str_getcsv($Row, ";");
+//            $ss = explode(';',$data[$k][0]);
+////            dd($ss[0]);
+//            Csv::create([
+//                'partida' => $ss[0],
+//                'materia' => $ss[1],
+//                'articulo' => $ss[2],
+//                'descripcion' => $ss[3],
+//            ]);
+//        }
+
+
+
+
         //return view('import_fields', compact('csv_data'));
 //        foreach (count($data) as $k =>$item)
 //        {
